@@ -18,7 +18,7 @@ node('Backend'){
             sh 'mvn versions:set  -DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT'
             telegramSend(message: 'Build # ' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
             sh 'mvn clean install'
-            }
+            
         }
         catch (exc) {
             telegramSend(message: 'Build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)

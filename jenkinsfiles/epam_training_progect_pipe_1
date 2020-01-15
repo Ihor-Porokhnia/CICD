@@ -12,16 +12,17 @@ node('Backend'){
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
         stage('Build')  {
-            //sh 'mvn versions:set  -DnewVersion=2.5.0-SNAPSHOT'
-            telegramSend(message: 'Build started ' + env.BUILD_ID , chatId: -393518449)
+            sh 'mvn versions:set  -DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT'
+            telegramSend(message: 'Build # ' + env.BUILD_ID + ' started' , chatId: -393518449)
             sh 'mvn clean install'
         }
         stage('Deploy')  {
            
-           //sh 'echo $filename'
+           telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' started' , chatId: -393518449)
            sh 'sudo cp target/Backend-1.0-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
            sh 'sudo systemctl restart tomcat'
            sh 'sudo systemctl restart nginx'
+             telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' done' , chatId: -393518449)
         }
     } else {
               sh 'echo notback'

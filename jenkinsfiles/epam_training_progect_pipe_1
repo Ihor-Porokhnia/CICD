@@ -1,11 +1,12 @@
 #!groovy
 
 properties([disableConcurrentBuilds()])
-buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
-timestamps()
+
 
 node('Backend'){
-    sh 'echo $ref'
+    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
+    timestamps()
+    
     if ( ref == 'refs/heads/backend' )  {
         stage('Checkout')  {
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'

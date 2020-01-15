@@ -1,7 +1,10 @@
 #!groovy
 
 properties([disableConcurrentBuilds()])
-
+String prefix = 'Backend-'
+String postfix = '.war'
+String filename = prefix.concat(BUILD_NUMBER)
+filename = filename.concat(postfix)
 node('Backend'){
     sh 'echo $ref'
     if ( ref == 'refs/heads/backend' )  {
@@ -14,7 +17,7 @@ node('Backend'){
         }
         stage('Deploy')  {
            
-           sh 'echo $BUILD_NUMBER'
+           sh 'echo $filename'
            sh 'sudo cp target/Backend* /opt/tomcat/latest/webapps/Backend.war'
            sh 'sudo systemctl restart tomcat'
            sh 'sudo systemctl restart nginx'

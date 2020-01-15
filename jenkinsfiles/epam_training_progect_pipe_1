@@ -15,13 +15,20 @@ node('Backend'){
             telegramSend(message: 'Build # ' + env.BUILD_ID + ' started' , chatId: -393518449)
             sh 'mvn clean install'
         }
+        
         stage('Deploy')  {
            
-           telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' started' , chatId: -393518449)
-           sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
-           sh 'sudo systemctl restart tomcat'
-           sh 'sudo systemctl restart nginx'
-           telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' done' , chatId: -393518449)
+           //telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' started' , chatId: -393518449)
+           try {
+               sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
+               sh 'sudo systemctl restart tomcat'
+               sh 'sudo systemctl restart nginx'
+               telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+           }
+            catch (exc) {
+            telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)
+            throw
+        }
         }
     } else {
               sh 'echo notback'

@@ -27,7 +27,7 @@ node('Backend'){
            }
             catch (exc) {
             telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)
-            throw
+            
         }
         }
     } else {

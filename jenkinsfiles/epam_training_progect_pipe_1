@@ -1,13 +1,10 @@
 #!groovy
 
-properties([disableConcurrentBuilds()])
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5')), disableConcurrentBuilds()])
 
 
 node('Backend'){
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
-        timestamps()
-    }
+    
     
     if ( ref == 'refs/heads/backend' )  {
         stage('Checkout')  {

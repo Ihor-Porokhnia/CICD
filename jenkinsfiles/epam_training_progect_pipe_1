@@ -4,10 +4,10 @@ properties([disableConcurrentBuilds()])
 
 node('Backend'){
     sh 'echo $ref'
-    if ( ref == 'refs/heads/backend' )
-   
-    {
-              sh 'echo $ref'
+    if ( ref == 'refs/heads/backend' )  {
+        stage('Checkout')  {
+            git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
+        }
     } else {
               sh 'echo notback'
     }
@@ -15,9 +15,7 @@ node('Backend'){
 
 
 node('Frontend'){
-    if ( ref == 'refs/heads/frontend')
-  
-    {
+    if ( ref == 'refs/heads/frontend')  {
               sh 'echo $ref'
     } else {
               sh 'echo notfront'

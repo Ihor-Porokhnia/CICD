@@ -3,7 +3,7 @@
 properties([disableConcurrentBuilds()])
 
 node('Backend'){
-   # if ( $ref == 'refs/heads/backend' )
+   // if ( $ref == 'refs/heads/backend' )
     if (true)
     {
               sh 'echo $ref'
@@ -14,7 +14,7 @@ node('Backend'){
 
 
 node('Frontend'){
-   # if ( $ref == 'refs/heads/frontend')
+   // if ( $ref == 'refs/heads/frontend')
    if (true)
     {
               sh 'echo $ref'

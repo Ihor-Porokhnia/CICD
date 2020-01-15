@@ -3,15 +3,15 @@
 properties([disableConcurrentBuilds()])
 
 node('Backend'){
-    if ($ref == 'refs/heads/backend') {
+    if (${ref} == 'refs/heads/backend') {
               sh 'echo back'
     } else {
               sh 'echo notback'
     }
 }
 
-node('Brontend'){
-    if ($ref == 'refs/heads/frontend') {
+node('Frontend'){
+    if (${ref} == 'refs/heads/frontend') {
               sh 'echo front'
     } else {
               sh 'echo notfront'

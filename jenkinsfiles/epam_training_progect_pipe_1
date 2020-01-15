@@ -12,6 +12,7 @@ node('Backend'){
             sh 'mvn clean install'
         }
         stage('Deploy')  {
+           sh 'echo $BUILD_NUMBER'
            sh 'sudo cp target/Backend-1.0-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
            sh 'sudo systemctl restart tomcat'
            sh 'sudo systemctl restart nginx'

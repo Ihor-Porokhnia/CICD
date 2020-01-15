@@ -39,6 +39,7 @@ node('Backend'){
             
         }
         }
+        }     
     } else {
               sh 'echo notback'
     }

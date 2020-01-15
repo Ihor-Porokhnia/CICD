@@ -8,8 +8,13 @@ node('Backend'){
         stage('Checkout')  {
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
-        stage('Checkout')  {
+        stage('Build')  {
             sh 'mvn clean install'
+        }
+        stage('Deploy')  {
+           sh 'sudo cp target/Backend-1.0-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
+           sh 'sudo systemctl restart tomcat'
+           sh 'sudo systemctl restart nginx'
         }
     } else {
               sh 'echo notback'

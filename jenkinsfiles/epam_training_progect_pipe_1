@@ -1,10 +1,7 @@
 #!groovy
 
 properties([disableConcurrentBuilds()])
-//String prefix = 'Backend-'
-//String postfix = '.war'
-//String filename = prefix.concat(BUILD_NUMBER)
-//filename = filename.concat(postfix)
+
 node('Backend'){
     sh 'echo $ref'
     if ( ref == 'refs/heads/backend' )  {
@@ -22,7 +19,7 @@ node('Backend'){
            sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
            sh 'sudo systemctl restart tomcat'
            sh 'sudo systemctl restart nginx'
-             telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' done' , chatId: -393518449)
+           telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' done' , chatId: -393518449)
         }
     } else {
               sh 'echo notback'

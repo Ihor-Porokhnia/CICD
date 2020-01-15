@@ -4,8 +4,6 @@ properties([disableConcurrentBuilds()])
 
 
 node('Backend'){
-    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
-    timestamps()
     
     if ( ref == 'refs/heads/backend' )  {
         stage('Checkout')  {

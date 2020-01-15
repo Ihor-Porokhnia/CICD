@@ -1,7 +1,7 @@
 #!groovy
 
 properties([disableConcurrentBuilds()])
-
+def rf1 = $ref
 node('Backend'){
    // if ( $ref == 'refs/heads/backend' )
     if (true)

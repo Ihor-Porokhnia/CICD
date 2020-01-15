@@ -22,7 +22,7 @@ node('Backend'){
         }
         catch (exc) {
             telegramSend(message: 'Build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)
-            error "something failed"
+            error exc
         }
         }
         stage('Deploy')  {
@@ -34,7 +34,7 @@ node('Backend'){
            }
             catch (exc) {
             telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)
-            error "something failed"
+            error exc
             
         }
         }

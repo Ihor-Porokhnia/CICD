@@ -12,7 +12,8 @@ node('Backend'){
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
         stage('Build')  {
-            //sh 'mvn versions:set  -DnewVersion=2.5.0-SNAPSHOT' 
+            //sh 'mvn versions:set  -DnewVersion=2.5.0-SNAPSHOT'
+            telegramSend(message: 'Build started', chatId: -393518449)
             sh 'mvn clean install'
         }
         stage('Deploy')  {

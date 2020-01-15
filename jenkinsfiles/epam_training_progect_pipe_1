@@ -2,21 +2,18 @@
 
 properties([disableConcurrentBuilds()])
 
-pipeline {
-    agent { 
-        label 'backend'
-        }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
-        timestamps()
+node('backend'){
+    if ($ref == 'refs/heads/backend') {
+              sh 'echo back'
+    } else {
+              sh 'echo notback'
     }
-    stages {
-        stage("First step") {
-            steps {
-                sh 'ip a'
-                sh 'echo $ref'
-            }
-        }
-       
+}
+
+node('frontend'){
+    if ($ref == 'refs/heads/frontend') {
+              sh 'echo front'
+    } else {
+              sh 'echo notfront'
     }
 }

@@ -1,10 +1,10 @@
 #!groovy
 
 properties([disableConcurrentBuilds()])
-String prefix = 'Backend-'
-String postfix = '.war'
-String filename = prefix.concat(BUILD_NUMBER)
-filename = filename.concat(postfix)
+//String prefix = 'Backend-'
+//String postfix = '.war'
+//String filename = prefix.concat(BUILD_NUMBER)
+//filename = filename.concat(postfix)
 node('Backend'){
     sh 'echo $ref'
     if ( ref == 'refs/heads/backend' )  {
@@ -12,13 +12,13 @@ node('Backend'){
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
         stage('Build')  {
-            sh 'mvn versions:set  -DnewVersion=2.5.0-SNAPSHOT' 
+            //sh 'mvn versions:set  -DnewVersion=2.5.0-SNAPSHOT' 
             sh 'mvn clean install'
         }
         stage('Deploy')  {
            
-           sh 'echo $filename'
-           sh 'sudo cp target/Backend* /opt/tomcat/latest/webapps/Backend.war'
+           //sh 'echo $filename'
+           sh 'sudo cp target/Backend-1.0-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
            sh 'sudo systemctl restart tomcat'
            sh 'sudo systemctl restart nginx'
         }

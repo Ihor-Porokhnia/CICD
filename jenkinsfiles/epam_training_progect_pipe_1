@@ -2,7 +2,7 @@
 
 properties([disableConcurrentBuilds()])
 
-node('backend'){
+node('Backend'){
     if ($ref == 'refs/heads/backend') {
               sh 'echo back'
     } else {
@@ -10,7 +10,7 @@ node('backend'){
     }
 }
 
-node('frontend'){
+node('Brontend'){
     if ($ref == 'refs/heads/frontend') {
               sh 'echo front'
     } else {

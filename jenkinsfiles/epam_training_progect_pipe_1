@@ -7,6 +7,8 @@ node('Backend'){
     if ( ref == 'refs/heads/backend' )  {
         stage('Checkout')  {
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
+        }
+        stage('Checkout')  {
             sh 'mvn clean install'
         }
     } else {

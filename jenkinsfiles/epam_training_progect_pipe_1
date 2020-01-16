@@ -73,7 +73,7 @@ node('Frontend'){
          stage('Test') {}
          stage('Deploy') {
           try{
-           sh 'scp web/* ubuntu@back.bugoga.ga:/var/www/front'
+           sh 'scp -i /home/ubuntu/.ssh/id_rsa web/* ubuntu@back.bugoga.ga:/var/www/front'
            telegramSend(message: 'Frontend deploy #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
           }
           catch (exc) {

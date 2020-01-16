@@ -46,6 +46,7 @@ node('Backend'){
         }
         }    
     } else {
+             sleep 5
              lock(resource: 'frontlock', inversePrecedence: true){
                sh 'echo notback'
                sh 'sudo systemctl restart nginx'

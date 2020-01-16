@@ -6,7 +6,7 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 parallel Backend: {
 node('Backend'){
 
- lock(resource: 'myResource', inversePrecedence: true){
+ 
     
     
     if ( ref == 'refs/heads/backend' )  {
@@ -47,7 +47,7 @@ node('Backend'){
     } else {
               sh 'echo notback'
     }
-}
+
 }
     }, 
          Frontend: {

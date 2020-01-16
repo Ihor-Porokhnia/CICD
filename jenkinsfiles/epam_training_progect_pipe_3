@@ -2,7 +2,8 @@
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5'))])
 
-
+stage('Init') {
+    parallel Backend: {
 node('Backend'){
 
 lock(resource: 'myResource', inversePrecedence: true){
@@ -46,7 +47,8 @@ lock(resource: 'myResource', inversePrecedence: true){
     }
 }
 }
-
+    }, 
+         Frontend: {
 node('Frontend'){
     if ( ref == 'refs/heads/frontend')  {
               sh 'echo $ref'
@@ -56,5 +58,6 @@ node('Frontend'){
               lock(resource: 'myResource', inversePrecedence: true){
               }
               sh 'uptime'
+        }
     }
 }

@@ -79,7 +79,9 @@ node('Frontend'){
          stage('Test') {}
          stage('Deploy') {
           try{
-           sh 'scp -r -i ~/.ssh/id_rsa web/* ubuntu@back.bugoga.ga:/var/www/front'
+           sh 'scp -r -i ~/.ssh/id_rsa web/index.html ubuntu@back.bugoga.ga:/var/www/front'
+           sh 'scp -r -i ~/.ssh/id_rsa web/css/* ubuntu@back.bugoga.ga:/var/www/front/css'
+           sh 'scp -r -i ~/.ssh/id_rsa web/js/* ubuntu@back.bugoga.ga:/var/www/front/js'
            telegramSend(message: 'Frontend deploy #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
           }
           catch (exc) {

@@ -2,8 +2,8 @@
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5'))])
 
-stage('Init') {
-    parallel Backend: {
+
+parallel Backend: {
 node('Backend'){
 
 lock(resource: 'myResource', inversePrecedence: true){
@@ -62,4 +62,4 @@ node('Frontend'){
         }
     }
 }
-}    
+    

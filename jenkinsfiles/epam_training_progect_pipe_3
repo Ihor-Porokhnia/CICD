@@ -30,6 +30,7 @@ node('Backend'){
             error 'FAIL'
         }
         }
+        stage('Test') {} 
         stage('Deploy')  {
            try {
                sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
@@ -57,6 +58,9 @@ node('Frontend'){
           stage('Checkout')  {            
             git branch: 'frontend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
+         stage('Build') {}
+         stage('Test') {}
+         stage('Deploy') {}
        }
     } else {
               sleep 5

@@ -21,12 +21,12 @@ node('Backend'){
         stage('Build') {
             try { 
             sh 'mvn versions:set  -DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT'
-            telegramSend(message: 'Build # ' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+            telegramSend(message: 'Backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
             sh 'mvn clean install'
             
         }
         catch (exc) {
-            telegramSend(message: 'Build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)
+            telegramSend(message: 'Backend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
             error 'FAIL'
         }
         }
@@ -36,10 +36,10 @@ node('Backend'){
                sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
                sh 'sudo systemctl restart tomcat'
                sh 'sudo systemctl restart nginx'
-               telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+               telegramSend(message: 'Staging backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
            }
             catch (exc) {
-            telegramSend(message: 'Staging deploy build # ' + env.BUILD_ID + ' successfully failed' , chatId: -393518449)
+            telegramSend(message: 'Staging backend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
             error 'FAIL'
             
         }
@@ -58,9 +58,30 @@ node('Frontend'){
           stage('Checkout')  {            
             git branch: 'frontend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
-         stage('Build') {}
+         stage('Build') {
+          try{
+           sh 'file web/index.html'
+           sh 'file web/js/script.js'
+           sh 'file web/css/main.css'
+           telegramSend(message: 'Frontend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Frontend files on build #' + env.BUILD_ID + ' missing' , chatId: -393518449)
+            error 'FAIL'
+          }
+         }
          stage('Test') {}
-         stage('Deploy') {}
+         stage('Deploy') {
+          try{
+           sh 'scp web/* ubuntu@back.bugoga.ga:/var/www/front'
+           telegramSend(message: 'Frontend deploy #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Frontend deploy #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+         
+         }
        }
     } else {
               sleep 5

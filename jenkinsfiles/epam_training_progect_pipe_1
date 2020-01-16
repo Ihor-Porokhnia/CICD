@@ -10,7 +10,7 @@ node('Backend'){
     
     
     if ( ref == 'refs/heads/backend' )  {
-        lock(resource: 'myResource', inversePrecedence: true){
+        lock(resource: 'backlock', inversePrecedence: true){
          
         stage('Checkout')  {            
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
@@ -46,7 +46,12 @@ node('Backend'){
         }
         }    
     } else {
-              sh 'echo notback'
+             lock(resource: 'frontlock', inversePrecedence: true){
+               sh 'echo notback'
+               sh 'sudo systemctl restart nginx'
+              
+              }
+              
     }
 
 }
@@ -54,7 +59,7 @@ node('Backend'){
          Frontend: {
 node('Frontend'){
     if ( ref == 'refs/heads/frontend')  {
-        lock(resource: 'myResource', inversePrecedence: true){
+        lock(resource: 'frontlock', inversePrecedence: true){
           stage('Checkout')  {            
             git branch: 'frontend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
@@ -87,7 +92,7 @@ node('Frontend'){
               sleep 5
               sh 'echo notfront'
               sh 'uptime'
-              lock(resource: 'myResource', inversePrecedence: true){
+              lock(resource: 'backlock', inversePrecedence: true){
               }
               sh 'uptime'
         }

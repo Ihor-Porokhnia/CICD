@@ -12,7 +12,7 @@ stage('Build') {
 // milestone at the end of the lock, all jobs started prior to the current
 // build that are still waiting for the lock will be aborted
 lock(resource: 'myResource', inversePrecedence: true){
-  node('test') {
+  node('Backend') {
     stage('Unit Tests') {
       echo "Unit Tests"
     }

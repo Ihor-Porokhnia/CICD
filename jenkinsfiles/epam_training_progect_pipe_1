@@ -30,7 +30,18 @@ node('Backend'){
             error 'FAIL'
         }
         }
-        stage('Test') {} 
+        stage('Test') {
+        
+               try{
+               /////TODO: TESTS
+                telegramSend(message: 'Test backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Test backend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+        
+        } 
         stage('Deploy')  {
            try {
                sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
@@ -76,16 +87,27 @@ node('Frontend'){
             error 'FAIL'
           }
          }
-         stage('Test') {}
+         stage('Test') {
+               
+                try{
+               /////TODO: TESTS
+                telegramSend(message: 'Test frontend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Test frontend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+         
+         }
          stage('Deploy') {
           try{
            sh 'scp -r -i ~/.ssh/id_rsa web/index.html ubuntu@back.bugoga.ga:/var/www/front'
            sh 'scp -r -i ~/.ssh/id_rsa web/css/* ubuntu@back.bugoga.ga:/var/www/front/css'
            sh 'scp -r -i ~/.ssh/id_rsa web/js/* ubuntu@back.bugoga.ga:/var/www/front/js'
-           telegramSend(message: 'Frontend deploy #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+           telegramSend(message: 'Staging frontend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
           }
           catch (exc) {
-           telegramSend(message: 'Frontend deploy #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+           telegramSend(message: 'Staging frontend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
             error 'FAIL'
           }
          

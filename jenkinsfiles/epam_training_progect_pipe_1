@@ -1,12 +1,17 @@
 #!groovy
 
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5')), disableConcurrentBuilds()])
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5'))])
 
 
+parallel Backend: {
 node('Backend'){
+
+ 
     
     
     if ( ref == 'refs/heads/backend' )  {
+        lock(resource: 'myResource', inversePrecedence: true){
+         
         stage('Checkout')  {            
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }
@@ -25,6 +30,7 @@ node('Backend'){
             error 'FAIL'
         }
         }
+        stage('Test') {} 
         stage('Deploy')  {
            try {
                sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
@@ -38,17 +44,32 @@ node('Backend'){
             
         }
         }
-             
+        }    
     } else {
               sh 'echo notback'
     }
+
 }
-
-
+    }, 
+         Frontend: {
 node('Frontend'){
     if ( ref == 'refs/heads/frontend')  {
-              sh 'echo $ref'
+        lock(resource: 'myResource', inversePrecedence: true){
+          stage('Checkout')  {            
+            git branch: 'frontend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
+        }
+         stage('Build') {}
+         stage('Test') {}
+         stage('Deploy') {}
+       }
     } else {
+              sleep 5
               sh 'echo notfront'
+              sh 'uptime'
+              lock(resource: 'myResource', inversePrecedence: true){
+              }
+              sh 'uptime'
+        }
     }
 }
+ 

@@ -6,11 +6,11 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 parallel Backend: {
 node('Backend'){
 
-
+ lock(resource: 'myResource', inversePrecedence: true){
     
     
     if ( ref == 'refs/heads/backend' )  {
-        lock(resource: 'myResource', inversePrecedence: true){
+       
         stage('Checkout')  {            
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
         }

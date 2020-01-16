@@ -53,6 +53,7 @@ node('Frontend'){
     if ( ref == 'refs/heads/frontend')  {
               sh 'echo $ref'
     } else {
+              sleep 5
               sh 'echo notfront'
               sh 'uptime'
               lock(resource: 'myResource', inversePrecedence: true){

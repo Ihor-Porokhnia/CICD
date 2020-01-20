@@ -15,8 +15,6 @@ node('master') {
     printContributedVariables: true,
     printPostContent: true,
     
-    regexpFilterText: '$ref',
-    regexpFilterExpression: '^refs/tags/.*'
    ]
   ])
  ])

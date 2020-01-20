@@ -18,7 +18,7 @@ node('master') {
  ])
  script {
         pipe_prefix = "/pipe"
-        pipename = message.split(" ")
+        pipename = message.substring(4)
 
     }
 

@@ -18,9 +18,9 @@ node('master') {
    ]
   ])
  ])
-
- if (message.startsWith("/pipe"){
-   message == message - "/pipe"
+def pipe = "/pipe"
+ if (message.startsWith(pipe){
+   message == message - pipe
   sh 'echo $message'
  }
 

@@ -19,7 +19,7 @@ node('master') {
   ])
  ])
 //String pipe = "/pipe"
-if (message.startsWith("/pipe"){
+if (message.contains("pipe"){
    //message == message - pipe
   sh 'echo $message'
  }

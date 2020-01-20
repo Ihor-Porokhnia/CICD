@@ -9,10 +9,7 @@ node('master') {
      [ key: 'message', value: '$.message.text' ],
 
     ],
-
-
     token: 'tp',
-
     printContributedVariables: true,
     printPostContent: true,
 
@@ -20,8 +17,7 @@ node('master') {
   ])
  ])
  environment {
-        STR = 'true'
-
+        STR = "string"
     }
 //String pipe = "/pipe"
 //if (message.contains('pipe') {

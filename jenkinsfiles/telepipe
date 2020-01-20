@@ -7,27 +7,27 @@ node('master') {
     genericVariables: [
      [ key: 'actorname', value: '$.message.from.username' ],
      [ key: 'message', value: '$.message.text' ],
-     
+
     ],
-     
-  
+
+
     token: 'tp',
-    
+
     printContributedVariables: true,
     printPostContent: true,
-    
+
    ]
   ])
  ])
  environment {
         STR = 'true'
-        
+
     }
 //String pipe = "/pipe"
 //if (message.contains('pipe') {
    //message == message - pipe
   sh 'echo $message'
- sh 'echo ${STR}'
+ sh 'echo ${env.STR}'
  //}
 
 }

@@ -4,7 +4,7 @@ node('master') {
   pipelineTriggers([
    [$class: 'GenericTrigger',
     genericVariables: [
-     [ key: 'actorname', value: '$.message.username' ],
+     [ key: 'actorname', value: '$.message.from.username' ],
      [ key: 'message', value: '$.message.text' ],
      
     ],

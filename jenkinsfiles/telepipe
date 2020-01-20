@@ -27,7 +27,7 @@ if (message.startsWith(pipe_prefix)) {
    //message = message - pipe
   sh 'echo ${message}'
 
-  sh 'echo ${word}'
+  sh 'echo ${trtrtr}'
   //sh "echo ${pipe}"
  }
 

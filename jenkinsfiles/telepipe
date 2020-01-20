@@ -26,7 +26,7 @@ node('master') {
 if (message.startsWith(pipe_prefix)) {
    //message = message - pipe
   sh 'echo ${message}'
-  //println(trtrtr)
+  println(trtrtr)
   sh 'echo ${pipe_prefix}'
   //sh "echo ${pipe}"
  }

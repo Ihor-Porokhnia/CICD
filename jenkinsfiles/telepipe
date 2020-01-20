@@ -20,7 +20,7 @@ node('master') {
         pipe = "/pipe"
     }
 
-if (message.contains(pipe) {
+if (message.contains(pipe)) {
    //message == message - pipe
   sh 'echo $message'
   sh "echo ${pipe}"

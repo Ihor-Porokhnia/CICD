@@ -26,7 +26,9 @@ node('master') {
 if (message.startsWith(pipe_prefix)) {
 
   try {
+    telegramSend(message: 'Trying run job ' + word + ' ' , chatId: -393518449)
     build(job: word)
+    telegramSend(message: 'Job ' + word + ' ended' , chatId: -393518449)
   }
     catch (exc) {
   telegramSend(message: 'Job ' + word + ' not found' , chatId: -393518449)

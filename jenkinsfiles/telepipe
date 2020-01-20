@@ -1,14 +1,26 @@
 #!groovy
-
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1'))])
-
-
-
-node('master') {
+node {
+ properties([
+  pipelineTriggers([
+   [$class: 'GenericTrigger',
+    genericVariables: [
+     [ key: 'actorname', value: '$.message.username' ],
+     [ key: 'message', value: '$.message.text' ],
+     
+    ],
+     
+  
+    token: 'tp',
     
-     stage('Parse')  {            
-            sh 'echo test $text test'
-        }
-        
-}
+    printContributedVariables: true,
+    printPostContent: true,
+    
+    regexpFilterText: '$ref',
+    regexpFilterExpression: '^refs/tags/.*'
+   ]
+  ])
+ ])
+
  
+
+}

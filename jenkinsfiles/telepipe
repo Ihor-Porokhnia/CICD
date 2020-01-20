@@ -1,1 +1,14 @@
+#!groovy
 
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1'))])
+
+
+
+node('master') {
+    
+     stage('Parse')  {            
+            sh 'echo test'
+        }
+        
+}
+ 

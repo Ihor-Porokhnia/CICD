@@ -20,7 +20,7 @@ node('master') {
         pipe = "/pipe"
     }
 
-if (message.contains(pipe)) {
+if (message.startsWith(pipe)) {
    message == message.substring(4)
   sh 'echo $message'
   //sh "echo ${pipe}"

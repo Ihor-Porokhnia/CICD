@@ -18,15 +18,15 @@ node('master') {
  ])
  script {
         pipe_prefix = "/pipe"
-        def trtrtr = "tre ert rte"
-        def word = trtrtr.split(" ")[1]
+        trtrtr = "tre ert rte"
+        word = trtrtr.split(" ")[1]
 
     }
 
 if (message.startsWith(pipe_prefix)) {
    //message = message - pipe
   sh 'echo ${message}'
-  sh 'echo ${message}'
+  sh 'echo ${trtrtr}'
 
   sh 'echo ${pipe_prefix}'
   //sh "echo ${pipe}"

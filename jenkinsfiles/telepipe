@@ -7,7 +7,7 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 node('master') {
     
      stage('Parse')  {            
-            sh 'echo test $pipe test'
+            sh 'echo test $text test'
         }
         
 }

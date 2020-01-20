@@ -29,7 +29,7 @@ if (message.startsWith(pipe_prefix)) {
     build(job: word)
   }
     catch (exc) {
-  telegramSend(message: 'Job ' + word+ ' not fou' , chatId: -393518449)
+  telegramSend(message: 'Job ' + word + ' not found' , chatId: -393518449)
 }
  }
 

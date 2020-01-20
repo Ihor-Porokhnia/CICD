@@ -21,7 +21,7 @@ node('master') {
     }
 
 if (message.startsWith(pipe)) {
-   message == message.substring(4)
+   message = message - pipe
   sh 'echo $message'
   //sh "echo ${pipe}"
  }

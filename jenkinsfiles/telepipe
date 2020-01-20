@@ -18,11 +18,11 @@ node('master') {
  ])
  script {
         pipe_prefix = "/pipe"
-        pipename = message.substring(4)
+        pipename = "test"
 
     }
 
-if (message.startsWith(pipe_prefix)) {
+if (message.startsWith(pipename)) {
    //message = message - pipe
   sh 'echo ${message}'
   sh 'echo ${pipename}'

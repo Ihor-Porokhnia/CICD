@@ -21,7 +21,7 @@ node('master') {
 //String pipe = "/pipe"
 if (message.startsWith("/pipe"){
    //message == message - pipe
-  sh 'echo $messagee'
+  sh 'echo $message'
  }
 
 }

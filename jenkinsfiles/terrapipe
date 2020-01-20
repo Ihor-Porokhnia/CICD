@@ -4,5 +4,7 @@ node('master') {
   stage('Checkout')  {
     sh 'rm -rf *'
     sh 'pwd'
+    git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
+    sh 'rm -rf !("terra1.tf")'
     }
 }

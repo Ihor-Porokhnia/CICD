@@ -19,6 +19,9 @@ node('master') {
   ])
  ])
 
- sh 'echo $actorname'
+ if (message.startsWith("/pipe"){
+   message == message - "/pipe"
+  sh 'echo $message'
+ }
 
 }

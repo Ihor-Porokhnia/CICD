@@ -17,13 +17,13 @@ node('master') {
   ])
  ])
  script {
-        STR = "string"
+        pipe = "/pipe"
     }
 //String pipe = "/pipe"
 //if (message.contains('pipe') {
    //message == message - pipe
   sh 'echo $message'
-  sh "echo ${STR}"
+  sh "echo ${pipe}"
  //}s
 
 }

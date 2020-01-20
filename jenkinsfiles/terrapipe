@@ -1,1 +1,8 @@
+#!groovy
 
+node('master') {
+  stage('Checkout')  {
+    sh 'rm -rf *'
+    sh 'pwd'
+    }
+}

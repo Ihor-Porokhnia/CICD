@@ -28,7 +28,7 @@ if (message.startsWith(pipe_prefix)) {
   sh 'echo ${message}'
   println(word)
   sh 'echo $word'
-  //sh "echo ${pipe}"
+  build(job: word)
  }
 
 }

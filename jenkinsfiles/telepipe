@@ -1,5 +1,5 @@
 #!groovy
-//str = "Hello world"
+
 node('master') {
  properties([
   pipelineTriggers([
@@ -19,11 +19,11 @@ node('master') {
  script {
         pipe = "/pipe"
     }
-//String pipe = "/pipe"
-//if (message.contains('pipe') {
+
+if (message.contains(pipe) {
    //message == message - pipe
   sh 'echo $message'
   sh "echo ${pipe}"
- //}s
+ }
 
 }

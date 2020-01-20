@@ -1,5 +1,5 @@
 #!groovy
-node {
+node('master') {
  properties([
   pipelineTriggers([
    [$class: 'GenericTrigger',
@@ -21,6 +21,6 @@ node {
   ])
  ])
 
- 
+ sh 'echo $actorname'
 
 }

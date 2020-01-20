@@ -24,14 +24,12 @@ node('master') {
     }
 
 if (message.startsWith(pipe_prefix)) {
-  //message = message - pipe
-  //sh 'echo ${message}'
-  //println(word)
-  //sh 'echo $word'
+
   try {
     build(job: word)
-} catch(ex){
-  telegramSend(message: 'Job ' + word+ ' not found' , chatId: -393518449)
+  }
+    catch (exc) {
+  telegramSend(message: 'Job ' + word+ ' not fou' , chatId: -393518449)
 }
  }
 

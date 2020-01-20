@@ -1,5 +1,5 @@
 #!groovy
-def str = "Hello world"
+String str = "Hello world"
 node('master') {
  properties([
   pipelineTriggers([

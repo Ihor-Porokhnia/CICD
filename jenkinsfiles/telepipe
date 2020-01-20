@@ -21,9 +21,9 @@ node('master') {
     }
 
 if (message.contains(pipe)) {
-   //message == message - pipe
+   message == message - pipe
   sh 'echo $message'
-  sh "echo ${pipe}"
+  //sh "echo ${pipe}"
  }
 
 }

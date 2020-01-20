@@ -18,7 +18,8 @@ node('master') {
  ])
  script {
         pipe_prefix = "/pipe"
-        word = message.split(" ")[1]
+        def trtrtr = "tre ert rte"
+        def word = trtrtr.split(" ")[1]
 
     }
 

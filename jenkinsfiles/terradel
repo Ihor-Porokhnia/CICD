@@ -10,9 +10,9 @@ node('master') {
     if (OPERATION == 'create'){
           sh 'echo cre'
     } 
-   // else {
-    //     sh 'echo destr'
-    //{
+    if (OPERATION == 'destroy') {
+       sh 'echo destr'
+    {
     
     //sh 'terraform init ./terrafiles/plan_01'
     //sh 'terraform plan ./terrafiles/plan_01'

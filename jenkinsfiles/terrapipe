@@ -1,13 +1,13 @@
 #!groovy
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '3'))])
 node('master') {
-  stage('Checkout')  {
-       
+  stage('Checkout')  {       
     git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
-  } stage('TerraPlay')  {
+  } 
+  stage('TerraPlay')  {
     sh 'terraform init ./terrafiles/plan_01'
     sh 'terraform plan ./terrafiles/plan_01'
     sh 'terraform apply -auto-approve ./terrafiles/plan_01'
-  }
+        
     }
 }

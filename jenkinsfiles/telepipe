@@ -18,19 +18,21 @@ node('master') {
  ])
  script {
         pipe_prefix = "/pipe"
-        word = message.split(" ")[1]
-
+        par1 = message.split(" ")[1]
+        par2 = message.split(" ")[2]
     }
 
 if (message.startsWith(pipe_prefix)) {
 
   try {
-    telegramSend(message: 'Trying run job ' + word + ' ' , chatId: -393518449)
-    build(job: word)
-    telegramSend(message: 'Job ' + word + ' ended' , chatId: -393518449)
+    telegramSend(message: 'Trying run job ' + par1 + ' ' , chatId: -393518449)
+    //build(job: par1)
+  // build job: par1, parameters: [[$class: 'StringParameterValue', name: 'systemname', value: systemname]]
+   build job: par1, parameters: [string(name: 'OPERATION', value: par2)]
+    telegramSend(message: 'Job ' + par1 + ' ended' , chatId: -393518449)
       }
       catch (exc) {
-        telegramSend(message: 'Job ' + word + ' not found' , chatId: -393518449)
+        telegramSend(message: 'Job ' + par1 + ' not found' , chatId: -393518449)
       }
     }
 

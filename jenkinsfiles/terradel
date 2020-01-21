@@ -6,7 +6,7 @@ node('master') {
     
   } 
   stage('TerraPlay')  {
-    println(OPERATION)
+    sh 'echo $env.OPERATION'
     //sh 'terraform init ./terrafiles/plan_01'
     //sh 'terraform plan ./terrafiles/plan_01'
     //sh 'terraform destroy -auto-approve ./terrafiles/plan_01'

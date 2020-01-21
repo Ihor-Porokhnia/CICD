@@ -10,7 +10,7 @@ node('master') {
     if (OPERATION == 'create'){
           sh 'echo cre'
     }
-    else if (OPERATION == 'destroy') {
+    elseif (OPERATION == 'destroy') {
          sh 'echo destr'
     {
     

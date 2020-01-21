@@ -12,7 +12,7 @@ node('master') {
     } 
     if (OPERATION == 'destroy') {
        sh 'echo destr'
-    {
+    }
     
     //sh 'terraform init ./terrafiles/plan_01'
     //sh 'terraform plan ./terrafiles/plan_01'

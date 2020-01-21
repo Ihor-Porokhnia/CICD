@@ -6,7 +6,14 @@ node('master') {
     
   } 
   stage('TerraPlay')  {
-    sh 'echo $OPERATION'
+    //sh 'echo $OPERATION'
+    if (OPERATION == 'create'){
+          sh 'echo $OPERATION'
+    }
+    elseif (OPERATION == 'destroy')
+         sh 'echo $OPERATION'
+    {
+    }
     //sh 'terraform init ./terrafiles/plan_01'
     //sh 'terraform plan ./terrafiles/plan_01'
     //sh 'terraform destroy -auto-approve ./terrafiles/plan_01'

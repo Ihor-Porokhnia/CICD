@@ -8,11 +8,11 @@ node('master') {
   stage('TerraPlay')  {
     //sh 'echo $OPERATION'
     if (OPERATION == 'create'){
-          sh 'echo $OPERATION'
+          sh 'echo cre'
     }
-    //else if (OPERATION == 'destroy') {
-     //    sh 'echo $OPERATION'
-    //{
+    else if (OPERATION == 'destroy') {
+         sh 'echo destr'
+    {
     
     //sh 'terraform init ./terrafiles/plan_01'
     //sh 'terraform plan ./terrafiles/plan_01'

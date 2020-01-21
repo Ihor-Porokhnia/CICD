@@ -10,13 +10,13 @@ node('master') {
     if (OPERATION == 'create'){
           sh 'echo $OPERATION'
     }
-    else if (OPERATION == 'destroy') {
-         sh 'echo $OPERATION'
-    {
-    }
+    //else if (OPERATION == 'destroy') {
+     //    sh 'echo $OPERATION'
+    //{
+    
     //sh 'terraform init ./terrafiles/plan_01'
     //sh 'terraform plan ./terrafiles/plan_01'
     //sh 'terraform destroy -auto-approve ./terrafiles/plan_01'
         
-    }
+    
 }

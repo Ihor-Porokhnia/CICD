@@ -6,6 +6,7 @@ node('master') {
     sh 'pwd'
     git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
     sh 'cd terrafiles'
+    sh 'ls -lah'
     sh 'terraform init'
     }
 }

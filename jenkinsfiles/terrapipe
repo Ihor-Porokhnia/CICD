@@ -9,5 +9,6 @@ node('master') {
     //sh 'ls -lah'
     sh 'terraform init ./terrafiles'
     sh 'terraform plan ./terrafiles'
+    sh 'terraform apply -auto-approve ./terrafiles'
     }
 }

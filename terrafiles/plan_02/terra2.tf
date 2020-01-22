@@ -34,9 +34,10 @@ resource "aws_vpc" "main_vps" {
 }
 
 resource "aws_subnet" "main_subnet" {
-  vpc_id            = "${aws_vpc.main_vps.id}"
-  cidr_block        = "172.31.0.0/24"
-  availability_zone = "eu-north-1c"
+  vpc_id                  = "${aws_vpc.main_vps.id}"
+  cidr_block              = "172.31.0.0/24"
+  availability_zone       = "eu-north-1c"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "internal subnet #1"

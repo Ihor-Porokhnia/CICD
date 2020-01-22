@@ -7,7 +7,7 @@ resource "aws_instance" "node1" {
   key_name      = "main_key"
   network_interface {
     network_interface_id = "${aws_network_interface.int1.id}"
-    device_index         = 0
+    device_index         = 1
   }
 }
 resource "aws_instance" "node2" {
@@ -16,7 +16,7 @@ resource "aws_instance" "node2" {
   key_name      = "main_key"
   network_interface {
     network_interface_id = "${aws_network_interface.int2.id}"
-    device_index         = 0
+    device_index         = 1
   }
 }
 resource "aws_instance" "node3" {
@@ -25,6 +25,6 @@ resource "aws_instance" "node3" {
   key_name      = "main_key"
   network_interface {
     network_interface_id = "${aws_network_interface.int3.id}"
-    device_index         = 0
+    device_index         = 1
   }
 }

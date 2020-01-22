@@ -22,7 +22,7 @@ resource "aws_security_group" "allow_all" {
 }
 
 resource "aws_vpc" "main_vps" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = "172.31.0.0/16"
   tags = {
     Name = "default vps"
   }

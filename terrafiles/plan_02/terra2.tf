@@ -48,7 +48,7 @@ resource "aws_subnet" "main_subnet" {
 
 resource "aws_network_interface" "int1" {
   subnet_id       = "${aws_subnet.main_subnet.id}"
-  private_ips     = ["172.31.0.10"]
+  private_ips     = ["172.31.128.10"]
   security_groups = ["${aws_security_group.allow_all.id}"]
   tags = {
     Name = "node1 int"
@@ -56,7 +56,7 @@ resource "aws_network_interface" "int1" {
 }
 resource "aws_network_interface" "int2" {
   subnet_id       = "${aws_subnet.main_subnet.id}"
-  private_ips     = ["172.31.0.11"]
+  private_ips     = ["172.31.128.11"]
   security_groups = ["${aws_security_group.allow_all.id}"]
   tags = {
     Name = "node2 int"
@@ -64,7 +64,7 @@ resource "aws_network_interface" "int2" {
 }
 resource "aws_network_interface" "int3" {
   subnet_id       = "${aws_subnet.main_subnet.id}"
-  private_ips     = ["172.31.0.12"]
+  private_ips     = ["172.31.128.12"]
   security_groups = ["${aws_security_group.allow_all.id}"]
   tags = {
     Name = "node3 int"

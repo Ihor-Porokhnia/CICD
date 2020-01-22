@@ -1,21 +1,26 @@
 #!groovy
 properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: false)])])
 node('master') {
-  stage('Checkout')  {       
-    git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'    
-  } 
+  stage('Checkout')  {
+    git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
+  }
   stage('TerraPlay')  {
     //sh 'echo $OPERATION'
     if (OPERATION == 'create'){
               sh 'terraform init ./terrafiles/plan_01'
               sh 'terraform plan ./terrafiles/plan_01'
               sh 'terraform apply -auto-approve ./terrafiles/plan_01'
-    } 
+    }
     else if (OPERATION == 'destroy') {
               sh 'terraform init ./terrafiles/plan_01'
               sh 'terraform plan ./terrafiles/plan_01'
               sh 'terraform destroy -auto-approve ./terrafiles/plan_01'
     }
-    
+    else if (OPERATION == 'create1') {
+              sh 'terraform init ./terrafiles/plan_02'
+              sh 'terraform plan ./terrafiles/plan_02'
+              sh 'terraform apply -auto-approve ./terrafiles/plan_02'
+    }
+
   }
 }

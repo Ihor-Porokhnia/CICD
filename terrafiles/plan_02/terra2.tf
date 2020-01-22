@@ -1,3 +1,8 @@
+resource "aws_key_pair" "main_key" {
+  key_name   = "main_key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCBFCNX/pZO9DfdFctvjgCEfC4rxcrYNxffcXWZiSWgUpKJM5EPx4Us6g4nlZ6doPI8Sxtt/bh78kHG/E1zvE86fgbOCkIxsG2RZHdDVSzEO9Wdnfq+IYy76wbkqckLm2gSkj4KJvCLqQ0WlqS+4DZcA5xjOxjzRNkQt1IfOEsNJB2+eDRl5Zu7G+nPgl4LMHFp+WLhAwdzhDFeYYIRBa/NNvL6aZGNj7WrqBQoxcIr7CBMzBG+5MQ9El1dUBZ35G7ziCoLnFSRXCf4HXYY+2MSL8x/ZlUefZCcZdXGrQSU/EYRxBwIw2uwnQJiEvYHuU8OTHnnLYh7hYMYIl1SEo9 main_key"
+}
+
 resource "aws_security_group" "allow_all" {
   name        = "allow_all"
   description = "Allow all traffic"

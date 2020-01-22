@@ -8,7 +8,7 @@ resource "aws_instance" "node1" {
 
   network_interface {
     network_interface_id = "${aws_network_interface.int1.id}"
-    device_index         = 1
+    device_index         = 0
   }
 }
 resource "aws_instance" "node2" {
@@ -18,7 +18,7 @@ resource "aws_instance" "node2" {
 
   network_interface {
     network_interface_id = "${aws_network_interface.int2.id}"
-    device_index         = 1
+    device_index         = 0
   }
 }
 resource "aws_instance" "node3" {

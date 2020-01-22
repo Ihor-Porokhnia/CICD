@@ -26,7 +26,7 @@ resource "aws_security_group" "allow_all" {
   }
 }
 
-resource "aws_vpc" "main_vps" {
+resource "aws_default_vpc" "main_vps" {
   cidr_block = "172.31.0.0/16"
   enable_dns_support = true
   enable_dns_hostnames = true

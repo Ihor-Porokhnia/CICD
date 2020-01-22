@@ -2,10 +2,10 @@ provider "aws" {}
 
 
 resource "aws_instance" "node1" {
-  ami             = "ami-1dab2163"
-  instance_type   = "t3.micro"
-  key_name        = "main_key"
-  security_groups = ["${aws_security_group.allow_all.id}"]
+  ami           = "ami-1dab2163"
+  instance_type = "t3.micro"
+  key_name      = "main_key"
+
 
   network_interface {
     network_interface_id = "${aws_network_interface.int1.id}"
@@ -13,10 +13,10 @@ resource "aws_instance" "node1" {
   }
 }
 resource "aws_instance" "node2" {
-  ami             = "ami-1dab2163"
-  instance_type   = "t3.micro"
-  key_name        = "main_key"
-  security_groups = ["${aws_security_group.allow_all.id}"]
+  ami           = "ami-1dab2163"
+  instance_type = "t3.micro"
+  key_name      = "main_key"
+
 
   network_interface {
     network_interface_id = "${aws_network_interface.int2.id}"
@@ -24,10 +24,10 @@ resource "aws_instance" "node2" {
   }
 }
 resource "aws_instance" "node3" {
-  ami             = "ami-1dab2163"
-  instance_type   = "t3.micro"
-  key_name        = "main_key"
-  security_groups = ["${aws_security_group.allow_all.id}"]
+  ami           = "ami-1dab2163"
+  instance_type = "t3.micro"
+  key_name      = "main_key"
+
 
   network_interface {
     network_interface_id = "${aws_network_interface.int3.id}"

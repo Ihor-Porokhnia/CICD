@@ -6,7 +6,7 @@ resource "aws_key_pair" "main_key" {
 resource "aws_security_group" "allow_all" {
   name        = "allow_all"
   description = "Allow all traffic"
-  vpc_id      = "${aws_vpc.main_vps.id}"
+  vpc_id      = "${aws_vpc.main_vpc.id}"
 
   ingress {
     from_port   = 0
@@ -26,7 +26,7 @@ resource "aws_security_group" "allow_all" {
   }
 }
 
-resource "aws_default_vpc" "main_vps" {
+resource "aws_default_vpc" "main_vpc" {
   cidr_block = "172.31.0.0/16"
   enable_dns_support = true
   enable_dns_hostnames = true
@@ -36,7 +36,7 @@ resource "aws_default_vpc" "main_vps" {
 }
 
 resource "aws_subnet" "main_subnet" {
-  vpc_id                  = "${aws_vpc.main_vps.id}"
+  vpc_id                  = "${aws_vpc.main_vpc.id}"
   cidr_block              = "172.31.0.0/24"
   availability_zone       = "eu-north-1c"
   map_public_ip_on_launch = true

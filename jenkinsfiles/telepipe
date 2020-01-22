@@ -17,6 +17,7 @@ node('master') {
   ])
  ])
  script {
+        ping_prefix = "/ping"
         pipe_prefix = "/pipe"
         par1 = message.split(" ")[1]
         par2 = message.split(" ")[2]
@@ -35,5 +36,11 @@ if (message.startsWith(pipe_prefix)) {
         telegramSend(message: 'Job ' + par1 + ' not found' , chatId: -393518449)
       }
     }
-
+///////
+ if (message.startsWith(ping_prefix)) {
+ 
+    telegramSend(message: 'Pong' , chatId: -393518449)
+      
+    }
+///////
 }

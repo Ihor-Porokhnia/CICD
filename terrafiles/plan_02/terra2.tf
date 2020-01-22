@@ -39,9 +39,23 @@ resource "aws_subnet" "main_subnet" {
 }
 
 resource "aws_network_interface" "int1" {
-  subnet_id = "${aws_subnet.main_subnet.id}"
-
+  subnet_id   = "${aws_subnet.main_subnet.id}"
+  private_ips = ["172.31.0.10"]
   tags = {
-    Name = "primary_network_interface"
+    Name = "node1 int"
+  }
+}
+resource "aws_network_interface" "int2" {
+  subnet_id   = "${aws_subnet.main_subnet.id}"
+  private_ips = ["172.31.0.11"]
+  tags = {
+    Name = "node2 int"
+  }
+}
+resource "aws_network_interface" "int3" {
+  subnet_id   = "${aws_subnet.main_subnet.id}"
+  private_ips = ["172.31.0.12"]
+  tags = {
+    Name = "node3 int"
   }
 }

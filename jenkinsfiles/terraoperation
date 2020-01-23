@@ -20,7 +20,7 @@ node('Frontend') {
               sh 'terraform init ./terrafiles/plan_02'
               sh 'terraform plan ./terrafiles/plan_02'
               sh 'terraform apply -auto-approve ./terrafiles/plan_02'
-              sh 'terraform output -json instance_ips > ip_file'
+              
     }
     else if (OPERATION == 'destroy') {
               sh 'terraform init ./terrafiles/plan_02'

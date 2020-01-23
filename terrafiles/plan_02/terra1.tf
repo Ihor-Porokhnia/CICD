@@ -21,7 +21,7 @@ resource "aws_instance" "node2" {
   instance_type   = "t3.micro"
   key_name        = "main_key"
   subnet_id       = "${aws_subnet.main_subnet.id}"
-  private_ip      = "172.31.0.1${count.index}"
+  private_ip      = "172.31.0.2${count.index}"
   security_groups = ["${aws_security_group.allow_all.id}"]
 
   tags = {

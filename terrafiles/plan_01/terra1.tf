@@ -6,6 +6,7 @@ resource "aws_instance" "myUbuntu" {
   ami           = "ami-1dab2163"
   instance_type = "t3.micro"
   subnet_id       = "${aws_subnet.main_subnet.id}"
+  private_ip      = "172.31.0.1${count.index}"
 }
 
 resource "aws_subnet" "main_subnet" {

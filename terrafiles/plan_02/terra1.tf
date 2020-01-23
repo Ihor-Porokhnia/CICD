@@ -1,4 +1,9 @@
+variable "instance_count" {
+  default = "3"
+}
+
 provider "aws" {}
+
 
 resource "aws_instance" "node" {
   count           = "${var.instance_count}"

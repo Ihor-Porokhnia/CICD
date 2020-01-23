@@ -25,7 +25,7 @@ resource "cloudflare_record" "inst2" {
   count   = "${var.instance_count}"
   zone_id = "cb31e9f86a3d9b6579e64701c6e4a95b"
   name    = "lol${count.index + 1}"
-  value   = "${element(aws_instance.node.*.public_ip, count.index)}"
+  value   = "${element(aws_instance.node2.*.public_ip, count.index)}"
   type    = "A"
   proxied = false
 }

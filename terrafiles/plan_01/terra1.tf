@@ -2,6 +2,7 @@ provider "aws" {}
 
 
 resource "aws_instance" "myUbuntu" {
+  count           = 3
   ami           = "ami-1dab2163"
   instance_type = "t3.micro"
   subnet_id       = "${aws_subnet.main_subnet.id}"

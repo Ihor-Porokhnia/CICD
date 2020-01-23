@@ -14,7 +14,7 @@ resource "aws_instance" "node" {
   }
 }
 variable "instance_count" {
-  default = "5"
+  default = "3"
 }
 /*
 resource "aws_eip" "eip_manager" {

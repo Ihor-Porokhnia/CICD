@@ -41,9 +41,7 @@ resource "aws_instance" "node2" {
   }
 }
 */
-variable "instance_count" {
-  default = "3"
-}
+
 
 
 /*

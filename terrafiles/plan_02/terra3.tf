@@ -20,6 +20,8 @@ resource "cloudflare_record" "inst" {
   type    = "A"
   proxied = false
 }
+
+/*
 resource "cloudflare_record" "inst2" {
   
   count   = "${var.instance_count}"
@@ -29,3 +31,4 @@ resource "cloudflare_record" "inst2" {
   type    = "A"
   proxied = false
 }
+*/

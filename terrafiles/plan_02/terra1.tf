@@ -14,6 +14,13 @@ resource "aws_instance" "node" {
   }
 }
 
+output "instance_ips" {
+  value = ["${aws_instance.node.*.public_ip}"]
+}
+
+
+
+
 /*
 resource "aws_instance" "node2" {
   count           = "${var.instance_count}"

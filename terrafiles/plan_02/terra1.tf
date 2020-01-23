@@ -1,12 +1,8 @@
-variable "instance_count" {
-  default = "3"
-}
-
 provider "aws" {}
 
 
 resource "aws_instance" "node" {
-  count           = "${var.instance_count}"
+  count           = 3
   ami             = "ami-1dab2163"
   instance_type   = "t3.micro"
   key_name        = "main_key"

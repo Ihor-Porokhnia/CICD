@@ -16,7 +16,7 @@ resource "aws_instance" "node" {
 variable "instance_count" {
   default = "3"
 }
-
+/*
 resource "aws_eip" "eip_manager" {
   instance = "${element(aws_instance.node.*.id, count.index)}"
   count    = "${var.instance_count}"
@@ -26,3 +26,4 @@ resource "aws_eip" "eip_manager" {
     Name = "eip--${count.index + 1}"
   }
 }
+*/

@@ -14,7 +14,7 @@ resource "aws_instance" "node" {
   }
 }
 
-
+/*
 resource "aws_instance" "node2" {
   count           = "${var.instance_count}"
   ami             = "ami-1dab2163"
@@ -28,10 +28,12 @@ resource "aws_instance" "node2" {
     Name = "lol.${count.index + 1}"
   }
 }
-
+*/
 variable "instance_count" {
   default = "3"
 }
+
+
 /*
 resource "aws_eip" "eip_manager" {
   instance = "${element(aws_instance.node.*.id, count.index)}"

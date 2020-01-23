@@ -19,3 +19,26 @@ resource "aws_subnet" "main_subnet" {
     Name = "internal subnet #1"
   }
 }
+
+resource "aws_security_group" "allow_all" {
+  name        = "allow_all"
+  description = "Allow all traffic"
+ // vpc_id      = "${aws_default_vpc.main_vpc.id}"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_all"
+  }
+}

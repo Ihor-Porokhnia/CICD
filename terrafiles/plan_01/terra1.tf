@@ -7,6 +7,7 @@ resource "aws_instance" "myUbuntu" {
   instance_type = "t3.micro"
   subnet_id       = "${aws_subnet.main_subnet.id}"
   private_ip      = "172.31.0.1${count.index}"
+  security_groups = ["${aws_security_group.allow_all.id}"]
 }
 
 resource "aws_subnet" "main_subnet" {

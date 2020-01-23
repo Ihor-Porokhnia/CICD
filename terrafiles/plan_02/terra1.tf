@@ -1,6 +1,16 @@
 provider "aws" {}
 
-
+resource "aws_instance" "node" {
+  count           = 3
+  name            = "node.${i}"
+  ami             = "ami-1dab2163"
+  instance_type   = "t3.micro"
+  key_name        = "main_key"
+  subnet_id       = "${aws_subnet.main_subnet.id}"
+  private_ips     = ["172.31.0.1${i}"]
+  security_groups = ["${aws_security_group.allow_all.id}"]
+}
+/*
 resource "aws_instance" "node1" {
   ami           = "ami-1dab2163"
   instance_type = "t3.micro"
@@ -34,3 +44,4 @@ resource "aws_instance" "node3" {
     device_index         = 0
   }
 }
+*/

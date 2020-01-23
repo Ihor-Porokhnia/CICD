@@ -27,8 +27,8 @@ resource "aws_security_group" "allow_all" {
 }
 
 resource "aws_default_vpc" "main_vpc" {
-  
-  enable_dns_support = true
+
+  enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
     Name = "default vpc"
@@ -45,7 +45,7 @@ resource "aws_subnet" "main_subnet" {
     Name = "internal subnet #1"
   }
 }
-
+/*
 resource "aws_network_interface" "int1" {
   subnet_id       = "${aws_subnet.main_subnet.id}"
   private_ips     = ["172.31.0.10"]
@@ -70,3 +70,4 @@ resource "aws_network_interface" "int3" {
     Name = "node3 int"
   }
 }
+*/

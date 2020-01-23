@@ -25,7 +25,7 @@ resource "aws_instance" "node2" {
   security_groups = ["${aws_security_group.allow_all.id}"]
 
   tags = {
-    Name = "node.${count.index + 1}"
+    Name = "lol.${count.index + 1}"
   }
 }
 

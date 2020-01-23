@@ -37,7 +37,7 @@ resource "aws_default_vpc" "main_vpc" {
 */
   
 resource "aws_subnet" "main_subnet" {
-  //vpc_id                  = "${aws_default_vpc.main_vpc.id}"
+  vpc_id                  = "vpc-04be235a7dda36c60"
   cidr_block              = "172.31.0.0/24"
   availability_zone       = "eu-north-1c"
   map_public_ip_on_launch = true

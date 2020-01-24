@@ -9,7 +9,7 @@ resource "aws_instance" "node" {
   private_ip             = "172.31.0.1${count.index}"
   vpc_security_group_ids = ["${aws_security_group.allow_all.id}"]
   user_data = templatefile("${path.module}/nodeinit.sh.tpl", {
-    param = "${element(cloudflare_record.inst.*.id, count.index)}"
+    param = "1"
 
   })
 

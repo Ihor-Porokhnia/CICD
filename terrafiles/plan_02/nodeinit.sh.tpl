@@ -42,3 +42,4 @@ WantedBy=multi-user.target
 EOF
 sudo systemctl daemon-reload
 sudo systemctl start tomcat
+sudo systemctl enable tomcat

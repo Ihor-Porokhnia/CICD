@@ -8,6 +8,7 @@ resource "aws_instance" "node" {
   subnet_id              = "${aws_subnet.main_subnet.id}"
   private_ip             = "172.31.0.1${count.index}"
   vpc_security_group_ids = ["${aws_security_group.allow_all.id}"]
+  user_data              = template_file("nodeinit.sh.tpl", {})
 
   tags = {
     Name = "node${count.index + 1}"

@@ -47,16 +47,13 @@ sudo systemctl daemon-reload
 sudo systemctl start tomcat
 sudo systemctl enable tomcat
 
-
-sudo debconf-set-selections <<< "maria-db-10.4 mysql-server/root_password password dclxvi
-sudo debconf-set-selections <<< "maria-db-10.4 mysql-server/root_password_again password dclxvi"
+export DEBIAN_FRONTEND=noninteractive
+sudo debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password dclxvi'
+sudo debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password dclxvi'
 sudo apt install -y mariadb-server
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
 
-
-GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$P1' WITH GRANT OPTION;FLUSH PRIVILEGES;
-
-`which mysql` -uroot -p 'dclxvi' -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;FLUSH PRIVILEGES"
+mysql -uroot -pdclxvi -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;FLUSH PRIVILEGES"
 
 service mysql restart

@@ -50,7 +50,7 @@ sudo systemctl enable tomcat
 
 sudo debconf-set-selections <<< "maria-db-10.4 mysql-server/root_password password dclxvi
 sudo debconf-set-selections <<< "maria-db-10.4 mysql-server/root_password_again password dclxvi"
-sudo apt-get install -qq mariadb-server
+sudo apt install -y mariadb-server
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
 

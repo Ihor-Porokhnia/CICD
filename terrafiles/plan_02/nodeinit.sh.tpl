@@ -51,7 +51,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password dclxvi'
 sudo debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password dclxvi'
 sudo apt install -y mariadb-server
-sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 mysql -uroot -pdclxvi -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;FLUSH PRIVILEGES"

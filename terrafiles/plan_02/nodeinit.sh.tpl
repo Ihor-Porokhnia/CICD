@@ -57,6 +57,6 @@ sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
 GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$P1' WITH GRANT OPTION;FLUSH PRIVILEGES;
 
-`which mysql` -uroot -p "dclxvi" -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$P1' WITH GRANT OPTION;FLUSH PRIVILEGES"
+`which mysql` -uroot -p 'dclxvi' -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;FLUSH PRIVILEGES"
 
 service mysql restart

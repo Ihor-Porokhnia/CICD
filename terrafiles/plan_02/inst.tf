@@ -19,6 +19,7 @@ resource "aws_instance" "node" {
 }
 
 variable "instance_count" {
+  type    = number
   default = "2"
 }
 

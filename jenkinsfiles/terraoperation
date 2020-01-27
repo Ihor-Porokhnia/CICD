@@ -1,5 +1,5 @@
 #!groovy
-properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: false)])])
+properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
 node('Frontend') {
   stage('Checkout')  {
     git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
@@ -18,14 +18,14 @@ node('Frontend') {
     }
     else if (OPERATION == 'create') {
               sh 'terraform init ./terrafiles/plan_02'
-              sh 'terraform plan ./terrafiles/plan_02'
-              sh 'terraform apply -auto-approve ./terrafiles/plan_02'
-              
+              sh 'terraform plan -var="instance_count=$COUNT" ./terrafiles/plan_02'
+              sh 'terraform apply -auto-approve -var="instance_count=$COUNT" ./terrafiles/plan_02'
+
     }
     else if (OPERATION == 'destroy') {
               sh 'terraform init ./terrafiles/plan_02'
-              sh 'terraform plan ./terrafiles/plan_02'
-              sh 'terraform destroy -auto-approve ./terrafiles/plan_02'
+              sh 'terraform plan -var="instance_count=$COUNT" ./terrafiles/plan_02'
+              sh 'terraform destroy -auto-approve -var="instance_count=$COUNT" ./terrafiles/plan_02'
     }
 
   }

@@ -60,4 +60,4 @@ sudo mysql -uroot -pdclxvi -e "CREATE DATABASE SimpleDatabase;"
 sudo mysql -uroot -pdclxvi -e "CREATE TABLE NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
 
 sudo service mysql restart
-curl -s -X POST  https://api.telegram.org/bot885165924:AAEJaALHk3xsudGlv4ETlU_CJgoj9VUdxtk/sendMessage -d chat_id="-393518449" -d text="I'm ready"
+curl -s -X POST  https://api.telegram.org/bot885165924:AAEJaALHk3xsudGlv4ETlU_CJgoj9VUdxtk/sendMessage -d chat_id="-393518449" -d text="$NAME is ready"

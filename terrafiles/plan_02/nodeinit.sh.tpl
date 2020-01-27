@@ -57,7 +57,7 @@ sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-s
 
 mysql -uroot -pdclxvi -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT ALL PRIVILEGES ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;"
 sudo mysql -uroot -pdclxvi -e "CREATE DATABASE SimpleDatabase;"
-sudo mysql -uroot -pdclxvi -e "CREATE TABLE NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
+sudo mysql -uroot -pdclxvi -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
 
 sudo service mysql restart
 curl -s -X POST  https://api.telegram.org/bot885165924:AAEJaALHk3xsudGlv4ETlU_CJgoj9VUdxtk/sendMessage -d chat_id="-393518449" -d text="$NAME is ready"

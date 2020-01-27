@@ -90,7 +90,7 @@ sudo cat <<EOF > /etc/mysql/conf.d/galera.cnf
       wsrep_node_name="node${number}"
 
 EOF
-
+sudo service mysql restart
 
 
 

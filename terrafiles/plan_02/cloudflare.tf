@@ -10,6 +10,7 @@ resource "cloudflare_record" "root" {
   value   = "${element(aws_instance.node.*.public_ip, count.index)}"
   type    = "A"
   proxied = false
+  
 }
 resource "cloudflare_record" "inst" {
 

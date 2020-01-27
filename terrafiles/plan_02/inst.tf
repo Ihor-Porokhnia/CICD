@@ -19,7 +19,7 @@ resource "aws_instance" "node" {
 }
 
 variable "instance_count" {
-  default = "1"
+  default = "2"
 }
 
 

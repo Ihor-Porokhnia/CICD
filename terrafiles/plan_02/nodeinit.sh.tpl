@@ -62,7 +62,8 @@ sudo service mysql restart
 sudo systemctl enable mariadb
 wget https://dl.influxdata.com/telegraf/releases/telegraf_1.13.2-1_amd64.deb
 sudo dpkg -i telegraf_1.13.2-1_amd64.deb
-sed -i 's|  urls = ["http://localhost:8086"]|  urls = ["http://innodb.bugoga.ga:8086"]|g' /etc/telegraf/telegraf.conf
+sudo sed -i 's/# urls = \[\"http:\/\/127.0.0.1:8086\"\]/urls = \[\"http:\/\/innodb.bugoga.ga:8086\"\]/g' /etc/telegraf/telegraf.conf
+
 systemctl start telegraf
 systemctl enable telegraf
 

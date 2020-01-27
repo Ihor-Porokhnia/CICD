@@ -54,6 +54,6 @@ sudo apt install -y mariadb-server
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
-mysql -uroot -pdclxvi -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT USAGE ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';CREATE DATABASE `SimpleDatabase`;FLUSH PRIVILEGES"
+mysql -uroot -pdclxvi -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'dclxvi' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666' WITH GRANT OPTION;GRANT USAGE ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;CREATE DATABASE `SimpleDatabase`;"
 
 service mysql restart

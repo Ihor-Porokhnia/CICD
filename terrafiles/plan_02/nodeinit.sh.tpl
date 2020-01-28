@@ -123,7 +123,7 @@ sudo sed -i 's/# urls = \[\"http:\/\/127.0.0.1:8086\"\]/urls = \[\"http:\/\/inno
 apt install -y virtualenv
 cd /opt && git clone https://github.com/ratibor78/srvstatus.git
 cd /opt/srvstatus
-virtualenv venv && source venv/bin/activate
+virtualenv --python=python3 venv && source venv/bin/activate
 pip install -r requirements.txt
 chmod +x ./service.py
 deactivate

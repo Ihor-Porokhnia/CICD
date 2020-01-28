@@ -44,6 +44,28 @@ ExecStop=/opt/tomcat/latest/bin/shutdown.sh
 WantedBy=multi-user.target
 
 EOF
+
+
+sudo cat <<EOF >> /opt/tomcat/latest/conf/tomcat-users.xml
+  <tomcat-users xmlns="http://tomcat.apache.org/xml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+                version="1.0">
+
+
+    <role rolename="admin-gui"/>
+    <role rolename="manager-gui"/>
+    <role rolename="admin-script"/>
+    <role rolename="manager-script"/>
+    <user username="admin" password="dclxvi" roles="admin-gui,manager-gui,admin-script,manager-script"/>
+
+
+  </tomcat-users>
+
+
+EOF
+
+
 sudo systemctl daemon-reload
 sudo systemctl start tomcat
 sudo systemctl enable tomcat

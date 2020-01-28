@@ -46,12 +46,12 @@ WantedBy=multi-user.target
 EOF
 
 
-sudo cat <<EOF >> /opt/tomcat/latest/conf/tomcat-users.xml
+sudo cat <<EOF > /opt/tomcat/latest/conf/tomcat-users.xml
+<?xml version="1.0" encoding="UTF-8"?>
   <tomcat-users xmlns="http://tomcat.apache.org/xml"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
                 version="1.0">
-
 
     <role rolename="admin-gui"/>
     <role rolename="manager-gui"/>
@@ -59,9 +59,7 @@ sudo cat <<EOF >> /opt/tomcat/latest/conf/tomcat-users.xml
     <role rolename="manager-script"/>
     <user username="admin" password="dclxvi" roles="admin-gui,manager-gui,admin-script,manager-script"/>
 
-
   </tomcat-users>
-
 
 EOF
 

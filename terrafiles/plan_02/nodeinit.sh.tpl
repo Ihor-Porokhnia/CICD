@@ -117,7 +117,7 @@ sudo service mysql restart
 
 wget https://dl.influxdata.com/telegraf/releases/telegraf_1.13.2-1_amd64.deb
 sudo dpkg -i telegraf_1.13.2-1_amd64.deb
-sudo telegraf --input-filter cpu:mem:disk:nginx:tomcat:mysql --output-filter influxdb config > /etc/telegraf/telegraf.conf
+sudo telegraf --input-filter cpu:mem:disk:diskio:kernel:system:nginx:tomcat:mysql --output-filter influxdb config > /etc/telegraf/telegraf.conf
 sudo sed -i 's/# urls = \[\"http:\/\/127.0.0.1:8086\"\]/urls = \[\"http:\/\/innodb.bugoga.ga:8086\"\]/g' /etc/telegraf/telegraf.conf
 
 apt install -y virtualenv

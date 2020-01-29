@@ -6,9 +6,9 @@ sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.a
 sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] https://mirror.serverion.com/mariadbrepo/10.4/ubuntu bionic main'
 sudo apt -y update
 sudo apt -y install python3
-sudo apt -y install nginx
-sudo systemctl restart nginx
-sudo systemctl enable nginx
+#sudo apt -y install nginx
+#sudo systemctl restart nginx
+#sudo systemctl enable nginx
 sudo apt -y install default-jdk
 sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
 sudo apt -y install unzip wget

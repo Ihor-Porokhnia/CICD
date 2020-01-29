@@ -1,0 +1,18 @@
+#!groovy
+properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: '1', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
+node('Frontend') {
+  stage('Checkout')  {
+    git credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
+  }
+  stage('AnsiPlay')  {
+
+    if (OPERATION == '1') {
+              ansiblePlaybook credentialsId: 'ssh-key-main', playbook: 'ansibloom/ec2_1.yaml'
+
+    }
+    else if (OPERATION == '2') {
+              ansiblePlaybook credentialsId: 'ssh-key-main', playbook: 'ansibloom/ec2_1.yaml'
+    }
+
+  }
+}

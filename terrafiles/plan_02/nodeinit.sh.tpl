@@ -5,6 +5,7 @@ sudo apt-get install software-properties-common
 sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] https://mirror.serverion.com/mariadbrepo/10.4/ubuntu bionic main'
 sudo apt -y update
+sudo apt -y install python3
 sudo apt -y install nginx
 sudo systemctl restart nginx
 sudo systemctl enable nginx

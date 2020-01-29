@@ -1,6 +1,6 @@
 #!/bin/bash
 export NAME=Node${number}
-EXPORT NODE_INDEX=${number}
+export NODE_INDEX=${number}
 sudo apt-get install software-properties-common
 sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] https://mirror.serverion.com/mariadbrepo/10.4/ubuntu bionic main'

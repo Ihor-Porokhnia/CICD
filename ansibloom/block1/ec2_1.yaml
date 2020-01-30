@@ -24,7 +24,7 @@
 
     - name: temp
       vars:
-        HOST_COUNT: "{{ groups['all'] | length }}"
+        HOST_COUNT: "{{ groups['all'] | length | int}}"
       template:
         src: nginx.conf.j2
         dest: /home/ubuntu/nginx.conf

@@ -24,7 +24,12 @@
 
     - name: Setup
       setup:
-
+        
+    - name: show all the hosts matching the pattern, i.e. all but the group www
+      debug:
+       msg: "{{ item }}"
+      with_inventory_hostnames:
+       - all
 
     - name: temp
       template:

@@ -4,4 +4,5 @@
   gather_facts: false
   tasks:
     - name: Install NGINX
+      become: true
       apt: name=nginx

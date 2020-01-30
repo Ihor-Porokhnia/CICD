@@ -22,7 +22,11 @@
        name: python-certbot-nginx
        state: present
 
-    - name: cp
+    - name: Setup
+      setup:
+
+
+    - name: temp
       template:
         src: nginx.conf.j2
         dest: /home/ubuntu/nginx.conf

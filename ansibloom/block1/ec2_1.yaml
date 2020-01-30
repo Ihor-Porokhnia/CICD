@@ -22,8 +22,7 @@
        name: python-certbot-nginx
        state: present
 
-    - name: whereami
-      shell:
-        cmd: pwd
-
-        
+    - name: cp
+      copy:
+        src: ansibloom/block1/foo
+        dest: ~

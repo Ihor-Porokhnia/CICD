@@ -3,6 +3,8 @@
 - hosts: all
   gather_facts: true
   become: true
+  vars:
+    HOST_COUNT: "{{ groups['all'] | length }}"
   tasks:
     - name: Upgrade System
       apt:
@@ -23,15 +25,11 @@
        state: present
 
     - name: Template NGINX conf gnerator
-      vars:
-        HOST_COUNT: "{{ groups['all'] | length }}"
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/nginx.conf
 
-    - name: Template NGINX conf gnerator
-      vars:
-        HOST_COUNT: "{{ groups['all'] | length }}"
+    - name: Template NGINX site gnerator
       template:
         src: default.j2
         dest: /etc/nginx/sites-available/default

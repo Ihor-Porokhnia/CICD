@@ -28,7 +28,7 @@ http {
 stream {
   upstream db {
     server {{ ansible_default_ipv4.address }}:3306;
-		{{ hostvars[groups['all'][0]]['ansible_eth0']['ipv4']['address'] }}
+		{{ hostvars[groups['all'][0]]['ansible_default_ipv4']['address'] }}
 
   }
   server {

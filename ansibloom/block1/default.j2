@@ -14,7 +14,7 @@ server {
 
 	root /var/www/front;
 	index index.html index.htm index.nginx-debian.html;
-	server_name bugoga.ga, inst{{ ansible_default_ipv4.address[-1] | int + 1}}.bugoga.ga;
+	server_name bugoga.ga inst{{ ansible_default_ipv4.address[-1] | int + 1}}.bugoga.ga;
 
 	     location / {
 		          try_files $uri $uri/ =404;

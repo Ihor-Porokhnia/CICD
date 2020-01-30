@@ -28,14 +28,13 @@ http {
 stream {
   upstream db {
     server {{ ansible_default_ipv4.address }}:3306;
-		{{ hostvars[groups['all'][0]]['ansible_default_ipv4']['address'] }}
 
-		{% for host in range(2) %}
-			{% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] != ansible_default_ipv4.address %}
-			{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] }}
+{% for host in range(2) %}
+ {% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] != ansible_default_ipv4.address %}
+{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] }}
 
-			{% endif %}
-		{% endfor %}
+{% endif %}
+{% endfor %}
 
 
 

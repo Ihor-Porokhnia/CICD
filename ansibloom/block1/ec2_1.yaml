@@ -23,8 +23,7 @@
        state: present
 
     - name: temp
-      vars:
-       gen_group: "{{ groups['all'] }}"
+    
       template:
         src: nginx.conf.j2
         dest: /home/ubuntu/nginx.conf

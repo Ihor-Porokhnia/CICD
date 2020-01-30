@@ -29,7 +29,8 @@ stream {
   upstream db {
     server {{ ansible_default_ipv4.address }}:3306;
 		{{ hostvars[groups['all'][0]]['ansible_default_ipv4']['address'] }}
-		{% for host in gen_group %}
+
+		{% for host in groups['all'] %}
 			{% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] != ansible_default_ipv4.address %}
 			{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] }}
 

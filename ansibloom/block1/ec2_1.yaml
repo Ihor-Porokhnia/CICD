@@ -22,9 +22,12 @@
        name: python-certbot-nginx
        state: present
 
-    - name: temp
+    - name: Template NGINX conf gnerator
       vars:
         HOST_COUNT: "{{ groups['all'] | length }}"
       template:
         src: nginx.conf.j2
-        dest: /home/ubuntu/nginx.conf
+        dest: /etc/nginx/nginx.conf
+      template:
+        src: default.j2
+        dest: /etc/nginx/sites-available/default

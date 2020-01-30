@@ -21,3 +21,9 @@
       apt:
        name: python-certbot-nginx
        state: present
+
+    - name: whereami
+      shell:
+        cmd: pwd
+
+        

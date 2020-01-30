@@ -14,6 +14,8 @@
       apt:
        name: nginx
        state: present
+       notify:
+        - Start Nginx
 
     - name: Add certbot repository
       apt_repository:
@@ -29,7 +31,10 @@
         src: nginx.conf.j2
         dest: /etc/nginx/nginx.conf
 
-    - name: Template NGINX site gnerator
+
+
+  handlers:
+    - name: Generate site conf
       template:
         src: default.j2
         dest: /etc/nginx/sites-available/default

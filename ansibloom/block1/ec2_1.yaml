@@ -4,6 +4,11 @@
   gather_facts: false
   become: true
   tasks:
+    - name: Upgrade System
+      apt:
+        upgrade: dist
+        update_cache: yes
+
     - name: Install NGINX
       apt:
        name: nginx
@@ -12,7 +17,7 @@
     - name: Add certbot repository
       apt_repository:
        repo: 'ppa:certbot/certbot'
-       
+
     - name: Install Certbot's Nginx package
       apt:
        name: python-certbot-nginx

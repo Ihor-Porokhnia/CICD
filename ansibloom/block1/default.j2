@@ -3,7 +3,7 @@ upstream tomcat {
 
   {% for host in range(HOST_COUNT | int) %}
    {% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] == ansible_default_ipv4.address %}
-  	server inst{{ HOST_COUNT + 1 }}.bugoga.ga:8080;
+  	server inst{{ HOST_COUNT | int + 1 }}.bugoga.ga:8080;
    {% endif %}
   {% endfor %}
 

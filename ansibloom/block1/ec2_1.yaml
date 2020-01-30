@@ -28,6 +28,10 @@
       template:
         src: nginx.conf.j2
         dest: /home/ubuntu/nginx.conf
+
+    - name: Template NGINX conf gnerator
+      vars:
+        HOST_COUNT: "{{ groups['all'] | length }}"
       template:
         src: default.j2
         dest: /home/ubuntu/default

@@ -23,7 +23,8 @@
        state: present
 
     - name: temp
-      
+       vars:
+        HOST_COUNT: "{{ groups['all'] | length }}"
       template:
         src: nginx.conf.j2
         dest: /home/ubuntu/nginx.conf

@@ -7,7 +7,7 @@ node('Frontend') {
   stage('AnsiPlay')  {
 
     if (OPERATION == '1') {
-              ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3 -vv', playbook: 'ansibloom/ec2_2.yaml'
+              ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3 -vv', playbook: 'ansibloom//block1/ec2_1.yaml'
 
     }
     else if (OPERATION == '2') {

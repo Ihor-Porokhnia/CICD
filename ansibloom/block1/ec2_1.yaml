@@ -25,4 +25,4 @@
     - name: cp
       copy:
         src: ansibloom/block1/foo
-        dest: ~
+        dest: /home/ubuntu

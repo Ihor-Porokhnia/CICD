@@ -1,9 +1,10 @@
 
 upstream tomcat {
-inst{{ ansible_default_ipv4.address[-1] | int + 1}}.bugoga.ga:8080;
+
+server inst{{ ansible_default_ipv4.address[-1] | int + 1}}.bugoga.ga:8080;
   {% for host in range(HOST_COUNT | int) %}
    {% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] != ansible_default_ipv4.address %}
-inst{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'][-1] | int + 1 }}.bugoga.ga:8080 backup;
+server inst{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'][-1] | int + 1 }}.bugoga.ga:8080 backup;
    {% endif %}
   {% endfor %}
 

@@ -1,7 +1,7 @@
 
 upstream tomcat {
   {{ ansible_default_ipv4.address }}
-  {{ ansible_default_ipv4.address[:-1] | int +1 }}
+  {{ ansible_default_ipv4.address[:-2] | int +1 }}
 
 }
 

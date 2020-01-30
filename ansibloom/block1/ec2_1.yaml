@@ -14,8 +14,8 @@
       apt:
        name: nginx
        state: present
-       notify:
-        - Start Nginx
+      notify:
+      - Start Nginx
 
     - name: Add certbot repository
       apt_repository:

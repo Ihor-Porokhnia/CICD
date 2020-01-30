@@ -2,7 +2,18 @@
 
 - hosts: all
   gather_facts: false
+  become: true
   tasks:
     - name: Install NGINX
-      become: true
-      apt: name=nginx
+      apt:
+       name: nginx
+       state: present
+
+    - name: Add certbot repository
+      apt_repository:
+       repo: 'ppa:certbot/certbot'
+       
+    - name: Install Certbot's Nginx package
+      apt:
+       name: python-certbot-nginx
+       state: present

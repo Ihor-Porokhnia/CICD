@@ -1,5 +1,6 @@
 
 upstream tomcat {
+  {{ ansible_default_ipv4.address }}
   {{ ansible_default_ipv4.address[:-1] | int +1 }}
 
 }

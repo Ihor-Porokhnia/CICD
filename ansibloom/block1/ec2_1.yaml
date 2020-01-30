@@ -22,33 +22,9 @@
        name: python-certbot-nginx
        state: present
 
-
-    - name: show all the hosts matching the pattern, i.e. all but the group www
-      debug:
-       msg: "{{ item }}"
-      with_inventory_hostnames:
-       - all
-
     - name: temp
       template:
         src: nginx.conf.j2
         dest: /home/ubuntu/nginx.conf
 
-    - name: Print some debug information
-      vars:
-       msg: |
-        Module Variables ("vars"):
-        --------------------------------
-        {{ vars | to_nice_json }}
-
-      
-
-        GROUPS Variables ("groups"):
-        --------------------------------
-        {{ groups | to_nice_json }}
-
-
-
-      debug:
-       msg: "{{ msg.split('\n') }}"
-      tags: debug_info
+    

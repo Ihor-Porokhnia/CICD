@@ -30,7 +30,7 @@ stream {
     server {{ ansible_default_ipv4.address }}:3306;
 		{{ hostvars[groups['all'][0]]['ansible_default_ipv4']['address'] }}
 
-		{% for host in hostvars[groups['all']] %}
+		{% for host in range(HOST_COUNT) %}
 			{% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] != ansible_default_ipv4.address %}
 			{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] }}
 

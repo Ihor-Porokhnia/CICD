@@ -27,14 +27,6 @@
       file: name=/etc/nginx/sites-enabled/default state=absent
       file: name=/etc/nginx/sites-available/default state=absent
 
-#    - name: Add certbot repository
-#      apt_repository:
-#       repo: 'ppa:certbot/certbot'
-
-#    - name: Install Certbot's Nginx package
-#      apt:
-#       name: python-certbot-nginx
-#       state: present
 
     - name: Template NGINX conf gnerator
       template:
@@ -60,7 +52,7 @@
       shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }} -d {{ DOMAIN_ROOT }}
       args:
         creates: /etc/letsencrypt/live/inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
-      when: ansible_default_ipv4.address[-1] == '0'  
+      when: ansible_default_ipv4.address[-1] == '0'
 
     - name: Install nginx site for specified site
       template:

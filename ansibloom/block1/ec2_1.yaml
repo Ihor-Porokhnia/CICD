@@ -45,6 +45,13 @@
       template:
         src: default.j2
         dest: /etc/nginx/sites-enabled/default
+      when: ansible_default_ipv4.address[-1] == '0'
+
+    - name: Generate site conf
+      template:
+        src: default2.j2
+        dest: /etc/nginx/sites-enabled/default
+      when: ansible_default_ipv4.address[-1] != '0'
 
     - name: Reload nginx
       service: name=nginx state=restarted

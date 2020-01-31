@@ -4,6 +4,8 @@
   gather_facts: true
   become: true
   vars:
+    DOMAIN_ROOT: bugoga.ga
+    CERT_MAIL: myip127.0.0.0@gmail.com
     HOST_COUNT: "{{ groups['all'] | length }}"
   tasks:
     - name: Upgrade System
@@ -14,7 +16,7 @@
       apt:
        name: nginx
        state: present
-       
+
     - name: install letsencrypt
       apt: name=letsencrypt state=latest
 
@@ -36,6 +38,7 @@
         dest: /etc/nginx/nginx.conf
       notify:
       - Generate site conf
+      - Reload nginx
 
 
 
@@ -43,4 +46,7 @@
     - name: Generate site conf
       template:
         src: default.j2
-        dest: /etc/nginx/sites-available/default
+        dest: /etc/nginx/sites-enabled/http
+
+    - name: Reload nginx
+      service: name=nginx state=restarted

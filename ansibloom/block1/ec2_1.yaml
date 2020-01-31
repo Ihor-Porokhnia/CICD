@@ -52,7 +52,7 @@
 
     - name: Install nginx site for specified site
       template:
-        src: templates/nginx-le.j2
+        src: nginx-le.j2
         dest: /etc/nginx/sites-enabled/le
 
     - name: Reload nginx to activate specified site

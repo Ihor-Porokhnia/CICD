@@ -25,7 +25,7 @@
 
     - name: Remove default nginx config
       file: name=/etc/nginx/sites-enabled/default state=absent
-      file: name=/etc/nginx/sites-available/default state=absent  
+      file: name=/etc/nginx/sites-available/default state=absent
 
 #    - name: Add certbot repository
 #      apt_repository:
@@ -44,7 +44,7 @@
     - name: Generate site conf
       template:
         src: default.j2
-        dest: /etc/nginx/sites-enabled/http
+        dest: /etc/nginx/sites-enabled/default
 
     - name: Reload nginx
       service: name=nginx state=restarted

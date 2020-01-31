@@ -14,7 +14,12 @@
       apt:
        name: nginx
        state: present
+       
+    - name: install letsencrypt
+      apt: name=letsencrypt state=latest
 
+    - name: create letsencrypt directory
+      file: name=/var/www/letsencrypt state=directory
 
     - name: Add certbot repository
       apt_repository:

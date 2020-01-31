@@ -43,21 +43,21 @@
       template:
         src: default2.j2
         dest: /etc/nginx/sites-enabled/default
-      when: ansible_default_ipv4.address[-1] != '0'
+      when: "ansible_default_ipv4.address[-1]" != '0'
 
     - name: Reload nginx
       service: name=nginx state=restarted
 
     - name: Create letsencrypt certificate
-      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
+      shell: "letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}"
         creates: /etc/letsencrypt/live/inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
 
 
     - name: Create letsencrypt certificate
-      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d {{ DOMAIN_ROOT }}
+      shell: "letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d {{ DOMAIN_ROOT }}"
       args:
         creates: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}
-      when: ansible_default_ipv4.address[-1] == '0'
+      when: "ansible_default_ipv4.address[-1]" == '0'
 
     - name: Generate dhparams
       shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048

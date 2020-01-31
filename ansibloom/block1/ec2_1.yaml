@@ -36,17 +36,24 @@
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/nginx.conf
-      notify:
-      - Generate site conf
-      - Reload nginx
 
-
-
-  handlers:
     - name: Generate site conf
       template:
         src: default.j2
         dest: /etc/nginx/sites-enabled/http
 
     - name: Reload nginx
+      service: name=nginx state=restarted
+
+    - name: Create letsencrypt certificate
+      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }} -d {{ DOMAIN_ROOT }}
+      args:
+        creates: /etc/letsencrypt/live/inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
+
+    - name: Install nginx site for specified site
+      template:
+        src: templates/nginx-le.j2
+        dest: /etc/nginx/sites-enabled/le
+
+    - name: Reload nginx to activate specified site
       service: name=nginx state=restarted

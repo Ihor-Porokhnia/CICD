@@ -60,6 +60,7 @@
       shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }} -d {{ DOMAIN_ROOT }}
       args:
         creates: /etc/letsencrypt/live/inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
+      when: ansible_default_ipv4.address[-1] == '0'  
 
     - name: Install nginx site for specified site
       template:

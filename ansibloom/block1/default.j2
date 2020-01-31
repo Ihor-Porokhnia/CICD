@@ -65,7 +65,7 @@ server {
 server {
     if ($host = inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}) {
         return 301 https://$host$request_uri;
-    } 
+    }
         server_name inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }};
     listen 80;
     return 404;

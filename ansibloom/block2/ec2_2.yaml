@@ -2,6 +2,7 @@
 
 - hosts: tag_Environment_Staging
   gather_facts: true
+  serial: 1
   become: true
 
   tasks:

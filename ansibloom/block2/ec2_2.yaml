@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: tag_Environment_Staging
   gather_facts: true
   become: true
 
@@ -8,6 +8,6 @@
     - name: Add host
       add_host:
        hostname: back.bugoga.ga
-    - name: show the groups the host(s) are in
-      debug:
-       msg: "{{group_names}}"
+    - name: Copy Remote-To-Remote
+      synchronize: src=/var/www/front dest=/var/www/front
+      delegate_to: back.bugoga.ga

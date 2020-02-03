@@ -69,6 +69,12 @@
 #      template:
 #        src: nginx-le.j2
 #        dest: /etc/nginx/sites-enabled/le
-#
-#    - name: Reload nginx to activate specified site
-#      service: name=nginx state=restarted
+
+
+    - name: create letsencrypt directory
+      copy:
+        src: index.html
+        dest: /var/www/front
+
+    - name: Reload nginx to activate specified site
+      service: name=nginx state=restarted

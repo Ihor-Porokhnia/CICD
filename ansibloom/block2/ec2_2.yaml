@@ -3,10 +3,7 @@
 - hosts: all
   gather_facts: true
   become: true
-  vars:
-    DOMAIN_ROOT: bugoga.ga
-    CERT_MAIL: myip127.0.0.0@gmail.com
-    HOST_COUNT: "{{ groups['all'] | length }}"
+  
   tasks:
     - name: Add host
       add_host:

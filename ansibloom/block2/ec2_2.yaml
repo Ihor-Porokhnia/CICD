@@ -17,7 +17,7 @@
       synchronize:
         src: /opt/tomcat/latest/webapps
         dest: /opt/tomcat/latest
-        rsync_path="sudo rsync"
+        rsync_path: "sudo rsync"
       delegate_to: back.bugoga.ga
 
     - name: Reload daemons

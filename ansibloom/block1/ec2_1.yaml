@@ -59,6 +59,8 @@
       template:
         src: index.html.j2
         dest: /var/www/front/index.html
+      args:
+        creates: /var/www/front/index.html 
 
     - name: Reload nginx to activate conf
       service: name=nginx state=restarted

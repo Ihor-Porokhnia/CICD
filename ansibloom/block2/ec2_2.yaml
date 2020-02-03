@@ -3,11 +3,11 @@
 - hosts: all
   gather_facts: true
   become: true
-  
+
   tasks:
     - name: Add host
       add_host:
-      name: back.bugoga.ga
+       hostname: back.bugoga.ga
 
     - name: show all the hosts matching the pattern, i.e. all but the group www
       debug:

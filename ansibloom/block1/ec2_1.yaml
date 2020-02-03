@@ -41,18 +41,19 @@
         creates: /etc/nginx/dhparams.pem
 
     - name: Create letsencrypt directory
-      file: name=/etc/letsencrypt/live/{{ DOMAIN_ROOT }} state=directory
+      file: name=/var/www/front state=directory
 
     - name: Move fullchain
       copy:
         src: fullchain.pem
         dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
-    - name: Move privkey    
+    - name: Move privkey
       copy:
         src: privkey.pem
         dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
 
-
+    - name: Add site directory
+      file: name=/etc/letsencrypt/live/{{ DOMAIN_ROOT }} state=directory
 
     - name: Generate default webpage
       template:

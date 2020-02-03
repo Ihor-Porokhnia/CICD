@@ -1,0 +1,23 @@
+---
+
+- hosts: all
+  gather_facts: true
+  become: true
+  vars:
+    DOMAIN_ROOT: bugoga.ga
+    CERT_MAIL: myip127.0.0.0@gmail.com
+    HOST_COUNT: "{{ groups['all'] | length }}"
+  tasks:
+    - name: Add host
+      add_host:
+      name: back.bugoga.ga
+
+    - name: show all the hosts matching the pattern, i.e. all but the group www
+      debug:
+       msg: "{{ item }}"
+      with_inventory_hostnames:
+       - all
+
+    - name: Upgrade System
+      apt:
+        update_cache: yes

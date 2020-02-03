@@ -15,6 +15,7 @@ resource "aws_instance" "node" {
 
   tags = {
     Name = "node${count.index + 1}"
+    Environment = "Staging"
   }
 }
 

@@ -20,19 +20,6 @@
     - name: install letsencrypt
       apt: name=letsencrypt state=latest
 
-    - name: create letsencrypt directory
-      file: name=/var/www/letsencrypt state=directory
-
-    - name: Add certbot repository
-      apt_repository:
-       repo: 'ppa:certbot/certbot'
-
-       
-    - name: Install Certbot's Nginx package
-      apt:
-       name: python-certbot-nginx
-       state: present
-
     - name: Remove default nginx config
       file: name=/etc/nginx/sites-enabled/default state=absent
       file: name=/etc/nginx/sites-available/default state=absent
@@ -45,8 +32,26 @@
 
     - name: Generate site conf
       template:
-        src: default3.j2
+        src: default4.j2
         dest: /etc/nginx/sites-enabled/default
+
+    - name: Generate dhparams
+      shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+      args:
+        creates: /etc/nginx/dhparams.pem
+
+    - name: create letsencrypt directory
+      file: name=/etc/letsencrypt/live/bugoga.ga state=directory
+
+    - name: move certs
+      copy:
+        src: fullchain.pem
+        dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
+
+    - name: move certs
+      copy:
+        src: privkey.pem
+        dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
 #      when: ansible_default_ipv4.address[-1] == '0'
 #
 #    - name: Generate site conf

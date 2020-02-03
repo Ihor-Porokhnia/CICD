@@ -43,10 +43,11 @@
     - name: Create letsencrypt directory
       file: name=/etc/letsencrypt/live/{{ DOMAIN_ROOT }} state=directory
 
-    - name: Move certs
+    - name: Move fullchain
       copy:
         src: fullchain.pem
         dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
+    - name: Move privkey    
       copy:
         src: privkey.pem
         dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/

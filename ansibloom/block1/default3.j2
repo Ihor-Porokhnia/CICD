@@ -1,0 +1,31 @@
+
+upstream tomcat {
+
+server inst{{ ansible_default_ipv4.address[-1] | int + 1}}.bugoga.ga:8080;
+  {% for host in range(HOST_COUNT | int) %}
+   {% if hostvars[groups['all'][host]]['ansible_default_ipv4']['address'] != ansible_default_ipv4.address %}
+server inst{{ hostvars[groups['all'][host]]['ansible_default_ipv4']['address'][-1] | int + 1 }}.bugoga.ga:8080 backup;
+   {% endif %}
+  {% endfor %}
+
+}
+
+
+server {
+
+	root /var/www/front;
+	index index.html index.htm;
+	server_name inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }} {{ DOMAIN_ROOT }};
+
+	     location / {
+		          try_files $uri $uri/ =404;
+	     }
+
+
+	     location  ^~ /Back {
+		          proxy_http_version 1.1;
+              proxy_pass http://tomcat;
+		          proxy_set_header Origin "http://tomcat";
+       }
+
+}

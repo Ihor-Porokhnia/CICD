@@ -19,6 +19,6 @@
         dest: /opt/tomcat/latest
       delegate_to: back.bugoga.ga
 
-      - name: Reload daemons
-        service: name=nginx state=restarted
-        service: name=tomcat state=restarted
+    - name: Reload daemons
+      service: name=nginx state=restarted
+      service: name=tomcat state=restarted

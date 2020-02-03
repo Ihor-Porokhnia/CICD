@@ -8,6 +8,7 @@
     - name: Add host
       add_host:
        hostname: back.bugoga.ga
+
     - name: Copy Remote-To-Remote
-      synchronize: src=/var/www/front dest=/var/www/front
+      synchronize: src=/var/www/front dest=/var/www
       delegate_to: back.bugoga.ga

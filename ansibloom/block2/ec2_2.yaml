@@ -9,6 +9,16 @@
       add_host:
        hostname: back.bugoga.ga
 
-    - name: Copy Remote-To-Remote
+    - name: Copy front
       synchronize: src=/var/www/front dest=/var/www
       delegate_to: back.bugoga.ga
+
+    - name: Copy back
+      synchronize:
+        src: /opt/tomcat/latest/webapps
+        dest: /opt/tomcat/latest
+      delegate_to: back.bugoga.ga
+
+      - name: Reload daemons
+        service: name=nginx state=restarted
+        service: name=tomcat state=restarted

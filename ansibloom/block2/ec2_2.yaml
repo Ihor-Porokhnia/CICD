@@ -8,13 +8,6 @@
     - name: Add host
       add_host:
        hostname: back.bugoga.ga
-
-    - name: show all the hosts matching the pattern, i.e. all but the group www
+    - name: show the groups the host(s) are in
       debug:
-       msg: "{{ item }}"
-      with_inventory_hostnames:
-       - all
-
-    - name: Upgrade System
-      apt:
-        update_cache: yes
+       msg: "{{group_names}}"

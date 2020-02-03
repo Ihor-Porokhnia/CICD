@@ -40,56 +40,23 @@
       args:
         creates: /etc/nginx/dhparams.pem
 
-    - name: create letsencrypt directory
-      file: name=/etc/letsencrypt/live/bugoga.ga state=directory
+    - name: Create letsencrypt directory
+      file: name=/etc/letsencrypt/live/{{ DOMAIN_ROOT }} state=directory
 
-    - name: move certs
+    - name: Move certs
       copy:
         src: fullchain.pem
         dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
-
-    - name: move certs
       copy:
         src: privkey.pem
         dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
-#      when: ansible_default_ipv4.address[-1] == '0'
-#
-#    - name: Generate site conf
-#      template:
-#        src: default2.j2
-#        dest: /etc/nginx/sites-enabled/default
-#      when: ansible_default_ipv4.address != '172.31.0.10'
-#
-#    - name: Reload nginx
-#      service: name=nginx state=restarted
-#
-#    - name: Create letsencrypt certificate
-#      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
-#      args:
-#        creates: /etc/letsencrypt/live/inst{{ ansible_default_ipv4.address[-1] | int + 1}}.{{ DOMAIN_ROOT }}
-#
-#
-#    - name: Create letsencrypt certificate
-#      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ CERT_MAIL }} --agree-tos -d {{ DOMAIN_ROOT }}
-#      args:
-#        creates: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}
-#      when: ansible_default_ipv4.address == '172.31.0.10'
-#
-#    - name: Generate dhparams
-#      shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
-#      args:
-#        creates: /etc/nginx/dhparams.pem
-#
-#    - name: Install nginx site for specified site
-#      template:
-#        src: nginx-le.j2
-#        dest: /etc/nginx/sites-enabled/le
 
 
-    - name: create letsencrypt directory
-      copy:
-        src: index.html
+
+    - name: Generate default webpage
+      template:
+        src: index.html.j2
         dest: /var/www/front/
 
-    - name: Reload nginx to activate specified site
+    - name: Reload nginx to activate conf
       service: name=nginx state=restarted

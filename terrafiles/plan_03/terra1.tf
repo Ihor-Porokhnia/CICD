@@ -22,3 +22,8 @@ resource "google_container_cluster" "kubernetes" {
     tags = ["network-cluster"]
   }
 }
+
+resource "google_project_service" "kubernetes" {
+  project = "k8s-project"
+  service = "container.googleapis.com"
+}

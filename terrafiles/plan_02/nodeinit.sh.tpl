@@ -4,6 +4,11 @@ export NODE_INDEX=${number}
 sudo apt-get install software-properties-common
 sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 
+
+
+
+
+
 sudo apt -y update
 sudo apt -y install python3
 

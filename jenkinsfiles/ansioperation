@@ -14,7 +14,7 @@ node('Frontend') {
               ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3', playbook: 'ansibloom/block2/ec2_2.yaml'
     }
     else if (OPERATION == '3') {
-              ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3', playbook: 'ansibloom/block3/ec2_3.yaml'
+              ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3', playbook: 'ansibloom/block4/nodeinit.yml'
     }
 
   }

@@ -1,0 +1,9 @@
+---
+
+- hosts: tag_Environment_Staging
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - tomcat9-install

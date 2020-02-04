@@ -5,8 +5,8 @@
 - name: Install wget
   apt: name=wget
 
-- name: Install uzip
-  apt: name=uzip
+- name: Install unzip
+  apt: name=unzip
 
 - name: Add group "tomcat"
   group: name=tomcat

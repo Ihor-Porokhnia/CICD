@@ -16,6 +16,9 @@ node('Frontend') {
     else if (OPERATION == '3') {
               ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3', playbook: 'ansibloom/block4/nodeinit.yml'
     }
+    else if (OPERATION == '4') {
+              ansiblePlaybook credentialsId: 'ssh-key-main', extras: '-e ansible_python_interpreter=/usr/bin/python3', playbook: 'ansibloom/block3/ec2_3.yaml'
+    }
 
   }
 }

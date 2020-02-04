@@ -23,4 +23,4 @@
     wsrep_sst_method=rsync
 
     wsrep_node_address="{{ ansible_default_ipv4.address }}"
-    wsrep_node_name="node{{ hostvars[groups['tag_Environment_Staging'][host]]['ansible_default_ipv4']['address'][-1] | int + 1 }}"
+    wsrep_node_name="node{{ ansible_default_ipv4.address[-1] | int + 1}}s"

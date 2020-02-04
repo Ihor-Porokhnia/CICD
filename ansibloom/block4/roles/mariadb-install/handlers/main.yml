@@ -4,10 +4,10 @@
   shell: sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
 
 - name: Add users
-  shell: mysql -uroot -p{{ mysql_root_pass}} -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '{{ mysql_root_pass }}' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT ALL PRIVILEGES ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;"
+  shell: mysql -uroot -p{{ mysql_root_pass }} -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '{{ mysql_root_pass }}' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT ALL PRIVILEGES ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;"
 
 - name: Add databases
-  shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE DATABASE SimpleDatabase;"
+  shell: mysql -uroot -p{{ mysql_root_pass }} -e "CREATE DATABASE SimpleDatabase;"
 
 - name: Add tables
-  shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
+  shell: mysql -uroot -p{{ mysql_root_pass }} -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"

@@ -3,4 +3,5 @@
 - hosts: tag_Environment_Staging
   become: yes
   roles:
+    - mariadb-install
     - tomcat9-install

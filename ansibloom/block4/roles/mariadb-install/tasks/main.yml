@@ -21,13 +21,25 @@
    update_cache: true
   when: configure_install | success
   register: install_mariadb
-  notify:
-   - Add remote access
-   - Add users
-   - Add databases
-   - Add tables
-   - Mariadb start enable
 
+- name: Add default configuration
+  block:
+    - name: Add remote access
+      shell: sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
+
+    - name: Add users
+      shell: mysql -uroot -p{{ mysql_root_pass }} -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '{{ mysql_root_pass }}' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT ALL PRIVILEGES ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;"
+
+    - name: Add databases
+      shell: mysql -uroot -p{{ mysql_root_pass }} -e "CREATE DATABASE SimpleDatabase;"
+
+    - name: Add tables
+      shell: mysql -uroot -p{{ mysql_root_pass }} -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
+
+    - name: Mariadb start enable
+      service: name=mariadb state=started enabled=yes
+
+  when: install_mariadb | success
 
 - name: Generate galera conf
   template:

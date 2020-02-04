@@ -1,20 +1,24 @@
 provider "google" {}
 
 
-resource "google_compute_instance" "default" {
-  name         = "test"
-  machine_type = "n1-standard-1"
+resource "google_container_cluster" "kubernetes" {
+  name               = "k8s-cluster"
+  depends_on         = ["google_project_service.kubernetes"]
+  initial_node_count = 1
 
-  network_interface {
-    network = "default"
-
-    access_config {
-      // Ephemeral IP
-    }
+  master_auth {
+    username = ""
+    password = ""
   }
-  boot_disk {
-    initialize_params {
-      image = "ubuntu-1804-bionic-v20191113"
-    }
+
+  node_config {
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+
+    tags = ["network-cluster"]
   }
 }

@@ -32,6 +32,6 @@
   service: name=mariadb state=started enabled=yes
 
 - name: Generate galera conf
-   template:
-    src: galera.cnf.j2
-    dest: /etc/mysql/conf.d/
+  template:
+   src: galera.cnf.j2
+   dest: /etc/mysql/conf.d/

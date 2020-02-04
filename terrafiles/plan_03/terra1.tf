@@ -3,7 +3,7 @@ provider "google" {}
 
 resource "google_container_cluster" "kubernetes" {
   name               = "k8s-cluster"
-  depends_on         = ["google_project_service.kubernetes"]
+#  depends_on         = ["google_project_service.kubernetes"]
   initial_node_count = 1
 
   master_auth {
@@ -23,7 +23,3 @@ resource "google_container_cluster" "kubernetes" {
   }
 }
 
-resource "google_project_service" "kubernetes" {
-  project = "k8s-project"
-  service = "container.googleapis.com"
-}

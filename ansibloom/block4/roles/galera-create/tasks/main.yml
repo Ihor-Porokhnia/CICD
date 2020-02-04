@@ -6,6 +6,14 @@
   tags:
      - start_cluster
 
+  - name: Bootstarping Primary Mysql Node
+    shell: sed -i 's/^safe_to_bootstrap:.*/safe_to_bootstrap: 1/' /var/lib/mysql/grastate.dat
+    when: inventory_hostname == groups['tag_Environment_Staging'][0]
+    any_errors_fatal: true
+    tags:
+       - start_cluster
+
+
 - name: Bootstarping Primary Mysql Node
   shell: galera_new_cluster
   when: inventory_hostname == groups['tag_Environment_Staging'][0]
@@ -13,12 +21,7 @@
   tags:
      - start_cluster
 
-- name: Galera warmup
-  service: name=mariadb state=restarted
-  when: inventory_hostname == groups['tag_Environment_Staging'][0]
-  any_errors_fatal: true
-  tags:
-     - start_cluster
+
 
 - name: Wait 10 seconds after bootstarping Primary Mysql Node
   pause:

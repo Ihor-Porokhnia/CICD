@@ -39,7 +39,7 @@
     - name: Mariadb start enable
       service: name=mariadb state=started enabled=yes
 
-  when: install_mariadb | success
+  when: install_mariadb.changed
 
 - name: Generate galera conf
   template:

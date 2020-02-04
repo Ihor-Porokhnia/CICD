@@ -34,7 +34,7 @@
   shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
 
 - name: Mariadb start enable
-  service: name=tomcat state=started enabled=yes
+  service: name=mariadb state=started enabled=yes
 
 - name: Generate galera conf
   template:

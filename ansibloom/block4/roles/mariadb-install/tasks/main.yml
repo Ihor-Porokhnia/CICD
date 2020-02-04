@@ -32,4 +32,4 @@
 - name: Generate galera conf
   template:
    src: galera.cnf.j2
-   dest: /etc/mysql/conf.d/
+   dest: /etc/mysql/conf.d/galera.cnf

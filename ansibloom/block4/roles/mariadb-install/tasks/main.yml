@@ -1,44 +1,45 @@
 ---
-block:
- - name: Set noninteractive moce
-   shell: export DEBIAN_FRONTEND=noninteractive
+- name: Install
+  block:
+   - name: Set noninteractive moce
+     shell: export DEBIAN_FRONTEND=noninteractive
 
- - name: Configure MariaDB Installation
-   debconf:
-     name: mariadb-server
-     question: "{{ item }}"
-     vtype: password
-     value: "{{ mysql_root_pass }}"
-   with_items:
-     - mysql-server/root_password
-     - mysql-server/root_password_again
-   register: configure_install
+   - name: Configure MariaDB Installation
+     debconf:
+       name: mariadb-server
+       question: "{{ item }}"
+       vtype: password
+       value: "{{ mysql_root_pass }}"
+     with_items:
+       - mysql-server/root_password
+       - mysql-server/root_password_again
+     register: configure_install
 
- - name: Install MariaDB with custom configuration
-   apt:
-     name: mariadb-server
-     state: latest
-     update_cache: true
-   when: configure_install | success
-   register: install_mariadb
+   - name: Install MariaDB with custom configuration
+     apt:
+       name: mariadb-server
+       state: latest
+       update_cache: true
+     when: configure_install | success
+     register: install_mariadb
 
- - name: Add remote access
-   shell: sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
+   - name: Add remote access
+     shell: sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
 
- - name: Add users
-   shell: mysql -uroot -p{{ mysql_root_pass}} -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '{{ mysql_root_pass }}' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT ALL PRIVILEGES ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;"
+   - name: Add users
+     shell: mysql -uroot -p{{ mysql_root_pass}} -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '{{ mysql_root_pass }}' WITH GRANT OPTION;CREATE USER 'remmie' IDENTIFIED BY 'nemA_666';GRANT ALL PRIVILEGES ON *.* TO 'remmie'@'%' IDENTIFIED BY 'nemA_666';FLUSH PRIVILEGES;"
 
- - name: Add databases
-   shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE DATABASE SimpleDatabase;"
- 
- - name: Add databases
-   shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
+   - name: Add databases
+     shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE DATABASE SimpleDatabase;"
 
- - name: Mariadb start enable
-   service: name=mariadb state=started enabled=yes
+   - name: Add databases
+     shell: mysql -uroot -p{{ mysql_root_pass}} -e "CREATE TABLE SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL);"
 
- - name: Generate galera conf
-   template:
-     src: galera.cnf.j2
-     dest: /etc/mysql/conf.d/
-when: "'mariadb' not in ansible_facts.packages"
+   - name: Mariadb start enable
+     service: name=mariadb state=started enabled=yes
+
+   - name: Generate galera conf
+     template:
+       src: galera.cnf.j2
+       dest: /etc/mysql/conf.d/
+  when: "'mariadb' not in ansible_facts.packages"

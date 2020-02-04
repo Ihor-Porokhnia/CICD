@@ -1,4 +1,6 @@
 ---
+- name: Galera warmup
+  service: name=mariadb state=stopped
 
 - name: Bootstarping Primary Mysql Node
   shell: galera_new_cluster

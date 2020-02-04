@@ -42,4 +42,4 @@
      template:
        src: galera.cnf.j2
        dest: /etc/mysql/conf.d/
-  when: "'mariadb' not in ansible_facts.packages"
+  when: '"mariadb" not in ansible_facts.packages'

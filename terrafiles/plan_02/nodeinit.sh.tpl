@@ -7,7 +7,6 @@ sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.a
 sudo apt -y update
 sudo apt -y install python3
 
-
 wget https://dl.influxdata.com/telegraf/releases/telegraf_1.13.2-1_amd64.deb
 sudo dpkg -i telegraf_1.13.2-1_amd64.deb
 sudo telegraf --input-filter cpu:mem:disk:diskio:kernel:system:nginx:tomcat:mysql --output-filter influxdb config > /etc/telegraf/telegraf.conf

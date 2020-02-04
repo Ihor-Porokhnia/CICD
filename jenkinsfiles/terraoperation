@@ -7,14 +7,14 @@ node('Frontend') {
   stage('TerraPlay')  {
     //sh 'echo $OPERATION'
     if (OPERATION == 'create1'){
-              sh 'terraform init ./terrafiles/plan_01'
-              sh 'terraform plan ./terrafiles/plan_01'
-              sh 'terraform apply -auto-approve ./terrafiles/plan_01'
+              sh 'terraform init ./terrafiles/plan_03'
+              sh 'terraform plan ./terrafiles/plan_03'
+              sh 'terraform apply -auto-approve ./terrafiles/plan_03'
     }
     else if (OPERATION == 'destroy1') {
-              sh 'terraform init ./terrafiles/plan_01'
-              sh 'terraform plan ./terrafiles/plan_01'
-              sh 'terraform destroy -auto-approve ./terrafiles/plan_01'
+              sh 'terraform init ./terrafiles/plan_03'
+              sh 'terraform plan ./terrafiles/plan_03'
+              sh 'terraform destroy -auto-approve ./terrafiles/plan_03'
     }
     else if (OPERATION == 'create') {
               sh 'terraform init ./terrafiles/plan_02'

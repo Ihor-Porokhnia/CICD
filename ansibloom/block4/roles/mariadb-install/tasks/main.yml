@@ -12,7 +12,7 @@
   with_items:
    - mysql-server/root_password
    - mysql-server/root_password_again
- register: configure_install
+  register: configure_install
 
 - name: Install MariaDB with custom configuration
   apt:

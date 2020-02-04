@@ -1,30 +1,21 @@
 ---
 
-- name: Set noninteractive moce
-  shell: export DEBIAN_FRONTEND=noninteractive
+- name: Bootstarping Primary Mysql Node
+  shell: galera_new_cluster
+  when: inventory_hostname == groups['tag_Environment_Staging'][0]
+  any_errors_fatal: true
+  tags:
+     - start_cluster
 
-- name: Configure MariaDB Installation
-  debconf:
-   name: mariadb-server
-   question: "{{ item }}"
-   vtype: password
-   value: "{{ mysql_root_pass }}"
-  with_items:
-   - mysql-server/root_password
-   - mysql-server/root_password_again
-  register: configure_install
+- name: Wait 10 seconds after bootstarping Primary Mysql Node
+  pause:
+   seconds: 10
+  tags:
+     - start_cluster
 
-- name: Install MariaDB with custom configuration
-  apt:
-   name: mariadb-server
-   state: latest
-   update_cache: true
-  when: configure_install | success
-  register: install_mariadb
-  notify:
-   - Add remote access
-   - Add users
-   - Add databases
-   - Add tables
-   - Mariadb start enable
-   - Generate galera conf
+- name: Reload daemons
+  service: name=mariadb state=restarted
+  when: inventory_hostname != groups['tag_Environment_Staging'][0]
+  any_errors_fatal: true
+  tags:
+     - start_cluster

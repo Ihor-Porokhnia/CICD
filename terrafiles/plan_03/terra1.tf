@@ -1,14 +1,21 @@
 provider "google" {}
 
 
-resource "google_container_cluster" "kubernetes" {
-  name               = "k8s-cluster"
-  initial_node_count = 1
+resource "google_compute_instance" "default" {
+  name         = "test"
+  machine_type = "n1-standard-1"
 
-  master_auth {
-    username = ""
-    password = ""
+  network_interface {
+    network = "default"
+
+    access_config {
+      // Ephemeral IP
+    }
   }
-
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-1804-bionic-v20191113"
+    }
+  }
 }
 

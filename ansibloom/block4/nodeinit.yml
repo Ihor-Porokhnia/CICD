@@ -1,7 +1,7 @@
 ---
 
 - hosts: tag_Environment_Staging
-  gather_facts: smart
+  gather_facts: true
   become: yes
   roles:
     - mariadb-install

@@ -27,7 +27,7 @@
    - Add databases
    - Add tables
    - Mariadb start enable
-   - Generate galera conf
+
 
 - name: Generate galera conf
   template:

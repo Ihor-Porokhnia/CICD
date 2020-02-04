@@ -3,5 +3,6 @@
 - hosts: tag_Environment_Staging
   become: yes
   roles:
-    - mariadb-install
+    - { role: mariadb-install, when: "'mariadb' not in ansible_facts.packages" }
     - tomcat9-install
+#    - mariadb-install

@@ -6,4 +6,5 @@
   roles:
     - mariadb-install
     - tomcat9-install
+    - galera-create
 #    - mariadb-install

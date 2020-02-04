@@ -1,0 +1,4 @@
+---
+DOMAIN_ROOT: bugoga.ga
+CERT_MAIL: myip127.0.0.0@gmail.com
+HOST_COUNT: "{{ groups['tag_Environment_Staging'] | length }}"

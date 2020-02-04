@@ -7,4 +7,4 @@
     - mariadb-install
     - tomcat9-install
     - galera-create
-#    - mariadb-install
+    - nginx-install-certificate

@@ -1,0 +1,50 @@
+---
+- name: Upgrade System
+  apt:
+    update_cache: yes
+
+- name: Install NGINX
+  apt:
+   name: nginx
+   state: present
+  notify:
+    - Create site directory
+    - Generate default webpage
+    - Reload nginx to activate conf
+
+- name: install letsencrypt
+  apt: name=letsencrypt state=latest
+
+- name: Remove default nginx config
+  file: name=/etc/nginx/sites-enabled/default state=absent
+  file: name=/etc/nginx/sites-available/default state=absent
+
+- name: Template NGINX conf gnerator
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - Reload nginx to activate conf  
+
+- name: Generate site conf
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-enabled/default
+
+- name: Generate dhparams
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    creates: /etc/nginx/dhparams.pem
+
+- name: Add site directory
+  file: name=/etc/letsencrypt/live/{{ DOMAIN_ROOT }} state=directory
+
+- name: Move fullchain
+  copy:
+    src: fullchain.pem
+    dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
+
+- name: Move privkey
+  copy:
+    src: privkey.pem
+    dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/

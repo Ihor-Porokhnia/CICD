@@ -1,0 +1,12 @@
+---
+
+- name: Create site directory
+  file: name=/var/www/front state=directory
+
+- name: Generate default webpage
+  template:
+    src: index.html.j2
+    dest: /var/www/front/index.html
+
+- name: Reload nginx to activate conf
+  service: name=nginx state=restarted

@@ -6,12 +6,12 @@
   tags:
      - start_cluster
 
-  - name: Bootstarping Primary Mysql Node
-    shell: sed -i 's/^safe_to_bootstrap:.*/safe_to_bootstrap: 1/' /var/lib/mysql/grastate.dat
-    when: inventory_hostname == groups['tag_Environment_Staging'][0]
-    any_errors_fatal: true
-    tags:
-       - start_cluster
+- name: Bootstarping Primary Mysql Node
+  shell: sed -i 's/^safe_to_bootstrap:.*/safe_to_bootstrap: 1/' /var/lib/mysql/grastate.dat
+  when: inventory_hostname == groups['tag_Environment_Staging'][0]
+  any_errors_fatal: true
+  tags:
+      - start_cluster
 
 
 - name: Bootstarping Primary Mysql Node

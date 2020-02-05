@@ -2,10 +2,11 @@
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5'))])
 
-node('Backend'){
+  if ( ref == 'refs/heads/backend' )  {
+    node('Backend'){
 
 
-    if ( ref == 'refs/heads/backend' )  {
+
 
         stage('Checkout')  {
             git branch: 'backend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'

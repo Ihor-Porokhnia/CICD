@@ -1,7 +1,7 @@
 #!groovy
 properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, regexpFilterExpression: '"refs/heads/backend"', regexpFilterText: '', token: 'bPipe')])])
 
-if ( env.BUILD_CLOUD == 'false' ){
+if ( env.BUILD_CLOUD == 'true' ){
 node('Frontend'){
 
 

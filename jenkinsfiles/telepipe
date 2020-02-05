@@ -49,8 +49,8 @@ else if (message.startsWith(set_prefix)) {
                 env.BUILD_CLOUD = par1
             }
     telegramSend(message: 'Parameter ' + par1 + ' set' , chatId: -393518449)
-      echo  ${env.TEST_VARIABLE}
+      sh 'echo  ${env.TEST_VARIABLE}'
 
     }
-  
+
 }

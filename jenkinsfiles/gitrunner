@@ -2,10 +2,8 @@
 properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, token: 'bPipe')])])
 node('master') {
 
-
 if ( ref == 'refs/heads/backend' )  { build job: 'backpipe', propagate: false, wait: false }
 
 else if ( ref == 'refs/heads/frontend' )  { build job: 'frontpipe', propagate: false, wait: false }
-
 
 }

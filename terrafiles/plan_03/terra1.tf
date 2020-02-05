@@ -22,5 +22,5 @@ resource "google_container_cluster" "primary" {
 
   provisioner "local-exec" {
     command = "gcloud container clusters get-credentials k8s-epam"
-    }
+  }
 }

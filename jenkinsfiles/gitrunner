@@ -1,0 +1,7 @@
+#!groovy
+properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, regexpFilterExpression: '"refs/heads/backend"', regexpFilterText: '', token: 'bPipe')])])
+node('master') {
+if ( ref == 'refs/heads/backend' )  { build job: backpipe }
+
+else if ( ref == 'refs/heads/frontend' )  { build job: frontpipe }
+}

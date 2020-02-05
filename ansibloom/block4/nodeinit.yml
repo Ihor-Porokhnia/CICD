@@ -1,5 +1,4 @@
 ---
-
 - hosts: tag_Environment_Staging
   gather_facts: true
   become: yes

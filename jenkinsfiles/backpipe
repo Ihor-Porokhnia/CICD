@@ -1,8 +1,7 @@
 #!groovy
+properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, regexpFilterExpression: '"refs/heads/backend"', regexpFilterText: '', token: 'bPipe')])])
 
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5'))])
 
-  if ( ref == 'refs/heads/backend' )  {
     node('Backend') {
 
         stage('Checkout')  {
@@ -50,5 +49,4 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 
         }
 
-}
 }

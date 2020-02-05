@@ -1,0 +1,50 @@
+#!groovy
+properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, regexpFilterExpression: '"refs/heads/backend"', regexpFilterText: '', token: 'bPipe')])])
+
+
+node('Frontend'){
+
+        lock(resource: 'frontlock', inversePrecedence: true){
+          stage('Checkout')  {
+            git branch: 'frontend', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
+        }
+         stage('Build') {
+          try{
+           sh 'file web/index.html'
+           sh 'file web/js/script.js'
+           sh 'file web/css/main.css'
+           telegramSend(message: 'Frontend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Frontend files on build #' + env.BUILD_ID + ' missing' , chatId: -393518449)
+            error 'FAIL'
+          }
+         }
+         stage('Test') {
+
+                try{
+               /////TODO: TESTS
+                telegramSend(message: 'Test frontend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Test frontend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+
+         }
+         stage('Deploy') {
+          try{
+           sh 'scp -r -i ~/.ssh/id_rsa web/index.html ubuntu@back.bugoga.ga:/var/www/front'
+           sh 'scp -r -i ~/.ssh/id_rsa web/css/* ubuntu@back.bugoga.ga:/var/www/front/css'
+           sh 'scp -r -i ~/.ssh/id_rsa web/js/* ubuntu@back.bugoga.ga:/var/www/front/js'
+           telegramSend(message: 'Staging frontend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Staging frontend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+
+         }
+       }
+
+    }

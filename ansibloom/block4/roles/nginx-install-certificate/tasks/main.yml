@@ -48,3 +48,7 @@
   copy:
     src: privkey.pem
     dest: /etc/letsencrypt/live/{{ DOMAIN_ROOT }}/
+
+- name: Reload nginx to activate conf
+  service: name=nginx state=restarted enabled=yes
+    

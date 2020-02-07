@@ -35,7 +35,7 @@
       virtualenv_python: python3
      args:
       chdir: /opt/srvstatus
-      creates: /opt/requirements.txt
+      
  
    - name: Change script mode
      file:

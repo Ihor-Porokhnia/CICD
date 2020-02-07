@@ -30,7 +30,7 @@
   args:
     chdir: /opt/srvstatus
 
- - name: virtualenv activate
-   shell: source venv/bin/activate    
-   args:
-    chdir: /opt/srvstatus
+- name: virtualenv activate
+  shell: source venv/bin/activate    
+  args:
+   chdir: /opt/srvstatus

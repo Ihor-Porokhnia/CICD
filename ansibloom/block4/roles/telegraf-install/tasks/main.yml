@@ -10,7 +10,7 @@
     deb: ~/telegraf_1.13.2-1_amd64.deb
 
 - name: Configuring filters
-  shell: telegraf --input-filter cpu:mem:disk:diskio:kernel:system:nginx:tomcat:mysql --output-filter influxdb config > /etc/telegraf/telegraf.conf   
+  shell: telegraf --input-filter cpu:mem:disk:diskio:kernel:system --output-filter influxdb config > /etc/telegraf/telegraf.conf   
 
 - name: Configuring destination output
   shell: sed -i 's/# urls = \[\"http:\/\/127.0.0.1:8086\"\]/urls = \[\"http:\/\/innodb.bugoga.ga:8086\"\]/g' /etc/telegraf/telegraf.conf
@@ -64,5 +64,5 @@
   when: install_venv.changed
 
 - name: Telegraf start enable
-  service: name=telegraf state=started enabled=yes
+  service: name=telegraf state=restarted enabled=yes
  

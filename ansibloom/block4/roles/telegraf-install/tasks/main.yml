@@ -35,20 +35,20 @@
       chdir: /opt/srvstatus
  
    - name: Change script mode
-      file:
-       path: /opt/srvstatus/service.py
-       state: touch
-       mode: a+x
+     file:
+      path: /opt/srvstatus/service.py
+      state: touch
+      mode: a+x
 
    - name: Move settings
-      copy:
-       src: settings.ini
-       dest: /opt/    
+     copy:
+      src: settings.ini
+      dest: /opt/    
      
    - name: Insert plugin setup
-      blockinfile:
-       path: /etc/telegraf/telegraf.conf
-       block: |
+     blockinfile:
+      path: /etc/telegraf/telegraf.conf
+      block: |
        [[inputs.exec]]
      
           commands = [

@@ -25,7 +25,7 @@
 
 - name: Install requirements
   pip: 
-    requirements: /opt/srvstatus/requirements.txt
+    requirements: /opt/requirements.txt
     virtualenv: venv
     virtualenv_python: python3
   args:

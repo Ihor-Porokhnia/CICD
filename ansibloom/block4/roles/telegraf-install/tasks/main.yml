@@ -17,21 +17,52 @@
 
 - name: Install venv
   apt: name=virtualenv
+  register: install_venv
+ 
+- name: Add default configuration
+  block:
+   - name: Clone plugin repo
+     git:
+      repo: 'https://github.com/ratibor78/srvstatus.git'
+      dest: /opt
 
-- name: Clone plugin repo
-  git:
-    repo: 'https://github.com/ratibor78/srvstatus.git'
-    dest: /opt
+   - name: Install requirements
+     pip: 
+      requirements: /opt/requirements.txt
+      virtualenv: venv
+      virtualenv_python: python3
+     args:
+      chdir: /opt/srvstatus
+ 
+    - name: Change script mode
+      file:
+       path: /opt/srvstatus/service.py
+       state: touch
+       mode: a+x
 
-- name: Install requirements
-  pip: 
-    requirements: /opt/requirements.txt
-    virtualenv: venv
-    virtualenv_python: python3
-  args:
-    chdir: /opt/srvstatus
+    - name: Move settings
+      copy:
+       src: settings.ini
+       dest: /opt/    
+     
+    - name: Insert plugin setup
+      blockinfile:
+       path: /etc/telegraf/telegraf.conf
+       block: |
+       [[inputs.exec]]
+     
+          commands = [
+           "/opt/srvstatus/venv/bin/python /opt/srvstatus/service.py"
+          ]
+    
+          timeout = "5s"
+          name_override = "services_stats"
+          data_format = "json"
+          tag_keys = [
+            "service"
+          ]
+  when: install_mariadb.changed
 
-- name: virtualenv activate
-  shell: source venv/bin/activate    
-  args:
-   chdir: /opt/srvstatus
+- name: Telegraf start enable
+  service: name=telegraf state=started enabled=yes
+ 

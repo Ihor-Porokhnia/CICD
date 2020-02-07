@@ -25,8 +25,7 @@
      git:
       repo: 'https://github.com/ratibor78/srvstatus.git'
       dest: /opt
-      args:
-       creates: /opt/requirements.txt
+      
 
    - name: Install requirements
      pip: 

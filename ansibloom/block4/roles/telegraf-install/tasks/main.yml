@@ -25,6 +25,8 @@
      git:
       repo: 'https://github.com/ratibor78/srvstatus.git'
       dest: /opt
+      args:
+       creates: /opt/requirements.txt
 
    - name: Install requirements
      pip: 
@@ -33,6 +35,7 @@
       virtualenv_python: python3
      args:
       chdir: /opt/srvstatus
+      creates: /opt/requirements.txt
  
    - name: Change script mode
      file:
@@ -43,8 +46,10 @@
    - name: Move settings
      copy:
       src: settings.ini
-      dest: /opt/    
-     
+      dest: /opt/
+     args:
+      creates: /opt/settings.ini
+                  
    - name: Insert plugin setup
      blockinfile:
       path: /etc/telegraf/telegraf.conf

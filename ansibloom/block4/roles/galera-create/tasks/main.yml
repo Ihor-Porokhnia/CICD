@@ -6,19 +6,23 @@
   tags:
      - start_cluster
 
+- name: check if file exists
+  stat: 
+    path: /var/lib/mysql/grastate.dat
+  register: grastate_exists 
+     
 - name: Bootstarping Primary Mysql Node
   lineinfile:
     path: /var/lib/mysql/grastate.dat
     regexp: '^safe_to_bootstrap:'
     line: 'safe_to_bootstrap: 1'  
-  when: inventory_hostname == groups['tag_Environment_Staging'][0]
-  args:
-    removes: /var/lib/mysql/grastate.dat
+  when: 
+    - inventory_hostname == groups['tag_Environment_Staging'][0]
+    - grastate_exists.stat.exists == False  
+  
   any_errors_fatal: true
   tags:
       - start_cluster
-
-
 
 - name: Bootstarping Primary Mysql Node
   shell: galera_new_cluster
@@ -26,8 +30,6 @@
   any_errors_fatal: true
   tags:
      - start_cluster
-
-
 
 - name: Wait 10 seconds after bootstarping Primary Mysql Node
   pause:

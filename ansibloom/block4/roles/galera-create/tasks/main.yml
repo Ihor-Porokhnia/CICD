@@ -11,8 +11,10 @@
     path: /var/lib/mysql/grastate.dat
     regexp: '^safe_to_bootstrap:'
     line: 'safe_to_bootstrap: 1'
-    create: 'yes'
+  
   when: inventory_hostname == groups['tag_Environment_Staging'][0]
+  args:
+    removes: /var/lib/mysql/grastate.dat
   any_errors_fatal: true
   tags:
       - start_cluster

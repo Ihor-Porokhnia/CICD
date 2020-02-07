@@ -10,7 +10,7 @@
   lineinfile:
     path: /var/lib/mysql/grastate.dat
     regexp: '^safe_to_bootstrap:'
-    line: safe_to_bootstrap: 1
+    line: 'safe_to_bootstrap: 1'
   when: inventory_hostname == groups['tag_Environment_Staging'][0]
   any_errors_fatal: true
   tags:

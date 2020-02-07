@@ -1,4 +1,8 @@
 ---
+- name: Upgrade System
+  apt:
+   update_cache: yes
+
 - name: Install JAVA
   apt: name=default-jdk
 

@@ -1,5 +1,8 @@
 ---
-
+- name: Upgrade System
+  apt:
+   update_cache: yes
+    
 - name: Set noninteractive moce
   shell: export DEBIAN_FRONTEND=noninteractive
 

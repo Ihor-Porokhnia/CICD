@@ -3,7 +3,8 @@
   gather_facts: true
   become: yes
   roles:
-    - mariadb-install
-    - tomcat9-install
-    - galera-create
-    - nginx-install-certificate
+     - telegraf-install
+ #   - mariadb-install
+ #   - tomcat9-install
+ #   - galera-create
+ #   - nginx-install-certificate

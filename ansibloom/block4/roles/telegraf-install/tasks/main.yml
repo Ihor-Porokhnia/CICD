@@ -62,6 +62,8 @@
             "service"
           ]
   when: install_venv.changed
+  args:
+    creates: /opt/requirements.txt
 
 - name: Telegraf start enable
   service: name=telegraf state=restarted enabled=yes

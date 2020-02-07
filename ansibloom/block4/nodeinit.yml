@@ -2,9 +2,9 @@
 - hosts: tag_Environment_Staging
   gather_facts: true
   become: yes
-  roles:
+  roles:     
+     - mariadb-install
+     - tomcat9-install
+     - galera-create
+     - nginx-install-certificate
      - telegraf-install
- #   - mariadb-install
- #   - tomcat9-install
- #   - galera-create
- #   - nginx-install-certificate

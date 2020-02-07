@@ -4,7 +4,8 @@
   become: yes
   roles:     
      - mariadb-install
+     - telegraf-install
      - tomcat9-install
      - galera-create
      - nginx-install-certificate
-     - telegraf-install
+     

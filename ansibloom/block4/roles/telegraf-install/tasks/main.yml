@@ -46,8 +46,7 @@
      copy:
       src: settings.ini
       dest: /opt/
-     args:
-      creates: /opt/settings.ini
+     
                   
    - name: Insert plugin setup
      blockinfile:

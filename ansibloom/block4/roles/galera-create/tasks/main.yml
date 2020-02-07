@@ -18,7 +18,7 @@
     line: 'safe_to_bootstrap: 1'  
   when: 
     - inventory_hostname == groups['tag_Environment_Staging'][0]
-    - grastate_exists.stat.exists == False  
+    - grastate_exists.stat.exists == True  
   
   any_errors_fatal: true
   tags:

@@ -11,6 +11,8 @@ resource "google_container_cluster" "primary" {
     password = "fortythousandsofmonkeys"
   }
 
+
+
   node_config {
     oauth_scopes = [
       "https://www.googleapis.com/auth/compute",

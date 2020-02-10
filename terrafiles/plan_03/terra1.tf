@@ -24,3 +24,7 @@ resource "google_container_cluster" "primary" {
     command = "gcloud container clusters get-credentials k8s-epam"
   }
 }
+
+resource "google_compute_address" "k8s_address" {
+  name = "k8s-web-addr"
+}

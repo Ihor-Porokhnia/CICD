@@ -29,15 +29,15 @@
   shell: ./sh.sh      
 
 - name: Move settings
-   copy:
-    src: settings.ini
-    dest: /opt/
+  copy:
+   src: settings.ini
+   dest: /opt/
      
                   
 - name: Insert plugin setup
-   blockinfile:
-    path: /etc/telegraf/telegraf.conf
-    block: |
+  blockinfile:
+   path: /etc/telegraf/telegraf.conf
+   block: |
      [[inputs.exec]]
     
         commands = [

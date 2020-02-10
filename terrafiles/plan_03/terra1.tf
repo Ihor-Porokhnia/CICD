@@ -28,5 +28,11 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_compute_global_address" "k8s_address" {
-  name   = "k8s-web-addr"
+  name   = "k8s-web"
 }
+
+resource "google_compute_global_address" "default" {
+  name = "k8s-web-addr"
+  address = "${google_compute_global_address.k8s_address.address}"
+}
+

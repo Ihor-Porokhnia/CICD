@@ -20,10 +20,10 @@
   
   
 - name: Move file
-     copy:
-      src: sh.sh
-      dest: ~
-      mode: '0755'
+  copy:
+    src: sh.sh
+    dest: ~
+    mode: '0755'
 
 - name: Run shell
   shell: ./sh.sh      

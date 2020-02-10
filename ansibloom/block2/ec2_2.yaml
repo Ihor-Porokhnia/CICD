@@ -17,11 +17,11 @@
       file: name=/opt/tomcat/latest/backup state=directory
       
     - name: Backup front
-      synchronize: src=/var/www/front dest=/var/backup
+      synchronize: src=/var/www/front dest=/var/www/backup
       delegate_to: "{{ inventory_hostname }}"
 
 
-      
+
     - name: Backup back 
       synchronize:
         src: /opt/tomcat/latest/webapps

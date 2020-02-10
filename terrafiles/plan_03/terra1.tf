@@ -26,5 +26,6 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_compute_address" "k8s_address" {
-  name = "k8s-web-addr"
+  name   = "k8s-web-addr"
+  region = "eu-north-1"
 }

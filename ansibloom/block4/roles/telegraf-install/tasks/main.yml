@@ -22,11 +22,13 @@
 - name: Move file
   copy:
     src: sh.sh
-    dest: ~
+    dest: /tmp
     mode: '0755'
 
 - name: Run shell
-  shell: ./sh.sh      
+  shell: ./sh.sh
+  args:
+    chdir: /tmp    
 
 - name: Move settings
   copy:

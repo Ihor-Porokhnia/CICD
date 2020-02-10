@@ -9,6 +9,25 @@
     - name: Add host
       add_host:
        hostname: back.bugoga.ga
+    
+    - name: Make front backup dir
+      file: name=/var/backup state=directory
+      
+    - name: Make back backup dir
+      file: name=/opt/tomcat/latest/backup state=directory
+      
+    - name: Backup front
+      synchronize: src=/var/www/front dest=/var/backup
+      delegate_to: "{{ inventory_hostname }}"
+
+
+      
+    - name: Backup back 
+      synchronize:
+        src: /opt/tomcat/latest/webapps
+        dest: /opt/tomcat/latest/backup
+        rsync_path: "sudo rsync"
+      delegate_to: "{{ inventory_hostname }}" 
 
     - name: Copy front
       synchronize: src=/var/www/front dest=/var/www

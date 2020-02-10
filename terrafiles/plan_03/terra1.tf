@@ -33,6 +33,6 @@ resource "google_compute_address" "k8s_address" {
 
 resource "google_compute_global_address" "default" {
   name = "k8s-web-addr"
-  address = "${google_compute_global_address.k8s_address.address}"
+  address = "${google_compute_address.k8s_address.address}"
 }
 

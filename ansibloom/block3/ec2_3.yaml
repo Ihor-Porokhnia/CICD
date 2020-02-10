@@ -1,25 +1,27 @@
 ---
-- hosts: tag_Environment_Staging
-  gather_facts: true
-  become: true
 
-  tasks:
-    - name: Bootstarping Primary Mysql Node
-      shell: galera_new_cluster
-      when: inventory_hostname == groups['tag_Environment_Staging'][0]
-      any_errors_fatal: true
-      tags:
-        - start_cluster
-
-    - name: Wait 10 seconds after bootstarping Primary Mysql Node
-      pause:
-        seconds: 10
-      tags:
-        - start_cluster
-
-    - name: Reload daemons
-      service: name=mariadb state=restarted
-      when: inventory_hostname != groups['tag_Environment_Staging'][0]
-      any_errors_fatal: true
-      tags:
-        - start_cluster
+  - hosts: tag_Environment_Staging
+    gather_facts: true
+    serial: 1
+    become: true
+  
+    tasks:
+              
+      - name: Rollback front
+        synchronize: src=/var/www/backup/front dest=/var/www
+        delegate_to: "{{ inventory_hostname }}"
+  
+  
+  
+      - name: Rollback back 
+        synchronize:
+          src: /opt/tomcat/latest/backup/webapps
+          dest: /opt/tomcat/latest/
+          rsync_path: "sudo rsync"
+        delegate_to: "{{ inventory_hostname }}" 
+  
+       
+      - name: Reload daemons
+        service: name=nginx state=restarted
+        service: name=tomcat state=restarted
+  

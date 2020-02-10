@@ -11,7 +11,7 @@
        hostname: back.bugoga.ga
     
     - name: Make front backup dir
-      file: name=/var/backup state=directory
+      file: name=/var/www/backup state=directory
       
     - name: Make back backup dir
       file: name=/opt/tomcat/latest/backup state=directory

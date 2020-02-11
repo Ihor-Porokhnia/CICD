@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: tomcat
+        image: bugoga/tmct:latest
         ports:
         - containerPort: 8080
           hostPort: 8080

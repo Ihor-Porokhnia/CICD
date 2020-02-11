@@ -23,7 +23,7 @@ resource "google_container_cluster" "primary" {
   }
 
   provisioner "local-exec" {
-    command = "gcloud container clusters get-credentials k8s-epam"
+    command = "export EXT_IP=${google_compute_address.k8s_address.address} && gcloud container clusters get-credentials k8s-epam"
   }
 }
 

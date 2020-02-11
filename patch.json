@@ -1,0 +1,1 @@
+kubectl patch svc lb-nginx -p '{"spec":{"loadBalancerIP":"35.228.175.197"}}'

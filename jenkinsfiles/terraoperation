@@ -11,8 +11,8 @@ node('Frontend') {
               sh 'terraform plan ./terrafiles/plan_03'
               sh 'terraform apply -auto-approve ./terrafiles/plan_03'
               sh 'kubectl apply -f ./kuberpunk/start-deploy.yaml'
-              sh 'kubectl patch svc lb-nginx -p \'{"spec":{"loadBalancerIP":"\'"${EXT_IP}"\'"}}\''
-              sh 'export'
+              sh 'kubectl patch svc lb-nginx -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
+              
     }
     else if (OPERATION == 'uncluster') {
               sh 'terraform init ./terrafiles/plan_03'

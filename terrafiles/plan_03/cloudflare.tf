@@ -17,7 +17,7 @@ resource "cloudflare_record" "kubepoint" {
 
   zone_id = "cb31e9f86a3d9b6579e64701c6e4a95b"
   name    = "k8s"
-  value   = "${google_compute_global_address.k8s_address.address}"
+  value   = "${google_compute_saddress.k8s_address.address}"
   type    = "A"
   proxied = false
 }

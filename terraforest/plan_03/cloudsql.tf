@@ -7,7 +7,12 @@ resource "google_sql_database_instance" "master" {
   settings {
     tier = "db-g1-small"
     ip_configuration {
-      ipv4_enabled = true
+      ipv4_enabled = "true"
+      authorized_networks {
+        value           = "0.0.0.0/0"
+        name            = "main"
+        
+      }
     }
   }
 }
@@ -20,6 +25,6 @@ resource "google_sql_database" "sd" {
 resource "google_sql_user" "remmie" {
   name     = "remmie"
   instance = "${google_sql_database_instance.master.name}"
-  host     = "0.0.0.0/0"
+  host     = "%"
   password = "nemA_666"
 }

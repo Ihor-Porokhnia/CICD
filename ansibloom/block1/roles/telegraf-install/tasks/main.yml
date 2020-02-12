@@ -33,7 +33,7 @@
 - name: Move settings
   copy:
    src: settings.ini
-   dest: /opt/
+   dest: /opt/srvstatus/
      
                   
 - name: Insert plugin setup

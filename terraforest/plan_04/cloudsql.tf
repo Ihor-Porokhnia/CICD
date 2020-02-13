@@ -1,4 +1,7 @@
 
+provider "google" {}
+
+
 resource "google_sql_database_instance" "master" {
   name             = "master-sql"
   database_version = "MYSQL_5_6"

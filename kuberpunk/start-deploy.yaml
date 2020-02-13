@@ -17,6 +17,7 @@ spec:
       containers:
       - name: nginx
         image: bugoga/ngnx:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 443
           hostPort: 443
@@ -42,6 +43,7 @@ spec:
       containers:
       - name: tomcat
         image: bugoga/tomas:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
           hostPort: 8080

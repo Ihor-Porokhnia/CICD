@@ -24,5 +24,12 @@ node('Frontend') {
               sh 'terraform destroy -auto-approve ./terraforest/plan_03'
     }
     
+    else if (OPERATION == 'rolloutf') {
+              sh 'kubectl set image deployment/nginx-deployment nginx=bugoga/ngnx:$COUNT --record'
+              sh 'kubectl scale deployment nginx-deployment --replicas=0'
+              sh 'kubectl scale deployment nginx-deployment --replicas=5'
+
+    }
+    
   }
 }

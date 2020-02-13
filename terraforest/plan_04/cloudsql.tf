@@ -3,13 +3,13 @@ provider "google" {}
 
 
 resource "google_sql_database_instance" "master" {
-  name             = "master-sql"
-  database_version = "MYSQL_5_7"
-  region           = "europe-north1"
+  name             = "master-instance"
+  database_version = "POSTGRES_11"
+  region           = "us-central1"
 
   settings {
+    s
     tier = "db-f1-micro"
-    
   }
 }
 

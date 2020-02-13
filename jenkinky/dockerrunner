@@ -16,7 +16,11 @@ node('master') {
   ])
  ])
  
- 
+  script {
+        
+       par1 = tag.split(" ")[0]
+        
+    }
  
  
  

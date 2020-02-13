@@ -5,8 +5,8 @@ node('master') {
   pipelineTriggers([
    [$class: 'GenericTrigger',
     genericVariables: [
-     [ key: 'actorname', value: '$.message.from.username' ],
-     [ key: 'message', value: '$.message.text' ],
+     [ key: 'repo', value: '$.repository.repo_name' ],
+     [ key: 'name', value: '$.repository.name' ],
     ],
     token: 'dk',
     printContributedVariables: true,

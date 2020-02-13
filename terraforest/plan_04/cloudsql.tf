@@ -2,7 +2,7 @@
 provider "google" {}
 
 resource "google_sql_database_instance" "master" {
-  name             = "master-instance"
+  name             = "master-lomaster"
   database_version = "POSTGRES_11"
   region           = "us-central1"
 

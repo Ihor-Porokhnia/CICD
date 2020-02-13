@@ -16,14 +16,10 @@ node('master') {
   ])
  ])
  
-  script {
-        
-       par1 = 'tert'
-        
-    }
+  
  
  
  
- stage('check'){  build job: 'clusterpipe', parameters: [string(name: 'OPERATION', value: 'rolloutf'), string(name: 'COUNT', value: par1)] }
+ stage('check'){  build job: 'clusterpipe', parameters: [string(name: 'OPERATION', value: 'rolloutf'), string(name: 'COUNT', value: tag)] }
  
 }

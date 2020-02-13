@@ -1,0 +1,20 @@
+#!groovy
+
+node('master') {
+ properties([
+  pipelineTriggers([
+   [$class: 'GenericTrigger',
+    genericVariables: [
+     [ key: 'actorname', value: '$.message.from.username' ],
+     [ key: 'message', value: '$.message.text' ],
+    ],
+    token: 'dk',
+    printContributedVariables: true,
+    printPostContent: true,
+
+   ]
+  ])
+ ])
+ 
+
+}

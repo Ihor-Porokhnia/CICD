@@ -1,6 +1,6 @@
 #!groovy
-
 node('master') {
+ 
  properties([
   pipelineTriggers([
    [$class: 'GenericTrigger',
@@ -15,7 +15,12 @@ node('master') {
    ]
   ])
  ])
- stage('run') {
+ 
+ 
+ 
+ 
  build job: clusterpipe, parameters: [string(name: 'OPERATION', value: rolloutf), string(name: 'COUNT', value: tag)]
- }
+ 
+ 
+ 
 }

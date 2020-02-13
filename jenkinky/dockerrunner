@@ -18,7 +18,7 @@ node('master') {
  
   script {
         
-       par1 = tag.split(" ")[0]
+       par1 = 'tert'
         
     }
  

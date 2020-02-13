@@ -5,7 +5,7 @@ node('master') {
   pipelineTriggers([
    [$class: 'GenericTrigger',
     genericVariables: [
-     [ key: 'repo', value: '$.push_data.tag' ],
+     [ key: 'tag', value: '$.push_data.tag' ],
      [ key: 'name', value: '$.repository.name' ],
     ],
     token: 'dk',

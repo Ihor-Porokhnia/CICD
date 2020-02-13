@@ -1,0 +1,52 @@
+#!groovy
+properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, regexpFilterExpression: '"refs/heads/backend"', regexpFilterText: '', token: 'bPipe')])])
+
+
+    node('Backend') {
+
+        stage('Checkout')  {
+            git branch: 'maste', credentialsId: 'ssh-key-main', url: 'git@github.com:Ihor-Porokhnia/WebApp.git'
+        }
+
+
+        stage('Build') {
+            try {
+            sh 'mvn versions:set  -DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT'
+            telegramSend(message: 'Backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+            sh 'mvn clean install'
+
+          }
+           catch (exc) {
+            telegramSend(message: 'Backend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+        }
+
+        stage('Test') {
+
+               try{
+               /////TODO: TESTS
+                telegramSend(message: 'Test backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+          }
+          catch (exc) {
+           telegramSend(message: 'Test backend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+            error 'FAIL'
+          }
+        }
+
+        stage('Deploy')  {
+           try {
+               sh 'sudo cp target/Backend-0.0.'+ env.BUILD_ID + '-SNAPSHOT.war /opt/tomcat/latest/webapps/Backend.war'
+               sh 'sudo systemctl restart tomcat'
+               sh 'sudo systemctl restart nginx'
+               telegramSend(message: 'Staging backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
+           }
+             catch (exc) {
+             telegramSend(message: 'Staging backend build #' + env.BUILD_ID + ' failed' , chatId: -393518449)
+             error 'FAIL'
+
+          }
+
+        }
+
+}

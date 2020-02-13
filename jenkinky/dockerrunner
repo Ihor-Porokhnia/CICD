@@ -19,7 +19,6 @@ node('master') {
  
  
  
- build job: clusterpipe, parameters: [string(name: 'OPERATION', value: rolloutf), string(name: 'COUNT', value: tag)]
  
  
  

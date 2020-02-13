@@ -20,6 +20,6 @@ node('master') {
  
  
  
- stage('check'){  build job: 'clusterpipe', parameters: [string(name: 'OPERATION', value: rolloutf), string(name: 'COUNT', value: tag)] }
+ stage('check'){  build job: 'clusterpipe', parameters: [string(name: 'OPERATION', value: 'rolloutf'), string(name: 'COUNT', value: tag)] }
  
 }

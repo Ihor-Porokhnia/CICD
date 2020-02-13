@@ -17,10 +17,7 @@ resource "google_sql_database_instance" "master" {
       }
     }
   }
-   provisioner "local-exec" {
-    command = "sleep 20 && mysql -uremmie -hsql.bugoga.ga -pnemA_666 -e \"CREATE TABLE  IF NOT EXISTS SimpleDatabase.NAMES(ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, NAME TEXT NOT NULL); INSERT INTO SimpleDatabase.NAMES (NAME)  VALUES ('LOREM IPSUM');\""
-  }
-
+   
 }
 
 resource "google_sql_database" "sd" {

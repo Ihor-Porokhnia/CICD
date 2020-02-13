@@ -8,7 +8,7 @@ resource "google_sql_database_instance" "master" {
   region           = "us-central1"
 
   settings {
-    s
+    
     tier = "db-f1-micro"
   }
 }

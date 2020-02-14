@@ -16,7 +16,7 @@ resource "azurerm_container_group" "cg" {
 
   container {
     name             = "nginx"
-    image            = "nginx"
+    image            = "bugoga/ngnx:cloudfronts"
     cpu              = "0.5"
     memory           = "1.5"    
     ports {

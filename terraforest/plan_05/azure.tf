@@ -16,11 +16,21 @@ resource "azurerm_container_group" "cg" {
 
   container {
     name             = "nginx"
-    image            = "microsoft/aci-helloworld:latest"
+    image            = "bugoga/ngnx:latest"
     cpu              = "0.5"
-    memory           = "1.5"
-    network_protocol = "tcp"
-    ports            = ["80", "443"]
+    memory           = "1.5"    
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+    ports {
+      port     = 8080
+      protocol = "TCP"
+    }
 
   }
 

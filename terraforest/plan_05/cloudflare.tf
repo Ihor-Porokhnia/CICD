@@ -12,3 +12,4 @@ resource "cloudflare_record" "azur" {
   type    = "A"
   proxied = false
 }
+

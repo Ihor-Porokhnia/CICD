@@ -10,13 +10,13 @@ node('Frontend') {
               sh 'terraform plan ./terraforest/plan_03'
               sh 'terraform apply -auto-approve ./terraforest/plan_03'
               sh 'kubectl apply -f ./kuberpunk/start-deploy.yaml'
-              sh 'kubectl patch svc lb-nginx -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
+             /* sh 'kubectl patch svc lb-nginx -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
               sh 'kubectl patch svc lb-tomcat -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
               sh 'kubectl patch svc lb-nginx -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
               sh 'kubectl patch svc lb-tomcat -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
               sh 'kubectl patch svc lb-nginx -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
               sh 'kubectl patch svc lb-tomcat -p \'{"spec":{"loadBalancerIP":"\'"$(gcloud compute addresses list | grep k8s | cut -d " " -f 3)"\'"}}\''
-              
+              */
     }
     else if (OPERATION == 'destroy') {
               sh 'terraform init ./terraforest/plan_03'

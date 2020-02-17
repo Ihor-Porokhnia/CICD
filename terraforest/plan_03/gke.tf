@@ -23,11 +23,7 @@ resource "google_container_cluster" "primary" {
   }
 
   provisioner "local-exec" {
-    command = "gcloud container clusters get-credentials k8s-epam 
-    && kubectl patch svc lb-nginx -p 
-    '{\"spec\":{\"loadBalancerIP\":\"'\"${google_compute_address.k8s_address.address}\"'\"}}' 
-    && kubectl patch svc lb-tomcat -p 
-    '{\"spec\":{\"loadBalancerIP\":\"'\"${google_compute_address.k8s_address.address}\"'\"}}'"
+    command = "gcloud container clusters get-credentials k8s-epam && kubectl patch svc lb-nginx -p '{\"spec\":{\"loadBalancerIP\":\"'\"${google_compute_address.k8s_address.address}\"'\"}}' && kubectl patch svc lb-tomcat -p '{\"spec\":{\"loadBalancerIP\":\"'\"${google_compute_address.k8s_address.address}\"'\"}}'"
   }
 }
 

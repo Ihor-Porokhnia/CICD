@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: bugoga/tomas:latest
+        image: gcr.io/epam-267215/tomas:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

@@ -27,13 +27,23 @@ resource "azurerm_container_group" "cg" {
       port     = 80
       protocol = "TCP"
     }
+    
+
+  }
+  
+    container {
+    name             = "tomcat"
+    image            = "bugoga/tomat:latest"
+    cpu              = "0.5"
+    memory           = "1.5"    
     ports {
       port     = 8080
       protocol = "TCP"
     }
 
-  }
+    
 
+  }
 
 
   tags = {

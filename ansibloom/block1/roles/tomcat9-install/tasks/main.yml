@@ -25,14 +25,14 @@
 
 - name: Download Tomcat
   get_url:
-    url: http://apache.ip-connect.vn.ua/tomcat/tomcat-9/v9.0.31/bin/apache-tomcat-9.0.30.tar.gz
+    url: http://apache.ip-connect.vn.ua/tomcat/tomcat-9/v9.0.31/bin/apache-tomcat-9.0.31.tar.gz
     dest: /tmp
 
 - name: Extract archive
-  command: chdir=/opt/tomcat /bin/tar xvf /tmp/apache-tomcat-9.0.30.tar.gz -C /opt/tomcat/ creates=/opt/tomcat/apache-tomcat-9.0.30
+  command: chdir=/opt/tomcat /bin/tar xvf /tmp/apache-tomcat-9.0.31.tar.gz -C /opt/tomcat/ creates=/opt/tomcat/apache-tomcat-9.0.31
 
 - name: Symlink install directory
-  file: src=/opt/tomcat/apache-tomcat-9.0.30 path=/opt/tomcat/latest state=link
+  file: src=/opt/tomcat/apache-tomcat-9.0.31 path=/opt/tomcat/latest state=link
 
 - name: Change ownership of Tomcat installation
   file: path=/opt/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes

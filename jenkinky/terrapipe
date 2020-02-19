@@ -10,12 +10,15 @@ node('Frontend') {
               sh 'terraform init ./terraforest/plan_02'
               sh 'terraform plan -var="instance_count=$COUNT" ./terraforest/plan_02'
               sh 'terraform apply -auto-approve -var="instance_count=$COUNT" ./terraforest/plan_02'
+              build job: 'ansipipe', parameters: [string(name: 'OPERATION', value: 'create')]  propagate: false, wait: false 
+
 
     }
     else if (OPERATION == 'destroy') {
               sh 'terraform init ./terraforest/plan_02'
               sh 'terraform plan -var="instance_count=$COUNT" ./terraforest/plan_02'
               sh 'terraform destroy -auto-approve -var="instance_count=$COUNT" ./terraforest/plan_02'
+              
     }
 
   }

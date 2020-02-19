@@ -25,7 +25,7 @@
 
 - name: Download Tomcat
   get_url:
-    url: http://apache.ip-connect.vn.ua/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz
+    url: http://apache.ip-connect.vn.ua/tomcat/tomcat-9/v9.0.31/bin/apache-tomcat-9.0.30.tar.gz
     dest: /tmp
 
 - name: Extract archive

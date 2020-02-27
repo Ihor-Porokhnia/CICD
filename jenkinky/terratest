@@ -21,14 +21,6 @@ node('Frontend') {
               build job: 'ansipipe', propagate: false, wait: false, parameters: [string(name: 'OPERATION', value: 'nodeinit')]   
               
     }
-    else if (OPERATION == 'test') {
-           withCredentials([string(credentialsId: 'aws-key-id', variable: 'aws-key'), string(credentialsId: 'aws-secret-key', variable: 'aws-secret')]) {
 
-              sh 'terraform init ./terraforest/plan_01'
-              sh 'terraform plan  -var="aws_id=$aws-key" -var="aws-secret-key=$aws-secret" ./terraforest/plan_01'
-              sh 'terraform apply  -var="aws_id=$aws-key" -var="aws-secret-key=$aws-secret" ./terraforest/plan_01'
-           }    
-              
-    }
   }
 }

@@ -24,9 +24,10 @@ node('Frontend') {
     else if (OPERATION == 'test') {
            withCredentials([string(credentialsId: 'aws-key-id', variable: 'aws-key'), string(credentialsId: 'aws-secret-key', variable: 'aws-secret-k')]) {
 
+
               sh 'terraform init ./terraforest/plan_01'
               sh 'terraform plan  -var="aws_id=$aws-key" -var="aws-secret=$aws-secret-k" ./terraforest/plan_01'
-              sh 'terraform apply  -var="aws_id=$aws-key" -var="aws-secrets=$aws-secret-k" ./terraforest/plan_01'
+              sh 'terraform apply  -var="aws_id=$aws-key" -var="aws-secret=$aws-secret-k" ./terraforest/plan_01'
            }    
               
     }

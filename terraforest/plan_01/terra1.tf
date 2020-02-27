@@ -17,7 +17,7 @@ variable "aws_id" {
   default = "a"
 }
 
-variable "aws_secret" {
+variable "aws-secret" {
   type    = string
   default = "a"
 }

@@ -14,7 +14,7 @@ properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactD
                 withMaven( mavenOpts: '-DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT') {
             sh 'mvn versions:set  versions:commit -DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT'
             telegramSend(message: 'Backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
-            sh 'mvn clean install'
+            sh 'mvn clean install -DnewVersion=0.0.' + env.BUILD_ID +'-SNAPSHOT'
             
             
                 }

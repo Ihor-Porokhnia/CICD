@@ -13,7 +13,7 @@ properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactD
             try {
                 withMaven( ) {
             
-            sh 'sed -i "s/<version>1.0-SNAPSHOT<\/version>/<version>0.0.'+ env.BUILD_ID +'-SNAPSHOT<\/version>/g" pom.xml'
+            sh 'sed -i "s/<version>1.0-SNAPSHOT<\/version>/<version>0.0.${env.BUILD_ID}-SNAPSHOT<\/version>/g" pom.xml'
             telegramSend(message: 'Backend build #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
             sh 'mvn clean install'
             

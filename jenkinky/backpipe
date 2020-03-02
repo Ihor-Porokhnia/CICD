@@ -32,12 +32,9 @@ properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactD
                try{
                
                   withMaven( ) {
-            sh 'mvn install'
+            sh 'mvn build'
             
-            telegramSend(message: 'Backend test #' + env.BUILD_ID + ' successfully done' , chatId: -393518449)
-            
-            
-            
+                       
                 }
 
 

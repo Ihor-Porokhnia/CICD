@@ -32,7 +32,7 @@ properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactD
                try{
                
                   withMaven( ) {
-            sh 'mvn build'
+            sh 'mvn package'
             
                        
                 }

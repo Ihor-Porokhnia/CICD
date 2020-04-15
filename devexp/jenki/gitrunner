@@ -3,5 +3,5 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 node('master') {
 
 if ( ref == 'refs/heads/master' )  { build job: 'EBS', propagate: false, wait: false }
-
+else if ( ref == 'refs/heads/frontend' )  { build job: 'S3', propagate: false, wait: false }
 }

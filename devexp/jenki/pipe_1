@@ -6,6 +6,7 @@ node('master') {
           }
         stage('Build')  {
            withMaven( ) {
+            sh 'sed -i "s/<version>0.0.2-SNAPSHOT<\\/version>/<version>0.0.'+ env.BUILD_ID + '-SNAPSHOT<\\/version>/g" pom.xml'
             sh 'mvn package'       
                        
                 }

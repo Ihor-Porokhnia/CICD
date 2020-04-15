@@ -4,4 +4,7 @@ node('master') {
         stage('Checkout')  {
           git credentialsId: '89c6b51b-efd7-4c25-b783-1e39e5a2445c', url: 'git@github.com:Ihor-Porokhnia/devexp.git'
           }
+        stage('Build')  {
+          sh 'mvn package'
+          }
       }

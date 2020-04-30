@@ -10,18 +10,11 @@ node('builder-1') {
       script {
         def tfHome = tool name: 'Terraform'
         env.PATH = "${tfHome}:${env.PATH}"
-              }
-        sh 'terraform -version'
       }
- }
-  stage('TerraPlay')  {    
-
-   // if (OPERATION == 'create') {
-              sh 'terraform init ./devexp/terra/plan_vault/vault.tf'
-    
-    //}
-      
-              
+        sh 'terraform -version'
     }
-  }
+ }
+              stage('TerraPlay')  {    
+              sh 'terraform init ./devexp/terra/plan_vault/vault.tf'           
+              }
 }

@@ -19,6 +19,6 @@ node('builder-1') {
       def tfHome = tool name: 'Terraform'
       env.PATH = "${tfHome}:${env.PATH}"
     }
-    sh 'terraform init ./devexp/terra/plan_vault/vault.tf'
+    sh 'terraform init ${WORKSPACE}/devexp/terra/plan_vault/vault.tf'
   }
 }

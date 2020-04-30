@@ -4,17 +4,17 @@ node('builder-1') {
   stage('Checkout')  {
     git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
   }
-  
-   stage('Set Terraform') {
-    
-      script {
-        def tfHome = tool name: 'Terraform'
-        env.PATH = "${tfHome}:${env.PATH}"
-      }
-        sh 'terraform -version'
-    
- }
-              stage('TerraPlay')  {    
-              sh 'terraform init ./devexp/terra/plan_vault/vault.tf'           
-              }
+
+  stage('Set Terraform') {
+
+    script {
+      def tfHome = tool name: 'Terraform'
+      env.PATH = "${tfHome}:${env.PATH}"
+    }
+    sh 'terraform -version'
+
+  }
+  stage('TerraPlay')  {
+    sh 'terraform init ./devexp/terra/plan_vault/vault.tf'
+  }
 }

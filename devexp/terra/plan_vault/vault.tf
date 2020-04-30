@@ -1,26 +1,18 @@
 provider "vault" {
- address = "${var.vault_addr}"
- token = "${var.vault_token}"
+ address = var.vault_addr
+ token = var.vault_token
 }
+
+data "vault_generic_secret" "aws_secret" {
+  path = var.secret_path
+}
+
 variable "vault_addr" {
   type    = string  
 }
 variable "vault_token" {
   type    = string  
 }
-
-variable "region" {
+variable "secret_path" {
   type    = string  
-}
-data "vault_aws_access_credentials" "creds" {
-  backend = "amazon01"
-  role    = "terraformer"
-  type    = "sts"
-}
-
-
-provider "aws" {
-  access_key = "${data.vault_aws_access_credentials.creds.access_key}"
-  secret_key = "${data.vault_aws_access_credentials.creds.secret_key}"
-  region  = "${var.region}"
 }

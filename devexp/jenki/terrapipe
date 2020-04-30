@@ -5,22 +5,20 @@ node('builder-1') {
     git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
   }
   {
- stage('Set Terraform path') 
+   stage('Set Terraform') {
     steps {
       script {
-        def tfHome = tool name: ‘Terraform’
-        env.PATH = “${tfHome}:${env.PATH}”
+        def tfHome = tool name: 'Terraform'
+        env.PATH = "${tfHome}:${env.PATH}"
               }
-        sh ‘terraform — version’
+        sh 'terraform -version'
       }
  }
   stage('TerraPlay')  {    
 
    // if (OPERATION == 'create') {
               sh 'terraform init ./devexp/terra/plan_vault/vault.tf'
-              
-
-
+    
     //}
       
               

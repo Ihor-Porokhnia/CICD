@@ -4,7 +4,7 @@ node('builder-1') {
   stage('Checkout')  {
     git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
   }
-  {
+  
    stage('Set Terraform') {
     steps {
       script {

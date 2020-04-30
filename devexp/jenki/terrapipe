@@ -7,11 +7,8 @@ node('builder-1') {
   stage('TerraPlay')  {    
 
     if (OPERATION == 'create') {
-              sh 'terraform init ./terraforest/plan_02'
-              sh 'terraform plan -var="instance_count=$COUNT" ./terraforest/plan_02'
-              sh 'terraform apply -auto-approve -var="instance_count=$COUNT" ./terraforest/plan_02'
-              sleep 15
-              build job: 'ansipipe', propagate: false, wait: false, parameters: [string(name: 'OPERATION', value: 'nodeinit')]   
+              sh 'terraform init ./devexp/terra/plan_vault/vault.tf'
+              
 
 
     }

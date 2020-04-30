@@ -1,6 +1,6 @@
 #!groovy
 properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
-node('Frontend') {
+node('builder-1') {
   stage('Checkout')  {
     git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
   }

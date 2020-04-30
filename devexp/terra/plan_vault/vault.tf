@@ -15,7 +15,7 @@ variable "region" {
 data "vault_aws_access_credentials" "creds" {
   backend = "amazon01"
   role    = "terraformer"
-  type    + "sts"
+  type    = "sts"
 }
 
 

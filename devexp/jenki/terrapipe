@@ -6,12 +6,12 @@ node('builder-1') {
   }
   stage('TerraPlay')  {    
 
-    if (OPERATION == 'create') {
+   // if (OPERATION == 'create') {
               sh 'terraform init ./devexp/terra/plan_vault/vault.tf'
               
 
 
-    }
+    //}
       
               
     }

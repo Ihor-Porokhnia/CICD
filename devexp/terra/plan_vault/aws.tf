@@ -11,8 +11,8 @@ provider "aws" {
 
 
 resource "aws_instance" "myUbuntu" {
-  ami           = "ami-1dab2163"
-  instance_type = "t3.micro"
+  ami           = "ami-0323c3dd2da7fb37d"
+  instance_type = "t2.micro"
 }
 
 variable "region" {

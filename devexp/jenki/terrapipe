@@ -17,8 +17,11 @@ node('builder-1') {
 
     withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
       //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
-      sh 'terraform init  ./devexp/terra/plan_vault'
-      sh 'terraform plan  ./devexp/terra/plan_vault'
+      sh '''
+      terraform init  ./devexp/terra/plan_vault
+      terraform plan  ./devexp/terra/plan_vault
+      terraform apply  ./devexp/terra/plan_vault
+      '''
     }
   }
 }

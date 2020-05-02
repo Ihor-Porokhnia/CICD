@@ -16,16 +16,17 @@ node('builder-1') {
   stage('TerraPlay')  {
     if (OPERATION == 'create') {
       withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
-        //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
-        sh 'terraform init -backend-config="token=$TFE_TOKEN" ./devexp/terra/plan_vault'
-        sh 'terraform apply -backend-config="token=$TFE_TOKEN" ./devexp/terra/plan_vault'
+        //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
+        //-backend-config="token=$TFE_TOKEN"      
+        sh 'terraform init  ./devexp/terra/plan_vault'
+        sh 'terraform apply  ./devexp/terra/plan_vault'
       }
     }
     else if (OPERATION == 'destroy') {
       withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
         //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
-        sh 'terraform init -backend-config="token=$TFE_TOKEN" ./devexp/terra/plan_vault'
-        sh 'terraform destroy  -backend-config="token=$TFE_TOKEN" ./devexp/terra/plan_vault'
+        sh 'terraform init  ./devexp/terra/plan_vault'
+        sh 'terraform destroy  ./devexp/terra/plan_vault'
       }
     }
   }

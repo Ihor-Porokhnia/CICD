@@ -20,8 +20,8 @@ node('builder-1') {
         //-backend-config="token=$TFE_TOKEN"
         sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"             
         sh 'terraform init  ./devexp/terra/plan_vault'
-        sh 'terraform apply  ./devexp/terra/plan_vault'
         sh 'rm $HOME/.terraformrc'
+        sh 'terraform apply  ./devexp/terra/plan_vault'        
         logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
             
       }
@@ -31,8 +31,8 @@ node('builder-1') {
         //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
         sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"     
         sh "terraform init   ./devexp/terra/plan_vault"
-        sh 'terraform destroy  ./devexp/terra/plan_vault'
         sh 'rm $HOME/.terraformrc'
+        sh 'terraform destroy  ./devexp/terra/plan_vault'        
         logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
       }
     }

@@ -1,3 +1,5 @@
 region      = "eu-north-1"
 AZ          = "eu-north-1a"
 secret_path = "amazon01/sts/terraformer"
+inst_ami    = "ami-0b7a46b4bd694e8a6"
+inst_type   = "t3.micro"

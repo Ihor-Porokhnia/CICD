@@ -19,7 +19,6 @@ node('builder-1') {
       //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
       sh '''
       terraform init  ./devexp/terra/plan_vault
-      terraform plan  ./devexp/terra/plan_vault
       terraform apply  ./devexp/terra/plan_vault
       '''
     }

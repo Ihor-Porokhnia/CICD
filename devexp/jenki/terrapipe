@@ -25,8 +25,7 @@ node('builder-1') {
             sh 'terraform apply  ./devexp/terra/plan_vault'
           }
           finally { sh 'rm $HOME/.terraformrc' }
-          logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
-
+          
         }
       }
       else if (OPERATION == 'destroy') {
@@ -39,8 +38,7 @@ node('builder-1') {
             sh 'terraform destroy  ./devexp/terra/plan_vault'
           }
           finally { sh 'rm $HOME/.terraformrc' }
-
-          logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
+          
         }
       }
     }

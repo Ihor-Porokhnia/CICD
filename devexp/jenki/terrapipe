@@ -18,13 +18,15 @@ node('builder-1') {
       withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
         //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
         //-backend-config="token=$TFE_TOKEN"
-        sh 'cat > $HOME/.terraformrc << EOF
+        sh '''
+            cat > $HOME/.terraformrc << EOF
             credentials "app.terraform.io" {
             token = "${echo $TFE_TOKEN}"
             }
-            EOF'      
-        sh 'terraform init  ./devexp/terra/plan_vault'
-        sh 'terraform apply  ./devexp/terra/plan_vault'
+            EOF      
+            terraform init  ./devexp/terra/plan_vault
+            terraform apply  ./devexp/terra/plan_vault
+            '''
       }
     }
     else if (OPERATION == 'destroy') {

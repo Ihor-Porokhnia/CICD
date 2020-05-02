@@ -22,6 +22,7 @@ node('builder-1') {
         sh 'terraform init  ./devexp/terra/plan_vault'
         sh 'terraform apply  ./devexp/terra/plan_vault'
         sh 'rm $HOME/.terraformrc'
+        logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
             
       }
     }
@@ -32,6 +33,7 @@ node('builder-1') {
         sh "terraform init   ./devexp/terra/plan_vault"
         sh 'terraform destroy  ./devexp/terra/plan_vault'
         sh 'rm $HOME/.terraformrc'
+        logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
       }
     }
   }

@@ -19,11 +19,7 @@ node('builder-1') {
         //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
         //-backend-config="token=$TFE_TOKEN"
         sh '''
-            cat > $HOME/.terraformrc << EOF
-            credentials "app.terraform.io" {
-            token = "${echo $TFE_TOKEN}"
-            }
-            EOF      
+            echo "credentials "app.terraform.io" { token = "${TFE_TOKEN}" } " > $HOME/.terraformrc              
             terraform init  ./devexp/terra/plan_vault
             terraform apply  ./devexp/terra/plan_vault
             '''

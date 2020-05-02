@@ -1,0 +1,41 @@
+#!groovy
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
+node('builder-1') {
+  ansiColor('xterm') {
+    stage('Checkout')  {
+      git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
+    }
+
+    stage('Set Terraform') {
+
+      script {
+        def tfHome = tool name: 'Terraform'
+        env.PATH = "${tfHome}:${env.PATH}"
+      }
+
+    }
+    stage('TerraPlay')  {
+      if (OPERATION == 'create') {
+        withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
+          //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
+          //-backend-config="token=$TFE_TOKEN"
+          sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
+          sh 'terraform init  ./plarchitect/terraform/plan_vault'
+          try { sh 'terraform apply  ./plarchitect/terraform/plan_vault' }
+          finally { sh 'rm $HOME/.terraformrc' }
+
+        }
+      }
+      else if (OPERATION == 'destroy') {
+        withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
+          //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
+          sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
+          sh "terraform init   ./plarchitect/terraform/plan_vault"
+          try { sh 'terraform destroy  ./plarchitect/terraform/plan_vault' }
+          finally { sh 'rm $HOME/.terraformrc' }
+
+        }
+      }
+    }
+  }
+}

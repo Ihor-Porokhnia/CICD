@@ -24,7 +24,10 @@ node('builder-1') {
           try {
             sh 'terraform apply  ./devexp/terra/plan_vault'
           }
-          finally { sh 'rm $HOME/.terraformrc' }
+          catch (Exception e) {
+            sh 'rm $HOME/.terraformrc'
+            throw e
+          }
           logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
 
         }
@@ -38,7 +41,10 @@ node('builder-1') {
           try {
             sh 'terraform destroy  ./devexp/terra/plan_vault'
           }
-          finally { sh 'rm $HOME/.terraformrc' }
+          catch (Exception e) {
+            sh 'rm $HOME/.terraformrc'
+            throw e
+          }
 
           logParser parsingRulesPath: '/etc/parsring-rules', useProjectRule: false
         }

@@ -1,6 +1,6 @@
 provider "vault" {
- address = var.vault_addr
- token = var.vault_token
+ //address = var.vault_addr
+ //token = var.vault_token
 }
 
 data "vault_generic_secret" "aws_secret" {

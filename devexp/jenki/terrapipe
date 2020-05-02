@@ -25,7 +25,7 @@ node('builder-1') {
     else if (OPERATION == 'destroy') {
       withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
         //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
-        sh "TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v  terraform init -backend-config='token=${TFE_TOKEN}'   ./devexp/terra/plan_vault"
+        sh "terraform init   ./devexp/terra/plan_vault"
         sh 'terraform destroy  ./devexp/terra/plan_vault'
       }
     }

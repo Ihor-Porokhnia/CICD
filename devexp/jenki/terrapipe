@@ -1,5 +1,7 @@
 #!groovy
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)
+  ])
+])
 node('builder-1') {
   stage('Checkout')  {
     git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
@@ -11,16 +13,25 @@ node('builder-1') {
       def tfHome = tool name: 'Terraform'
       env.PATH = "${tfHome}:${env.PATH}"
     }
-
   }
   stage('TerraPlay')  {
-
+    if (OPERATION == 'create') {
     withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
-      //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
+        //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
       sh '''
       terraform init  ./devexp/terra/plan_vault
       terraform apply  ./devexp/terra/plan_vault
       '''
+      }
+    }
+    elif (OPERATION == 'destroy') {
+    withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
+        //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v       
+      sh '''
+      terraform init  ./devexp/terra/plan_vault
+      terraform destroy  ./devexp/terra/plan_vault
+      '''
+      }
     }
   }
 }

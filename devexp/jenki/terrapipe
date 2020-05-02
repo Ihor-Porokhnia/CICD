@@ -17,6 +17,7 @@ node('builder-1') {
 
     withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga']]) {
       //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
+      sh 'echo $JENKINS_HOME'
       sh 'terraform init -var="vault_addr=$VAULT_ADDR" -var="vault_token=$VAULT_TOKEN" -var="region=eu-north-1" -var="secret_path=amazon01/sts/terraformer" ./devexp/terra/plan_vault'
       sh 'terraform plan -var="vault_addr=$VAULT_ADDR" -var="vault_token=$VAULT_TOKEN" -var="region=eu-north-1" -var="secret_path=amazon01/sts/terraformer" ./devexp/terra/plan_vault'
     }

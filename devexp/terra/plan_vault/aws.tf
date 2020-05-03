@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "backend_S3_bucket" {
-  bucket = "backendS3bucket00"
+  bucket = "backends3bucket00"
   acl    = "private"
 }
 

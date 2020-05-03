@@ -13,7 +13,11 @@ resource "aws_s3_bucket" "backend_S3_bucket" {
   bucket = "backends3bucket01"
   acl    = "private"
 }
-
+resource "aws_s3_bucket_object" "object" {
+  key        = "aws.tf"
+  bucket     = "${aws_s3_bucket.backend_S3_bucket.id}"
+  source     = "./devexp/terra/plan_vault/aws.tf"  
+}
 
 variable "region" {
   type    = string  

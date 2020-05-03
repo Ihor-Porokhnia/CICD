@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 
-resource "aws_instance" "myUbuntu" {
+resource "aws_instance" "proxy {
   ami           = var.inst_ami
   instance_type = var.inst_type
   subnet_id     = aws_subnet.external_subnet.id

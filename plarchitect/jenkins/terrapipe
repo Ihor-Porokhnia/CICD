@@ -2,17 +2,21 @@
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
 node('builder-1') {
   ansiColor('xterm') {
+
+
     stage('Checkout')  {
       git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
     }
+
 
     stage('Set Terraform') {
       script {
         def tfHome = tool name: 'Terraform'
         env.PATH = "${tfHome}:${env.PATH}"
       }
-
     }
+
+
     stage('TerraPlay')  {
       if (OPERATION == 'create') {
         withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {

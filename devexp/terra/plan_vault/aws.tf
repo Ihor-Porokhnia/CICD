@@ -12,12 +12,11 @@ provider "aws" {
 resource "aws_s3_bucket" "backend_S3_bucket" {
   bucket = "backends3bucket01"
   acl    = "private"
+  provisioner "local-exec" {
+    command = "pwd"
+  }
 }
-resource "aws_s3_bucket_object" "object" {
-  key        = "aws.tf"
-  bucket     = "${aws_s3_bucket.backend_S3_bucket.id}"
-  source     = "./devexp/terra/plan_vault/aws.tf"  
-}
+
 
 variable "region" {
   type    = string  

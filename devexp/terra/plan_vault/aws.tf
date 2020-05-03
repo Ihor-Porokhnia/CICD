@@ -9,12 +9,6 @@ provider "aws" {
   region  = var.region
 }
 
-
-resource "aws_instance" "myUbuntu" {
-  ami           = "ami-0323c3dd2da7fb37d"
-  instance_type = "t2.micro"
-}
-
 variable "region" {
   type    = string  
 }

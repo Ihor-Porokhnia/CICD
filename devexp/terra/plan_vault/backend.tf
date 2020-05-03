@@ -5,8 +5,7 @@ terraform {
     organization = "iptools"
 
     workspaces {
-      name = "remo01"
+      name = "devexp"
     }
-    //oken = "yMofyIDRtjCkiA.atlasv1.8cCnT3KzARYR3lez4g82TheJawFa9K8RWRtfoJpNFiTPqyCaelIYGgpZdvCnXAYZskA"
   }
 }

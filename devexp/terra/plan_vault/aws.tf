@@ -9,6 +9,12 @@ provider "aws" {
   region  = var.region
 }
 
+resource "aws_s3_bucket" "backend_S3_bucket" {
+  bucket = "backend_S3_bucket"
+  acl    = "private"
+}
+
+
 variable "region" {
   type    = string  
 }

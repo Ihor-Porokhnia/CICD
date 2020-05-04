@@ -12,18 +12,32 @@ provider "aws" {
 resource "aws_s3_bucket" "backend_S3_bucket" {
   bucket = "backends3bucket05"
   acl    = "private"
-  provisioner "local-exec" {
-    command = "ls -lah"
-  }
+  region = var.region  
 }
 
-resource "aws_s3_bucket_object" "examplebucket_object" {
-  key        = "tertertert"
+resource "aws_s3_bucket_object" "artifact" {
+  key        = "artifacts01/ssl-test-jenkins-EBS-48.zip"
   bucket     = aws_s3_bucket.backend_S3_bucket.id
-  source     = "tertertert"  
+  source     = "ssl-test-jenkins-EBS-48.zip"  
 }
 
+resource "aws_elastic_beanstalk_application" "beanapp" {
+  name        = "tf-test-name"
+  description = "tf-test-desc"
+}
 
+resource "aws_elastic_beanstalk_application_version" "default" {
+  name        = "tf-test-version-label"
+  application = "tf-test-name"
+  description = "application version created by terraform"
+  bucket      = aws_s3_bucket.backend_S3_bucket.id
+  key         = aws_s3_bucket_object.artifact.id
+}
+resource "aws_elastic_beanstalk_environment" "tfenvtest" {
+  name                = "tf-test-name"
+  application         = aws_elastic_beanstalk_application.beanapp.name
+  solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Corretto 11"
+}
 variable "region" {
   type    = string  
 }

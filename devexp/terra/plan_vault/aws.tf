@@ -110,7 +110,7 @@ EOF
 } */
 resource "aws_iam_instance_profile" "ebs_inst_profile" {
   name = "instprofile"
-  role = "AWSServiceRoleForElasticBeanstalk"
+  role = "ebstalc"
 }
 
 variable "region" {

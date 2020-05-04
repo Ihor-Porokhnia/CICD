@@ -37,12 +37,12 @@ resource "aws_elastic_beanstalk_application_version" "default" {
 
 resource "aws_iam_instance_profile" "beanstalk_service" {
     name = "beanstalk-service-user"
-    roles = ["${aws_iam_role.beanstalk_service.name}"]
+    role = aws_iam_role.beanstalk_service.name
 }
 
 resource "aws_iam_instance_profile" "beanstalk_ec2" {
     name = "beanstalk-ec2-user"
-    roles = ["${aws_iam_role.beanstalk_ec2.name}"]
+    role = aws_iam_role.beanstalk_ec2.name
 }
 
 resource "aws_iam_role" "beanstalk_service" {

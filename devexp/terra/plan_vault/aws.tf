@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "backend_S3_bucket" {
-  bucket = "backends3bucket05"
+  bucket = "backends3bucket06"
   acl    = "private"
   region = var.region  
 }

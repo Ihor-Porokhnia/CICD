@@ -22,7 +22,7 @@ resource "aws_s3_bucket_object" "artifact" {
 }
 
 resource "aws_elastic_beanstalk_application" "beanapp" {
-  name        = "app-ver2"
+  name        = "app-ver3"
   description = "test application 4 terraform"
 }
 
@@ -33,85 +33,161 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   bucket      = aws_s3_bucket.backend_S3_bucket.id
   key         = aws_s3_bucket_object.artifact.id
 }
-resource "aws_elastic_beanstalk_environment" "tfenvtest" {
-  name                = "tf-ebstalk-env"
-  application         = aws_elastic_beanstalk_application.beanapp.name
-  solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Corretto 11"
 
-  setting {
-    namespace = "aws:autoscaling:launchconfiguration"
-    name = "IamInstanceProfile"
-    value = aws_iam_instance_profile.ebs_inst_profile.name
-  }
+
+resource "aws_iam_instance_profile" "beanstalk_service" {
+    name = "beanstalk-service-user"
+    roles = ["${aws_iam_role.beanstalk_service.name}"]
 }
 
-/* resource "aws_iam_role" "ebstalk_role" {
-  name = "ebsservrole"
-  assume_role_policy = <<EOF
+resource "aws_iam_instance_profile" "beanstalk_ec2" {
+    name = "beanstalk-ec2-user"
+    roles = ["${aws_iam_role.beanstalk_ec2.name}"]
+}
+
+resource "aws_iam_role" "beanstalk_service" {
+    name = "beanstalk-service-role"
+    assume_role_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowCloudformationReadOperationsOnElasticBeanstalkStacks",
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:DescribeStackResource",
-                "cloudformation:DescribeStackResources",
-                "cloudformation:DescribeStacks"
-            ],
-            "Resource": [
-                "arn:aws:cloudformation:*:*:stack/awseb-*",
-                "arn:aws:cloudformation:*:*:stack/eb-*"
-            ]
-        },
-        {
-            "Sid": "AllowOperations",
-            "Effect": "Allow",
-            "Action": [
-                "autoscaling:DescribeAutoScalingGroups",
-                "autoscaling:DescribeAutoScalingInstances",
-                "autoscaling:DescribeNotificationConfigurations",
-                "autoscaling:DescribeScalingActivities",
-                "autoscaling:PutNotificationConfiguration",
-                "ec2:DescribeInstanceStatus",
-                "ec2:AssociateAddress",
-                "ec2:DescribeAddresses",
-                "ec2:DescribeInstances",
-                "ec2:DescribeSecurityGroups",
-                "elasticloadbalancing:DescribeInstanceHealth",
-                "elasticloadbalancing:DescribeLoadBalancers",
-                "elasticloadbalancing:DescribeTargetHealth",
-                "elasticloadbalancing:DescribeTargetGroups",
-                "lambda:GetFunction",
-                "sqs:GetQueueAttributes",
-                "sqs:GetQueueUrl",
-                "sns:Publish"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Sid": "AllowOperationsOnHealthStreamingLogs",
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogStream",
-                "logs:DescribeLogGroups",
-                "logs:DescribeLogStreams",
-                "logs:DeleteLogGroup",
-                "logs:PutLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/elasticbeanstalk/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
 }
 EOF
+}
+
+resource "aws_iam_role" "beanstalk_ec2" {
+    name = "beanstalk-ec2-role"
+    assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+resource "aws_iam_instance_profile" "beanstalk_service" {
+    name = "beanstalk-service-user"
+    roles = ["${aws_iam_role.beanstalk_service.name}"]
+}
+
+resource "aws_iam_instance_profile" "beanstalk_ec2" {
+    name = "beanstalk-ec2-user"
+    roles = ["${aws_iam_role.beanstalk_ec2.name}"]
+}
+
+resource "aws_iam_role" "beanstalk_service" {
+    name = "beanstalk-service-role"
+    assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "elasticbeanstalk.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "elasticbeanstalk"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role" "beanstalk_ec2" {
+    name = "beanstalk-ec2-role"
+    assume_role_policy = <<EOF
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy_attachment" "beanstalk_service" {
+    name = "elastic-beanstalk-service"
+    roles = ["${aws_iam_role.beanstalk_service.id}"]
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
+}
+
+resource "aws_iam_policy_attachment" "beanstalk_service_health" {
+    name = "elastic-beanstalk-service-health"
+    roles = ["${aws_iam_role.beanstalk_service.id}"]
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
+}
+
+resource "aws_iam_policy_attachment" "beanstalk_ec2_worker" {
+    name = "elastic-beanstalk-ec2-worker"
+    roles = ["${aws_iam_role.beanstalk_ec2.id}"]
+    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
+}
+
+resource "aws_iam_policy_attachment" "beanstalk_ec2_web" {
+    name = "elastic-beanstalk-ec2-web"
+    roles = ["${aws_iam_role.beanstalk_ec2.id}"]
+    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+}
+
+resource "aws_iam_policy_attachment" "beanstalk_ec2_container" {
+    name = "elastic-beanstalk-ec2-container"
+    roles = ["${aws_iam_role.beanstalk_ec2.id}"]
+    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+}
+
+
+
+resource "aws_elastic_beanstalk_environment" "api" {
+    name = "api-test"
+    application = aws_elastic_beanstalk_application.beanapp.name
+    solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Corretto 11"
+    wait_for_ready_timeout = "20m"
   
-} */
-resource "aws_iam_instance_profile" "ebs_inst_profile" {
-  name = "instprofile"
-  role = "ebstalc"
-  path = "/"
+    setting {
+        namespace = "aws:autoscaling:launchconfiguration"
+        name      = "InstanceType"
+        value     = "t2.micro"
+    } 
+    setting {
+        namespace = "aws:elasticbeanstalk:environment"
+        name      = "ServiceRole"
+        value     = aws_iam_instance_profile.beanstalk_service.name
+    }
+    setting {
+        namespace = "aws:autoscaling:launchconfiguration"
+        name      = "IamInstanceProfile"
+        value     = aws_iam_instance_profile.beanstalk_ec2.name
+    }
+
 }
 
 variable "region" {

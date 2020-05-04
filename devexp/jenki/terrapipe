@@ -25,6 +25,7 @@ node('builder-1') {
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }
+      
       else if (OPERATION == 'destroy') {
         withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
           //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 

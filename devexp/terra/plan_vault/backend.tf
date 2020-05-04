@@ -1,11 +1,7 @@
 terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
-    
-    organization = "iptools"
-
-    workspaces {
-      name = "devexp"
-    }
+  backend "s3" {
+    bucket = "terraforms3backend01"
+    key    = "devexp/terraform.tfstate"
+    region = var.region
   }
 }

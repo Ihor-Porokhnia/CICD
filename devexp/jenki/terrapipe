@@ -12,8 +12,8 @@ node('builder-1') {
         def tfHome = tool name: 'Terraform'
         env.PATH = "${tfHome}:${env.PATH}"
       }
-
     }
+
     stage('TerraPlay')  {
       if (OPERATION == 'create') {
         withCredentials([string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
@@ -23,7 +23,6 @@ node('builder-1') {
           sh 'terraform init  ./devexp/terra/plan_vault'
           try { sh 'terraform apply  ./devexp/terra/plan_vault' }
           finally { sh 'rm $HOME/.terraformrc' }
-
         }
       }
       else if (OPERATION == 'destroy') {
@@ -31,12 +30,18 @@ node('builder-1') {
           //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
           sh "terraform init   ./devexp/terra/plan_vault"
-
           try { sh 'terraform destroy  ./devexp/terra/plan_vault' }
           finally { sh 'rm $HOME/.terraformrc' }
-
         }
       }
+      else if (OPERATION == 'test') {
+        withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga']]) {
+          //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v 
+          sh "terraform init ./devexp/terra/plan_vault"
+          sh 'terraform plan ./devexp/terra/plan_vault'
+        }
+      }
+
     }
   }
 }

@@ -22,7 +22,7 @@ resource "aws_s3_bucket_object" "artifact" {
 }
 
 resource "aws_elastic_beanstalk_application" "beanapp" {
-  name        = "tf-test-name"
+  name        = "app-ver2"
   description = "tf-test-desc"
 }
 

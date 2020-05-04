@@ -34,10 +34,85 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   key         = aws_s3_bucket_object.artifact.id
 }
 resource "aws_elastic_beanstalk_environment" "tfenvtest" {
-  name                = "tf-test-name"
+  name                = "tf-ebstalk-env"
   application         = aws_elastic_beanstalk_application.beanapp.name
   solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Corretto 11"
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name = "IamInstanceProfile"
+    value = aws_iam_instance_profile.ebs_inst_profile.name
+  }
 }
+
+resource "aws_iam_role" "ebstalk_role" {
+  name = "ebsservrole"
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCloudformationReadOperationsOnElasticBeanstalkStacks",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:DescribeStackResource",
+                "cloudformation:DescribeStackResources",
+                "cloudformation:DescribeStacks"
+            ],
+            "Resource": [
+                "arn:aws:cloudformation:*:*:stack/awseb-*",
+                "arn:aws:cloudformation:*:*:stack/eb-*"
+            ]
+        },
+        {
+            "Sid": "AllowOperations",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeAutoScalingInstances",
+                "autoscaling:DescribeNotificationConfigurations",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:PutNotificationConfiguration",
+                "ec2:DescribeInstanceStatus",
+                "ec2:AssociateAddress",
+                "ec2:DescribeAddresses",
+                "ec2:DescribeInstances",
+                "ec2:DescribeSecurityGroups",
+                "elasticloadbalancing:DescribeInstanceHealth",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "elasticloadbalancing:DescribeTargetHealth",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "lambda:GetFunction",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+                "sns:Publish"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "AllowOperationsOnHealthStreamingLogs",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+                "logs:DeleteLogGroup",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/elasticbeanstalk/*"
+        }
+    ]
+}
+EOF
+  
+}
+resource "aws_iam_instance_profile" "ebs_inst_profile" {
+  name = "test_profile"
+  role = aws_iam_role.ebstalk_role.name
+}
+
 variable "region" {
   type    = string  
 }

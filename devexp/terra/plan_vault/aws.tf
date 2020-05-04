@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "backend_S3_bucket" {
   bucket = "backends3bucket02"
   acl    = "private"
   provisioner "local-exec" {
-    command = "pwd"
+    command = "ls -lah"
   }
 }
 

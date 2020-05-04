@@ -81,6 +81,8 @@ resource "aws_iam_role" "beanstalk_ec2" {
   ]
 }
 EOF
+}
+
 resource "aws_iam_instance_profile" "beanstalk_service" {
     name = "beanstalk-service-user"
     roles = ["${aws_iam_role.beanstalk_service.name}"]
@@ -113,6 +115,7 @@ resource "aws_iam_role" "beanstalk_service" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role" "beanstalk_ec2" {
@@ -132,6 +135,7 @@ resource "aws_iam_role" "beanstalk_ec2" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_policy_attachment" "beanstalk_service" {

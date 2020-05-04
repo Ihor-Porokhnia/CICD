@@ -45,7 +45,7 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   }
 }
 
-resource "aws_iam_role" "ebstalk_role" {
+/* resource "aws_iam_role" "ebstalk_role" {
   name = "ebsservrole"
   assume_role_policy = <<EOF
 {
@@ -107,10 +107,10 @@ resource "aws_iam_role" "ebstalk_role" {
 }
 EOF
   
-}
+} */
 resource "aws_iam_instance_profile" "ebs_inst_profile" {
   name = "test_profile"
-  role = aws_iam_role.ebstalk_role.name
+  role = "AWSServiceRoleForElasticBeanstalk"
 }
 
 variable "region" {

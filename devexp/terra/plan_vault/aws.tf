@@ -17,6 +17,12 @@ resource "aws_s3_bucket" "backend_S3_bucket" {
   }
 }
 
+resource "aws_s3_bucket_object" "examplebucket_object" {
+  key        = "tertertert"
+  bucket     = aws_s3_bucket.backend_S3_bucket.id
+  source     = "tertertert"  
+}
+
 
 variable "region" {
   type    = string  

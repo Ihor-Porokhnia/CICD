@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "backend_S3_bucket" {
-  bucket = "backends3bucket02"
+  bucket = "backends3bucket03"
   acl    = "private"
   provisioner "local-exec" {
     command = "ls -lah"

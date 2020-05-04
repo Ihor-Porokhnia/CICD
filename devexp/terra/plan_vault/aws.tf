@@ -21,7 +21,7 @@ resource "aws_s3_bucket_object" "artifact" {
   source     = "ssl-test-jenkins-EBS-48.zip"  
 }
 
-asdresource "aws_elastic_beanstalk_application" "beanapp" {
+resource "aws_elastic_beanstalk_application" "beanapp" {
   name        = "app-ver3"
   description = "test application 4 terraform"
 }

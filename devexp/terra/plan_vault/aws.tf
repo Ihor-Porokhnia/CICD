@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "backend_S3_bucket" {
 resource "aws_s3_bucket_object" "artifact" {
   key        = "artifacts01/ssl-test-jenkins-EBS-48.zip"
   bucket     = aws_s3_bucket.backend_S3_bucket.id
-  source     = "/devexp/terra/plan_vault/ssl-test-jenkins-EBS-48.zip"  
+  source     = "./devexp/terra/plan_vault/ssl-test-jenkins-EBS-48.zip"  
 }
 
 resource "aws_elastic_beanstalk_application" "beanapp" {

@@ -3,10 +3,10 @@ terraform {
 }
 
 provider "aws" {
-  access_key = data.vault_generic_secret.aws_secret.data["access_key"]
-  secret_key = data.vault_generic_secret.aws_secret.data["secret_key"]
-  token = data.vault_generic_secret.aws_secret.data["security_token"]
-  region  = var.region
+  access_key = data.vault_aws_access_credentials.aws_secret.access_key
+  secret_key = data.vault_aws_access_credentials.aws_secret.secret_key
+  token      = data.vault_aws_access_credentials.aws_secret.security_token
+  region     = var.region
 }
 
 resource "aws_s3_bucket" "backend_S3_bucket" {

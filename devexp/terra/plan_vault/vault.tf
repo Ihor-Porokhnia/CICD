@@ -1,9 +1,13 @@
 provider "vault" {}
 
-data "vault_generic_secret" "aws_secret" {
- path = var.secret_path
+data "vault_aws_access_credentials" "aws_secret" {
+ backend = var.secret_backend
+ role = var.secret_role
 }
 
-variable "secret_path" {
+variable "secret_backend" {
+  type    = string  
+}
+variable "secret_role" {
   type    = string  
 }

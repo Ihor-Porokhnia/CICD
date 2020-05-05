@@ -1,2 +1,3 @@
 region = "us-east-2"
-secret_path = "amazon01/sts/terraformer"
+secret_backend = "amazon02"
+secret_role = "terraformer"

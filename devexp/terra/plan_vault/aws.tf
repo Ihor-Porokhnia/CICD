@@ -10,6 +10,9 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   description = "application version created by terraform"
   bucket      = aws_s3_bucket.backend_S3_bucket.id
   key         = aws_s3_bucket_object.artifact.id
+  depends_on = [
+    aws_elastic_beanstalk_environment.api,
+  ]
 }
 
 resource "aws_elastic_beanstalk_environment" "api" {

@@ -1,25 +1,3 @@
-terraform {
-  required_version = ">= 0.12.0"
-}
-
-provider "aws" {
-  access_key = data.vault_aws_access_credentials.aws_secret.access_key
-  secret_key = data.vault_aws_access_credentials.aws_secret.secret_key
-  token      = data.vault_aws_access_credentials.aws_secret.security_token
-  region     = var.region
-}
-
-resource "aws_s3_bucket" "backend_S3_bucket" {
-  bucket = "backends3bucket06"
-  acl    = "private"
-  region = var.region  
-}
-
-resource "aws_s3_bucket_object" "artifact" {
-  key        = "artifacts01/ssl-test-jenkins-EBS-48.zip"
-  bucket     = aws_s3_bucket.backend_S3_bucket.id
-  source     = "./devexp/terra/plan_vault/ssl-test-jenkins-EBS-48.zip"  
-}
 
 resource "aws_elastic_beanstalk_application" "beanapp" {
   name        = "app-ver3"

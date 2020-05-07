@@ -26,13 +26,13 @@ resource "aws_elastic_beanstalk_environment" "api" {
     setting {
         namespace = "aws:elasticbeanstalk:environment"
         name      = "ServiceRole"
-        value     = "aws-elasticbeanstalk-service-role"
+        value     = "aws-service-role/elasticbeanstalk.amazonaws.com/AWSServiceRoleForElasticBeanstalk"
     }
     setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "IamInstanceProfile"
         resource  = "AWSEBAutoScalingLaunchConfiguration"
-        value     = "aws-elasticbeanstalk-ec2-role"
+        value     = "aws-service-role/elasticbeanstalk.amazonaws.com/AWSServiceRoleForElasticBeanstalk"
     }
     setting {
         namespace = "aws:autoscaling:asg"

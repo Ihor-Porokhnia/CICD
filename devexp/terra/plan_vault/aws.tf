@@ -111,29 +111,57 @@ resource "aws_elastic_beanstalk_environment" "api" {
         name      = "InstanceType"
         value     = "t2.micro"
     } 
-/*     setting {
-        namespace = "aws:elasticbeanstalk:environment"
-        name      = "ServiceRole"
-        value     = aws_iam_instance_profile.beanstalk_service.name
-    } */
-     
     setting {
         namespace = "aws:elasticbeanstalk:environment"
         name      = "ServiceRole"
         value     = "aws-elasticbeanstalk-service-role"
     }
-/*     setting {
-        namespace = "aws:autoscaling:launchconfiguration"
-        name      = "IamInstanceProfile"
-        value     = aws_iam_instance_profile.beanstalk_ec2.name
-    } */
     setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "IamInstanceProfile"
         resource  = "AWSEBAutoScalingLaunchConfiguration"
         value     = "aws-elasticbeanstalk-ec2-role"
     }
-
+    setting {
+        namespace = "aws:autoscaling:asg"
+        name = "Availability Zones"
+        value = "Any 2"
+    }
+    setting {
+        namespace = "aws:autoscaling:asg"
+        name = "MinSize"
+        value = "2"
+    }
+    setting {
+        namespace = "aws:autoscaling:asg"
+        name = "MaxSize"
+        value = "3"
+    }
+    setting {
+        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+        name = "RollingUpdateEnabled"
+        value = "true"
+    }
+    setting {
+        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+        name = "RollingUpdateType"
+        value = "Health"
+    }
+    setting {
+        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+        name = "MinInstancesInService"
+        value = "2"
+    }
+    setting {
+        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+        name = "MaxBatchSize"
+        value = "1"
+    }
+    setting {
+        namespace = "aws:elb:loadbalancer"
+        name = "CrossZone"
+        value = "true"
+  }
 
 }
 

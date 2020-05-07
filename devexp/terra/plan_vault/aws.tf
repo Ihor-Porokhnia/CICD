@@ -1,11 +1,11 @@
 
 resource "aws_elastic_beanstalk_application" "beanapp" {
-  name        = "app-ver3"
+  name        = "${var.project_name}-app"
   description = "test application 4 terraform"
 }
 
 resource "aws_elastic_beanstalk_application_version" "default" {
-  name        = "tf-test-version-label"
+  name        = "${var.project_name}-${aws_s3_bucket_object.artifact.id}"
   application = aws_elastic_beanstalk_application.beanapp.name
   description = "application version created by terraform"
   bucket      = aws_s3_bucket.backend_S3_bucket.id
@@ -101,9 +101,9 @@ resource "aws_iam_policy_attachment" "beanstalk_ec2_container" {
 
 
 resource "aws_elastic_beanstalk_environment" "api" {
-    name = "api-test"
+    name = "${var.project_name}-env"
     application = aws_elastic_beanstalk_application.beanapp.name
-    solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Corretto 11"
+    solution_stack_name = "64bit Amazon Linux 2 v3.0.1 running Corretto 11"
     wait_for_ready_timeout = "20m"
   
     setting {
@@ -111,16 +111,29 @@ resource "aws_elastic_beanstalk_environment" "api" {
         name      = "InstanceType"
         value     = "t2.micro"
     } 
-    setting {
+/*     setting {
         namespace = "aws:elasticbeanstalk:environment"
         name      = "ServiceRole"
         value     = aws_iam_instance_profile.beanstalk_service.name
-    }
+    } */
+     
     setting {
+        namespace = "aws:elasticbeanstalk:environment"
+        name      = "ServiceRole"
+        value     = "aws-elasticbeanstalk-service-role"
+    }
+/*     setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "IamInstanceProfile"
         value     = aws_iam_instance_profile.beanstalk_ec2.name
+    } */
+    setting {
+        namespace = "aws:autoscaling:launchconfiguration"
+        name      = "IamInstanceProfile"
+        resource  = "AWSEBAutoScalingLaunchConfiguration"
+        value     = "aws-elasticbeanstalk-ec2-role"
     }
+
 
 }
 

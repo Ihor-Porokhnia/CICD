@@ -8,3 +8,6 @@ provider "aws" {
   token      = data.vault_aws_access_credentials.aws_secret.security_token
   region     = var.region
 }
+variable "project_name" {
+  type    = string  
+}

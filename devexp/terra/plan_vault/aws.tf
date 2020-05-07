@@ -19,6 +19,11 @@ resource "aws_elastic_beanstalk_environment" "api" {
     wait_for_ready_timeout = "20m"
   
     setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+        name = "SERVER_PORT"
+        value = "5000"
+    }
+    setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "InstanceType"
         value     = "t2.micro"

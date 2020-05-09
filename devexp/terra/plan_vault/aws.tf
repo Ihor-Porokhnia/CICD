@@ -55,7 +55,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     setting {
         namespace = "aws:autoscaling:asg"
         name = "MaxSize"
-        value = "1"
+        value = "2"
     }
     setting {
         namespace = "aws:autoscaling:updatepolicy:rollingupdate"

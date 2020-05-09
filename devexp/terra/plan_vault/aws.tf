@@ -143,7 +143,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "beanstalk_service" {   
-    role = ws_iam_role.beanstalk_service.name
+    role = aws_iam_role.beanstalk_service.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
 }
 

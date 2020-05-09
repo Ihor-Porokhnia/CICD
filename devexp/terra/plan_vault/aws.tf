@@ -153,8 +153,8 @@ resource "aws_iam_policy_attachment" "beanstalk_service_health" {
     roles = aws_iam_role.beanstalk_service.id
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
 }
-resource "aws_iam_policy_attachment" "beanstalk_service_health" {
-    name = "elastic-beanstalk-service-health"
+resource "aws_iam_policy_attachment" "beanstalk_service_lb" {
+    name = "elastic-beanstalk-service-lb"
     roles = aws_iam_role.beanstalk_service.id
     policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
 }

@@ -34,13 +34,13 @@ resource "aws_elastic_beanstalk_environment" "api" {
     setting {
         namespace = "aws:elasticbeanstalk:environment"
         name      = "ServiceRole"
-        value     = "aws-elasticbeanstalk-service-role"
+        value     = aws_iam_role.beanstalk_service.name
     }
     setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "IamInstanceProfile"
         resource  = "AWSEBAutoScalingLaunchConfiguration"
-        value     = "aws-elasticbeanstalk-ec2-role"
+        value     = aws_iam_role.beanstalk_ec2.name
     }
     setting {
         namespace = "aws:autoscaling:asg"
@@ -55,7 +55,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     setting {
         namespace = "aws:autoscaling:asg"
         name = "MaxSize"
-        value = "2"
+        value = "1"
     }
     setting {
         namespace = "aws:autoscaling:updatepolicy:rollingupdate"

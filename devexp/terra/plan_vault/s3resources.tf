@@ -7,7 +7,8 @@ resource "aws_s3_bucket" "backend_S3_bucket" {
 resource "aws_s3_bucket_object" "artifact" {
   key        = "${var.project_name}/${var.artifact_name}"
   bucket     = aws_s3_bucket.backend_S3_bucket.id
-  source     = "${var.local_path}/${var.artifact_name}"  
+  source     = "${var.local_path}/${var.artifact_name}"
+  etag       = "${filemd5("${var.project_name}/${var.artifact_name}")}"  
 }
 variable "artifact_name" {
   type    = string  

@@ -40,7 +40,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "IamInstanceProfile"
         resource  = "AWSEBAutoScalingLaunchConfiguration"
-        value     = aws_iam_role.beanstalk_ec2.name
+        value     = aws_iam_instance_profile.beanstalk_ec2.name
     }
     setting {
         namespace = "aws:autoscaling:asg"

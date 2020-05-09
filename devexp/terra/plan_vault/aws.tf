@@ -142,39 +142,33 @@ EOF
 
 }
 
-resource "aws_iam_policy_attachment" "beanstalk_service" {
-    name = "elastic-beanstalk-service"
-    roles = ["${aws_iam_role.beanstalk_service.id}"]
+resource "aws_iam_role_policy_attachment" "beanstalk_service" {   
+    role = ws_iam_role.beanstalk_service.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
 }
 
-resource "aws_iam_policy_attachment" "beanstalk_service_health" {
-    name = "elastic-beanstalk-service-health"
-    roles = aws_iam_role.beanstalk_service.id
+resource "aws_iam_role_policy_attachment" "beanstalk_service_health" {   
+    role = aws_iam_role.beanstalk_service.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
 }
-resource "aws_iam_policy_attachment" "beanstalk_service_lb" {
-    name = "elastic-beanstalk-service-lb"
-    roles = aws_iam_role.beanstalk_service.id
+resource "aws_iam_role_policy_attachment" "beanstalk_service_lb" {    
+    role = aws_iam_role.beanstalk_service.name
     policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
 }
 
 
-resource "aws_iam_policy_attachment" "beanstalk_ec2_worker" {
-    name = "elastic-beanstalk-ec2-worker"
-    roles = aws_iam_role.beanstalk_ec2.id
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_worker" {    
+    role = aws_iam_role.beanstalk_ec2.name
     policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 
-resource "aws_iam_policy_attachment" "beanstalk_ec2_web" {
-    name = "elastic-beanstalk-ec2-web"
-    roles = aws_iam_role.beanstalk_ec2.id
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_web" {    
+    role = aws_iam_role.beanstalk_ec2.name
     policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
 }
 
-resource "aws_iam_policy_attachment" "beanstalk_ec2_container" {
-    name = "elastic-beanstalk-ec2-container"
-    roles = aws_iam_role.beanstalk_ec2.id
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {    
+    role = aws_iam_role.beanstalk_ec2.name
     policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
 }
 

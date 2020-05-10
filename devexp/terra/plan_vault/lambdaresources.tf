@@ -9,7 +9,7 @@ resource "aws_lambda_function" "test_lambda" {
 
 
 data "template_file" "function" {
-  template = file("function.py.tpl")
+  template = file("${var.local_path}/function.py.tpl")
   vars = {
     APPNAME = aws_elastic_beanstalk_application.beanapp.name
     ENVID   = aws_elastic_beanstalk_environment.api.id

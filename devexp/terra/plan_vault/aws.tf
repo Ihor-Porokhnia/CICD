@@ -188,7 +188,7 @@ resource "aws_iam_policy" "lambda-cloudwatch-policy" {
 }
 resource "aws_iam_role_policy_attachment" "lambda_beanstalk_policy" {
   role       = aws_iam_role.lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkFullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess"
 }
 resource "aws_iam_role_policy_attachment" "lambda_cloudwatch_policy" {
   role       = aws_iam_role.lambda_role.name

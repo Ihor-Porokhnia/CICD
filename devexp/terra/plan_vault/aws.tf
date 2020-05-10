@@ -18,7 +18,7 @@ resource "aws_elastic_beanstalk_application_version" "default" {
 resource "aws_elastic_beanstalk_environment" "api" {
     name = "${var.project_name}-env"
     application = aws_elastic_beanstalk_application.beanapp.name
-    solution_stack_name = "64bit Amazon Linux 2 v3.0.1 running Corretto 11"
+    solution_stack_name = var.solution_stack
     wait_for_ready_timeout = "20m"
   
     setting {
@@ -175,5 +175,8 @@ resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {
 
 
 variable "region" {
+  type    = string  
+}
+variable "solution_stack" {
   type    = string  
 }

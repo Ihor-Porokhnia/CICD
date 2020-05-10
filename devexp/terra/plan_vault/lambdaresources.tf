@@ -2,7 +2,7 @@ resource "aws_lambda_function" "test_lambda" {
   filename         = "${var.local_path}/function.zip"
   function_name    = "${var.project_name}-lambda"
   role             = aws_iam_role.lambda_role.arn
-  handler          = "lambda_handler"
+  handler          = "lambda_function.lambda_handler"
   source_code_hash = filebase64sha256("${var.local_path}/function.zip")
   runtime          = "python3.8"
   depends_on = [

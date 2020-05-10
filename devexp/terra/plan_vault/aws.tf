@@ -98,7 +98,7 @@ resource "aws_iam_instance_profile" "beanstalk_ec2" {
 }
 
 resource "aws_iam_role" "beanstalk_service" {
-    name = "beanstalk-service-role"
+    name = "${var.project_name}-beanstalk-service-role"
     assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -123,7 +123,7 @@ EOF
 }
 
 resource "aws_iam_role" "beanstalk_ec2" {
-    name = "beanstalk-ec2-role"
+    name = "${var.project_name}-beanstalk-ec2-role"
     assume_role_policy = <<EOF
 {
   "Version": "2008-10-17",
@@ -139,8 +139,55 @@ resource "aws_iam_role" "beanstalk_ec2" {
   ]
 }
 EOF
-
 }
+
+resource "aws_iam_role" "lambda" {
+    name = "${var.project_name}-lambda-role"
+    assume_role_policy = <<EOF
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "test_policy" {
+  name = "test_policy"
+  role = aws_iam_role.lambda.id
+
+  policy = jsonencode({
+
+    "Version"="2012-10-17",
+    "Statement"=[
+    {
+      "Effect"="Allow",
+      "Action"="logs:CreateLogGroup",
+      "Resource"="arn:aws:logs:us-east-2:632888177230:*"
+    },
+    {
+      "Effect"="Allow",
+      "Action"=[
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource"=[
+        "arn:aws:logs:us-east-2:632888177230:log-group:/aws/lambda/Ebs-control1:*"
+      ]
+    }
+  ]
+    
+})
+}
+
 
 resource "aws_iam_role_policy_attachment" "beanstalk_service" {   
     role = aws_iam_role.beanstalk_service.name

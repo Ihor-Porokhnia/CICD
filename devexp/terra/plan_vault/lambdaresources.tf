@@ -1,4 +1,4 @@
-resource "aws_lambda_function" "test_lambda" {
+resource "aws_lambda_function" "lambda" {
   filename         = "${var.local_path}/function.zip"
   function_name    = "${var.project_name}-lambda"
   role             = aws_iam_role.lambda_role.arn
@@ -10,6 +10,13 @@ resource "aws_lambda_function" "test_lambda" {
   ]
 }
 
+resource "aws_lambda_permission" "apigw_lambda" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.lambda.function_name}"
+  principal     = "apigateway.amazonaws.com" 
+  source_arn = "arn:aws:execute-api:${var.region}:${var.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
+}
 
 data "template_file" "function" {
   template = file("${var.local_path}/function.py.tpl")

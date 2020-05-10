@@ -142,8 +142,8 @@ EOF
 }
 
 resource "aws_iam_role" "lambda_role" {
-  name               = "${var.project_name}-lambda-role"
-  assume_role_policy = <<EOF
+  name                  = "${var.project_name}-lambda-role"
+  assume_role_policy    = <<EOF
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -158,6 +158,7 @@ resource "aws_iam_role" "lambda_role" {
   ]
 }
 EOF
+  force_detach_policies = true
 }
 
 resource "aws_iam_role_policy" "lambda-cloudwatch-policy" {

@@ -16,71 +16,71 @@ resource "aws_elastic_beanstalk_application_version" "default" {
 }
 
 resource "aws_elastic_beanstalk_environment" "api" {
-    name = "${var.project_name}-env"
-    application = aws_elastic_beanstalk_application.beanapp.name
-    solution_stack_name = var.solution_stack
-    wait_for_ready_timeout = "20m"
-  
-    setting {
+  name                   = "${var.project_name}-env"
+  application            = aws_elastic_beanstalk_application.beanapp.name
+  solution_stack_name    = var.solution_stack
+  wait_for_ready_timeout = "20m"
+
+  setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-        name = "SERVER_PORT"
-        value = "5000"
-    }
-    setting {
-        namespace = "aws:autoscaling:launchconfiguration"
-        name      = "InstanceType"
-        value     = "t2.micro"
-    } 
-    setting {
-        namespace = "aws:elasticbeanstalk:environment"
-        name      = "ServiceRole"
-        value     = aws_iam_role.beanstalk_service.name
-    }
-    setting {
-        namespace = "aws:autoscaling:launchconfiguration"
-        name      = "IamInstanceProfile"
-        resource  = "AWSEBAutoScalingLaunchConfiguration"
-        value     = aws_iam_instance_profile.beanstalk_ec2.name
-    }
-    setting {
-        namespace = "aws:autoscaling:asg"
-        name = "Availability Zones"
-        value = "Any 2"
-    }
-    setting {
-        namespace = "aws:autoscaling:asg"
-        name = "MinSize"
-        value = "1"
-    }
-    setting {
-        namespace = "aws:autoscaling:asg"
-        name = "MaxSize"
-        value = "2"
-    }
-    setting {
-        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-        name = "RollingUpdateEnabled"
-        value = "true"
-    }
-    setting {
-        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-        name = "RollingUpdateType"
-        value = "Health"
-    }
-    setting {
-        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-        name = "MinInstancesInService"
-        value = "1"
-    }
-    setting {
-        namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-        name = "MaxBatchSize"
-        value = "1"
-    }
-    setting {
-        namespace = "aws:elb:loadbalancer"
-        name = "CrossZone"
-        value = "true"
+    name      = "SERVER_PORT"
+    value     = "5000"
+  }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "InstanceType"
+    value     = "t2.micro"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "ServiceRole"
+    value     = aws_iam_role.beanstalk_service.name
+  }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "IamInstanceProfile"
+    resource  = "AWSEBAutoScalingLaunchConfiguration"
+    value     = aws_iam_instance_profile.beanstalk_ec2.name
+  }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "Availability Zones"
+    value     = "Any 2"
+  }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "MinSize"
+    value     = "1"
+  }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "MaxSize"
+    value     = "2"
+  }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "RollingUpdateEnabled"
+    value     = "true"
+  }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "RollingUpdateType"
+    value     = "Health"
+  }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MinInstancesInService"
+    value     = "1"
+  }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MaxBatchSize"
+    value     = "1"
+  }
+  setting {
+    namespace = "aws:elb:loadbalancer"
+    name      = "CrossZone"
+    value     = "true"
   }
 
 }
@@ -88,18 +88,18 @@ resource "aws_elastic_beanstalk_environment" "api" {
 
 
 resource "aws_iam_instance_profile" "beanstalk_service" {
-    name = "beanstalk-service-user"
-    role = aws_iam_role.beanstalk_service.name
+  name = "beanstalk-service-user"
+  role = aws_iam_role.beanstalk_service.name
 }
 
 resource "aws_iam_instance_profile" "beanstalk_ec2" {
-    name = "beanstalk-ec2-user"
-    role = aws_iam_role.beanstalk_ec2.name
+  name = "beanstalk-ec2-user"
+  role = aws_iam_role.beanstalk_ec2.name
 }
 
 resource "aws_iam_role" "beanstalk_service" {
-    name = "${var.project_name}-beanstalk-service-role"
-    assume_role_policy = <<EOF
+  name               = "${var.project_name}-beanstalk-service-role"
+  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -123,8 +123,8 @@ EOF
 }
 
 resource "aws_iam_role" "beanstalk_ec2" {
-    name = "${var.project_name}-beanstalk-ec2-role"
-    assume_role_policy = <<EOF
+  name               = "${var.project_name}-beanstalk-ec2-role"
+  assume_role_policy = <<EOF
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -142,8 +142,8 @@ EOF
 }
 
 resource "aws_iam_role" "lambda" {
-    name = "${var.project_name}-lambda-role"
-    assume_role_policy = <<EOF
+  name               = "${var.project_name}-lambda-role"
+  assume_role_policy = <<EOF
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -161,69 +161,71 @@ EOF
 }
 
 resource "aws_iam_role_policy" "test_policy" {
-  name = "test_policy"
+  name = "${var.project_name}-lambda-cloudwatch-policy"
   role = aws_iam_role.lambda.id
 
   policy = jsonencode({
 
-    "Version"="2012-10-17",
-    "Statement"=[
-    {
-      "Effect"="Allow",
-      "Action"="logs:CreateLogGroup",
-      "Resource"="arn:aws:logs:us-east-2:632888177230:*"
-    },
-    {
-      "Effect"="Allow",
-      "Action"=[
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource"=[
-        "arn:aws:logs:us-east-2:632888177230:log-group:/aws/lambda/Ebs-control1:*"
-      ]
-    }
-  ]
-    
-})
+    "Version" = "2012-10-17",
+    "Statement" = [
+      {
+        "Effect"   = "Allow",
+        "Action"   = "logs:CreateLogGroup",
+        "Resource" = "arn:aws:logs:${var.region}:${var.account_id}:*"
+      },
+      {
+        "Effect" = "Allow",
+        "Action" = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource" = [
+          "arn:aws:logs:${var.region}:${var.account_id}:log-group:/aws/lambda/Ebs-control1:*"
+        ]
+      }
+    ]
+  })
 }
 
 
-resource "aws_iam_role_policy_attachment" "beanstalk_service" {   
-    role = aws_iam_role.beanstalk_service.name
-    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
+resource "aws_iam_role_policy_attachment" "beanstalk_service" {
+  role       = aws_iam_role.beanstalk_service.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
 }
 
-resource "aws_iam_role_policy_attachment" "beanstalk_service_health" {   
-    role = aws_iam_role.beanstalk_service.name
-    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
+resource "aws_iam_role_policy_attachment" "beanstalk_service_health" {
+  role       = aws_iam_role.beanstalk_service.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
 }
-resource "aws_iam_role_policy_attachment" "beanstalk_service_lb" {    
-    role = aws_iam_role.beanstalk_service.name
-    policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
-}
-
-
-resource "aws_iam_role_policy_attachment" "beanstalk_ec2_worker" {    
-    role = aws_iam_role.beanstalk_ec2.name
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
+resource "aws_iam_role_policy_attachment" "beanstalk_service_lb" {
+  role       = aws_iam_role.beanstalk_service.name
+  policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "beanstalk_ec2_web" {    
-    role = aws_iam_role.beanstalk_ec2.name
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_worker" {
+  role       = aws_iam_role.beanstalk_ec2.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 
-resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {    
-    role = aws_iam_role.beanstalk_ec2.name
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_web" {
+  role       = aws_iam_role.beanstalk_ec2.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+}
+
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {
+  role       = aws_iam_role.beanstalk_ec2.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
 }
 
 
 
 variable "region" {
-  type    = string  
+  type = string
 }
 variable "solution_stack" {
-  type    = string  
+  type = string
+}
+variable "account_id" {
+  type = string
 }

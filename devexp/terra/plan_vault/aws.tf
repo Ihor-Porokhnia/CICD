@@ -158,13 +158,12 @@ resource "aws_iam_role" "lambda_role" {
   ]
 }
 EOF
-  force_detach_policies = true
+  
 }
 
-resource "aws_iam_role_policy" "lambda-cloudwatch-policy" {
+resource "aws_iam_policy" "lambda-cloudwatch-policy" {
   name = "${var.project_name}-lambda-cloudwatch-policy"
-  role = aws_iam_role.lambda_role.id
-
+  path        = "/"
   policy = jsonencode({
 
     "Version" = "2012-10-17",
@@ -190,6 +189,10 @@ resource "aws_iam_role_policy" "lambda-cloudwatch-policy" {
 resource "aws_iam_role_policy_attachment" "lambda_beanstalk_policy" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkFullAccess"
+}
+resource "aws_iam_role_policy_attachment" "lambda_cloudwatch_policy" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = aws_iam_policy.lambda-cloudwatch-policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "beanstalk_service" {

@@ -6,7 +6,7 @@ resource "aws_lambda_function" "test_lambda" {
   source_code_hash = filebase64sha256("function.zip")
   runtime          = "python3.8"
   depends_on = [
-    archive_file.lambda_zip,
+    data.archive_file.lambda_zip,
   ]
 }
 

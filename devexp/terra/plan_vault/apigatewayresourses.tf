@@ -1,5 +1,8 @@
 resource "aws_api_gateway_rest_api" "api" {
   name = "${var.project_name}-lambda-beanstalk-api"
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
 }
 
 resource "aws_api_gateway_resource" "resource" {
@@ -37,7 +40,9 @@ resource "aws_api_gateway_integration_response" "integration_response_1" {
 }
 
 resource "aws_api_gateway_deployment" "api_deployment" {
-  depends_on  = [aws_api_gateway_integration.integration_1, aws_api_gateway_integration_response.integration_response_1]
+  depends_on = [
+    aws_api_gateway_integration_response.integration_response_1,
+  ]
   rest_api_id = aws_api_gateway_rest_api.api.id
-  stage_name  = "dev"  
+  stage_name  = "dev"
 }

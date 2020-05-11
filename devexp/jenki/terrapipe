@@ -20,7 +20,7 @@ node('builder-1') {
           //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v          
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
           sh 'terraform init -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault'
-          sh 'terraform graph -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault > gra'
+          sh 'terraform graph  ./devexp/terra/plan_vault > gra'
           try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault' }
           finally { sh 'rm $HOME/.terraformrc' }
         }

@@ -47,11 +47,11 @@ resource "aws_api_gateway_deployment" "api_deployment" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = "dev"
 }
-resource "aws_api_gateway_stage" "test" {
+/* resource "aws_api_gateway_stage" "test" {
   stage_name    = "test"
   rest_api_id   = aws_api_gateway_rest_api.api.id
   deployment_id = aws_api_gateway_deployment.api_deployment.id
-}
+} */
 resource "aws_api_gateway_api_key" "remo" {
   name = "remo"
 }

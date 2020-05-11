@@ -14,7 +14,7 @@ resource "aws_api_gateway_method" "method" {
   authorization = "NONE"
 }
 
-resource "aws_api_gateway_integration" "integration" {
+resource "aws_api_gateway_integration" "integration_1" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.resource.id
   http_method             = aws_api_gateway_method.method.http_method
@@ -29,7 +29,7 @@ resource "aws_api_gateway_method_response" "response_200" {
   http_method = aws_api_gateway_method.method.http_method
   status_code = "200"
 }
-resource "aws_api_gateway_integration_response" "integration_response" {
+resource "aws_api_gateway_integration_response" "integration_response_1" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   resource_id = aws_api_gateway_resource.resource.id
   http_method = aws_api_gateway_method.method.http_method
@@ -37,7 +37,7 @@ resource "aws_api_gateway_integration_response" "integration_response" {
 }
 
 resource "aws_api_gateway_deployment" "api_deployment" {
-  depends_on  = [aws_api_gateway_integration.integration, aws_api_gateway_integration_response.integration_response]
+  depends_on  = [aws_api_gateway_integration.integration_1, aws_api_gateway_integration_response.integration_response]
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = "dev"
 

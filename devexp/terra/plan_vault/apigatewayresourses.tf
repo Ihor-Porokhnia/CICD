@@ -11,10 +11,11 @@ resource "aws_api_gateway_resource" "resource" {
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
 resource "aws_api_gateway_method" "method" {
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  resource_id   = aws_api_gateway_resource.resource.id
-  http_method   = "POST"
-  authorization = "NONE"
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.resource.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
 }
 
 resource "aws_api_gateway_integration" "integration_1" {
@@ -50,4 +51,7 @@ resource "aws_api_gateway_stage" "test" {
   stage_name    = "test"
   rest_api_id   = aws_api_gateway_rest_api.api.id
   deployment_id = aws_api_gateway_deployment.api_deployment.id
+}
+resource "aws_api_gateway_api_key" "remo" {
+  name = "remo"
 }

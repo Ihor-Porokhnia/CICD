@@ -54,6 +54,6 @@ EOF
 resource "null_resource" "null" {
   
   triggers = {
-    invoke = data.aws_lambda_invocation.update_ver_invoke.result    
+    invoke = data.aws_lambda_invocation.update_ver_invoke.result_map    
   }
 }

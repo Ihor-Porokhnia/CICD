@@ -42,7 +42,7 @@ data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
     input = <<EOF
 {
-  "Resource": "MediaConvertPresets"
+  "app_version": "api-test-1-ssl-test-jenkins-EBS-48.zip"
   
 }
 EOF
@@ -54,6 +54,6 @@ EOF
 resource "null_resource" "null" {
   
   triggers = {
-    invoke = data.aws_lambda_invocation.update_ver_invoke.result_map    
+    invoke = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result_map)    
   }
 }

@@ -42,12 +42,13 @@ data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
  input = <<JSON
 {
-  "key1": "value1",
-  "key2": "value2"
+  "app_version": "api-test-1-ssl-test-jenkins-EBS-48.zip"
 }
 JSON
     
 
   
 }
-
+resource "null_resource" "null" {
+  invoke = aws_lambda_invocation.update_ver_invoke
+}

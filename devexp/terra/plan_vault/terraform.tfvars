@@ -9,6 +9,7 @@ region = "us-east-2"
 artifact_name = "ssl-test-jenkins-EBS-48.zip"
 local_path = "./devexp/terra/plan_vault"
 solution_stack = "64bit Amazon Linux 2 v3.0.1 running Corretto 11"
+api_path        = "beanstalk"
 
 
 

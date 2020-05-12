@@ -10,7 +10,7 @@ resource "aws_api_gateway_rest_api" "api" {
 }
 
 resource "aws_api_gateway_resource" "resource" {
-  path_part   = "beanstalk"
+  path_part   = var.api_path
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
@@ -79,4 +79,8 @@ resource "aws_api_gateway_usage_plan_key" "main" {
 }
 resource "aws_api_gateway_api_key" "remo" {
   name = "remo"
+}
+
+variable "api_path" {
+  type = string
 }

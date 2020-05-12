@@ -1,4 +1,6 @@
-
+/*
+This plan creates Elastik Beanstalk env and app. 
+*/
 resource "aws_elastic_beanstalk_application" "beanapp" {
   name        = "${var.project_name}-app"
   description = "test application 4 terraform"

@@ -1,3 +1,7 @@
+/*
+This plan creates AWS API Gateway interface to invoke lambda functions using api token 
+*/
+
 resource "aws_api_gateway_rest_api" "api" {
   name = "${var.project_name}-lambda-beanstalk-api"
   endpoint_configuration {
@@ -10,6 +14,7 @@ resource "aws_api_gateway_resource" "resource" {
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
+
 resource "aws_api_gateway_method" "method" {
   rest_api_id      = aws_api_gateway_rest_api.api.id
   resource_id      = aws_api_gateway_resource.resource.id
@@ -46,11 +51,7 @@ resource "aws_api_gateway_deployment" "api_deployment" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = "dev"
 }
-/* resource "aws_api_gateway_stage" "test" {
-  stage_name    = "test"
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  deployment_id = aws_api_gateway_deployment.api_deployment.id
-} */
+
 resource "aws_api_gateway_api_key" "remo" {
   name = "remo"
 }

@@ -1,3 +1,6 @@
+/*
+This plan creates IAM policies, roles and inst. profiles 4 all inf. elements
+*/
 resource "aws_iam_instance_profile" "beanstalk_service" {
   name = "beanstalk-service-user"
   role = aws_iam_role.beanstalk_service.name

@@ -1,3 +1,7 @@
+/*
+This file allows using AWS credentials stored in Vault
+*/
+
 terraform {
   required_version = ">= 0.12.0"
 }

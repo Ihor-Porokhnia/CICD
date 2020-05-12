@@ -45,10 +45,11 @@ data "aws_lambda_invocation" "update_ver_invoke" {
   "app_version": "api-test-1-ssl-test-jenkins-EBS-48.zip"
 }
 JSON
-    
-
-  
+      
 }
 resource "null_resource" "null" {
-  invoke = aws_lambda_invocation.update_ver_invoke
+  
+  triggers = {
+    invoke = data.aws_lambda_invocation.update_ver_invoke
+  }
 }

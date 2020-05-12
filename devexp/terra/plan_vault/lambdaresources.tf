@@ -3,7 +3,7 @@ This plan generates python lambda from template, zips into archive ann uploads i
 */
 resource "aws_lambda_function" "lambda" {
   filename         = "${var.local_path}/function.zip"
-  function_name    = "${var.project_name}-lambda-beanstalk-control"
+  function_name    = "${var.project_name}-lambda-beanstalk-${aws_elastic_beanstalk_environment.api.id}-control"
   role             = aws_iam_role.lambda_role.arn
   handler          = "function.lambda_handler"
   source_code_hash = filebase64sha256("${var.local_path}/function.zip")

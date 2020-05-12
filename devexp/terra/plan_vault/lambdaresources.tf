@@ -41,7 +41,17 @@ data "archive_file" "lambda_zip" {
 data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
  input =  jsonencode({
-    "app_version" = "api-test-1-ssl-test-jenkins-EBS-48.zip"
+    "Version" = "2008-10-17",
+    "Statement" = [
+      {
+        "Sid"    = "",
+        "Effect" = "Allow",
+        "Principal" = {
+          "Service" = "lambda.amazonaws.com"
+        },
+        "Action" = "sts:AssumeRole"
+      }
+    ]
   })
 }
 

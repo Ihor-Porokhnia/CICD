@@ -40,7 +40,7 @@ data "archive_file" "lambda_zip" {
 
 data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
-  //input =  "{ \"app_version\": \"api-test-1-ssl-test-jenkins-EBS-48.zip\" }"
+  input =  "{ \"app_version\": \"api-test-1-ssl-test-jenkins-EBS-48.zip\" }"
   depends_on = [aws_lambda_function.lambda]
 }
 
@@ -49,7 +49,6 @@ data "aws_lambda_invocation" "update_ver_invoke" {
 resource "null_resource" "null" {
   
   triggers = {
-    invoke = data.aws_lambda_invocation.update_ver_invoke
-    input = "{\"asddsa\": \"asas\"}"
+    invoke = data.aws_lambda_invocation.update_ver_invoke    
   }
 }

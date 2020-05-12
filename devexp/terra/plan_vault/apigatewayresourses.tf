@@ -38,12 +38,11 @@ resource "aws_api_gateway_integration_response" "integration_response_1" {
   resource_id = aws_api_gateway_resource.resource.id
   http_method = aws_api_gateway_method.method.http_method
   status_code = aws_api_gateway_method_response.response_200.status_code
+  depends_on = [aws_api_gateway_integration.integration_1]
 }
 
 resource "aws_api_gateway_deployment" "api_deployment" {
-  depends_on = [
-    aws_api_gateway_integration_response.integration_response_1,
-  ]
+  depends_on = [aws_api_gateway_integration_response.integration_response_1]
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = "dev"
 }

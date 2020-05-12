@@ -22,7 +22,7 @@ node('builder-1') {
           sh 'terraform init -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault'
           //sh 'terraform plan -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault'
           //sh 'terraform graph  ./devexp/terra/plan_vault > gra'
-          try { sh 'TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v terraform apply -auto-approve -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault' }
+          try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }

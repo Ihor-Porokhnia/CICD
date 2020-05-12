@@ -53,7 +53,7 @@ resource "aws_api_gateway_deployment" "api_deployment" {
 }
 
 resource "aws_api_gateway_usage_plan" "api_usage_plan" {
-  name         = "${aws_api_gateway_rest_api.api.id}-plan"
+  name         = "Api usage plan-${aws_api_gateway_rest_api.api.id}"
   description  = "${aws_api_gateway_rest_api.api.id}-plan"
   
   api_stages {

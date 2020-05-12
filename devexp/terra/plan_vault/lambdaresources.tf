@@ -38,7 +38,7 @@ data "archive_file" "lambda_zip" {
   output_path = "${var.local_path}/function.zip"
 }
 
-data "aws_lambda_invocation" "update_ver_invoke" {
+/* data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
     input = <<EOF
 {
@@ -48,7 +48,7 @@ data "aws_lambda_invocation" "update_ver_invoke" {
 EOF
   depends_on = [aws_lambda_function.lambda]
 }
-
+ */
       
 /* 
 resource "null_resource" "null" {

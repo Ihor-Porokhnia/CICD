@@ -41,7 +41,7 @@ data "archive_file" "lambda_zip" {
 data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
   input = jsonencode({
-    "app_version" = "${aws_elastic_beanstalk_application_version.default.name}"
+    "app_version" = "api-test-1-ssl-test-jenkins-EBS-48.zip"
   })
 }
 

@@ -50,6 +50,6 @@ resource "null_resource" "null" {
   
   triggers = {
     invoke = data.aws_lambda_invocation.update_ver_invoke
-    input = "{asddsa}"
+    input = "{\"asddsa\": \"asas\"}"
   }
 }

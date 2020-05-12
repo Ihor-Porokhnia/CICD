@@ -37,3 +37,15 @@ data "archive_file" "lambda_zip" {
   }
   output_path = "${var.local_path}/function.zip"
 }
+
+data "aws_lambda_invocation" "update_ver_invoke" {
+  function_name = aws_lambda_function.lambda.function_name
+  input = jsonencode({
+    app_version = aws_elastic_beanstalk_application_version.default.name
+  })
+}
+
+output "result" {
+  description = "String result of Lambda execution"
+  value       = data.aws_lambda_invocation.update_ver_invoke.result
+}

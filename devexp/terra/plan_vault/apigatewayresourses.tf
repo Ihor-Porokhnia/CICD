@@ -52,6 +52,31 @@ resource "aws_api_gateway_deployment" "api_deployment" {
   stage_name  = "dev"
 }
 
+resource "aws_api_gateway_usage_plan" "api_usage_plan" {
+  name         = "${aws_api_gateway_rest_api.api.id}-plan"
+  description  = "${aws_api_gateway_rest_api.api.id}-plan"
+  
+  api_stages {
+    api_id = aws_api_gateway_rest_api.api.id
+    stage  = aws_api_gateway_deployment.api_deployment.stage_name
+  } 
+
+  quota_settings {
+    limit  = 10000    
+    period = "MONTH"
+  }
+
+  throttle_settings {
+    burst_limit = 2
+    rate_limit  = 5
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = aws_api_gateway_api_key.remo.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.api_usage_plan.id
+}
 resource "aws_api_gateway_api_key" "remo" {
   name = "remo"
 }

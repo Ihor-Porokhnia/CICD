@@ -1,5 +1,5 @@
 /*
-This plan generates python lambda from template, zips into archive ann uploads it
+This plan generates python lambda from template, zips it into archive and uploads it
 */
 resource "aws_lambda_function" "lambda" {
   filename         = "${var.local_path}/function.zip"

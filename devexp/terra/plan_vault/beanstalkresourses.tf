@@ -107,7 +107,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     setting {
     namespace = "aws:elb:listener:443"
     name      = "SSLCertificateId"
-    value     = " arn:aws:acm:us-east-2:632888177230:certificate/345cf844-7fc6-4bd5-94d4-cdb18744884a"
+    value     = "arn:aws:acm:us-east-2:632888177230:certificate/345cf844-7fc6-4bd5-94d4-cdb18744884a"
   }      
 }
 

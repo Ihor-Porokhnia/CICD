@@ -3,6 +3,7 @@ project_name = "api-test-1"
 //---------VAULT VARS-----------//
 secret_backend = "amazon02"
 secret_role = "terraformer"
+conf_path_vault = "devexp/conf"
 //----------AWS VARS------------//
 account_id = "632888177230"
 region = "us-east-2"

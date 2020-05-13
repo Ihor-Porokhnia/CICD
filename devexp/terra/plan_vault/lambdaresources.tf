@@ -47,6 +47,6 @@ data "aws_lambda_invocation" "update_ver_invoke" {
   aws_elastic_beanstalk_application.beanapp,
   aws_elastic_beanstalk_environment.api]
 }
-output "invocation_output" {
+output "lambda_invocation_output" {
   value = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result)["params"]
 }

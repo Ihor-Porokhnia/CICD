@@ -9,9 +9,22 @@ data "vault_aws_access_credentials" "aws_secret" {
  role = var.secret_role
 }
 
+resource "vault_generic_secret" "api_params" {
+  path = var.conf_path_vault
+
+  data_json = jsonencode({
+    "url" = "${aws_api_gateway_stage.dev_stage.invoke_url}/${aws_api_gateway_resource.resource.path_part}"
+    "token" = aws_api_gateway_api_key.remo.value
+  })
+}
+
+
 variable "secret_backend" {
   type    = string  
 }
 variable "secret_role" {
+  type    = string  
+}
+variable "conf_path_vault" {
   type    = string  
 }

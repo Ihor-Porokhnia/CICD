@@ -10,14 +10,8 @@ def lambda_handler(event, context):
          EnvironmentId=env_id,
          VersionLabel=event['app_version']
       )
-     return ("LOL")
+     return ({'result' : 'set', 'params' : event['app_version']})
     except Exception as e:
      exception_type = e.__class__.__name__
      exception_message = str(e)
-     api_exception_obj = {
-      "isError": True,
-      "type": exception_type,
-      "message": exception_message
-     }
-     #api_exception_json = json.dumps(api_exception_obj)
-     return("ERR")
+     return ({'result' : 'error', 'params' : exception_message})

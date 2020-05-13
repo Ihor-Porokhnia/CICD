@@ -47,15 +47,6 @@ data "aws_lambda_invocation" "update_ver_invoke" {
   aws_elastic_beanstalk_application.beanapp,
   aws_elastic_beanstalk_environment.api]
 }
-output "result_entry_tf012" {
-  value = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result)["key1"]
+output "invocation_output" {
+  value = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result)["params"]
 }
-      
-/* 
-resource "null_resource" "null" {
-  
-  triggers = {
-    invoke = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result_map)    
-  }
-}
- */

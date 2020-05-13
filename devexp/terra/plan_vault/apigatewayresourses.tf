@@ -58,7 +58,7 @@ resource "aws_api_gateway_usage_plan" "api_usage_plan" {
   
   api_stages {
     api_id = aws_api_gateway_rest_api.api.id
-    stage  = aws_api_gateway_deployment.api_deployment.stage_name
+    stage  = aws_api_gateway_stage.dev_stage.stage_name
   } 
 
   quota_settings {
@@ -70,7 +70,7 @@ resource "aws_api_gateway_usage_plan" "api_usage_plan" {
     burst_limit = 2
     rate_limit  = 5
   }
-  depends_on = [aws_api_gateway_stage.dev_stage]
+  //depends_on = [aws_api_gateway_stage.dev_stage]
 }
 
 resource "aws_api_gateway_stage" "dev_stage" {

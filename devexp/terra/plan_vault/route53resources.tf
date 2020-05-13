@@ -1,4 +1,4 @@
-resource "aws_route53_record" "elbstalk" {
+/* resource "aws_route53_record" "elbstalk" {
   zone_id = "Z0909442AOAL213NZWY3"
   name    = "ebs3.devexp.gq"
   type    = "A"
@@ -8,4 +8,4 @@ resource "aws_route53_record" "elbstalk" {
     zone_id                = aws_elastic_beanstalk_application_version.default.load_balancers.zone_id
     evaluate_target_health = true
   }
-}
+} */

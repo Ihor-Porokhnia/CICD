@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration_response" "integration_response_1" {
 resource "aws_api_gateway_deployment" "api_deployment" {
   depends_on = [aws_api_gateway_integration_response.integration_response_1]
   rest_api_id = aws_api_gateway_rest_api.api.id
-  stage_name  = aws_api_gateway_stage.dev_stage.stage_name
+  //stage_name  = aws_api_gateway_stage.dev_stage.stage_name
 }
 
 resource "aws_api_gateway_usage_plan" "api_usage_plan" {

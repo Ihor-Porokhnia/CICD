@@ -70,6 +70,7 @@ resource "aws_api_gateway_usage_plan" "api_usage_plan" {
     burst_limit = 2
     rate_limit  = 5
   }
+  depends_on = [aws_api_gateway_stage.dev_stage]
 }
 
 resource "aws_api_gateway_stage" "dev_stage" {

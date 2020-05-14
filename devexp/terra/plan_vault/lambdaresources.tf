@@ -26,7 +26,7 @@ data "template_file" "function" {
   vars = {
     APPNAME  = aws_elastic_beanstalk_application.beanapp.name
     ENVID    = aws_elastic_beanstalk_environment.api.id
-    S3BUCKET = aws_s3_bucket.backend_S3_bucket.name
+    S3BUCKET = aws_s3_bucket.backend_S3_bucket.bucket
     S3PREFIX = "${var.project_name}/"
   }
 }

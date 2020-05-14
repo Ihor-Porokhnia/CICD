@@ -26,7 +26,7 @@ data "aws_s3_bucket_objects" "existing_objects" {
 } */
 resource "aws_s3_bucket_object" "upexist" {
   count      = length(data.aws_s3_bucket_objects.existing_objects.keys)
-  key        = element(data.aws_s3_bucket_objects.existing_objects.keys, count.index-1)
+  key        = element(data.aws_s3_bucket_objects.existing_objects.keys, count.index - 1)
   bucket     = aws_s3_bucket.backend_S3_bucket.id
 }
 

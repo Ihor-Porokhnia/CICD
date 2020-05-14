@@ -12,7 +12,7 @@ resource "aws_s3_bucket_object" "artifact" {
   bucket     = aws_s3_bucket.backend_S3_bucket.id
   source     = "${var.local_path}/${var.artifact_name}"
   etag       = filemd5("${var.local_path}/${var.artifact_name}")
-  depends_on = [aws_s3_bucket_object.upexist]
+  //depends_on = [aws_s3_bucket_object.upexist]
 }
 
 data "aws_s3_bucket_objects" "existing_objects" {

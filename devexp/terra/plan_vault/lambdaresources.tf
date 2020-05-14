@@ -44,7 +44,7 @@ data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
   input = jsonencode({
   "operation"="update"  
-  "app_version"="${var.project_name}-${var.artifact_name}" 
+  "app_version"=var.artifact_name 
    })
   depends_on = [aws_lambda_function.lambda,
   aws_elastic_beanstalk_application.beanapp,

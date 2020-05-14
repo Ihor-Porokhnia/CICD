@@ -1,6 +1,6 @@
 resource "aws_route53_record" "elbstalk" {
-  zone_id = "Z0909442AOAL213NZWY3"
-  name    = "ebs3.devexp.gq"
+  zone_id = var.zone_id
+  name    = var.record_name
   type    = "A"
 
   alias {
@@ -10,3 +10,11 @@ resource "aws_route53_record" "elbstalk" {
   }
 } 
 data "aws_elastic_beanstalk_hosted_zone" "current" {}
+
+
+variable "zone_id" {
+  type = string
+}
+variable "record_name" {
+  type = string
+}

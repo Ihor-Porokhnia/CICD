@@ -6,7 +6,7 @@ resource "aws_lambda_function" "lambda" {
   function_name    = "${var.project_name}-lambda-beanstalk-control"
   role             = aws_iam_role.lambda_role.arn
   handler          = "function.lambda_handler"
-  source_code_hash = filebase64sha256("${var.local_path}/function.zip")
+  //source_code_hash = filebase64sha256("${var.local_path}/function.zip")
   runtime          = "python3.8"
   depends_on = [
     data.archive_file.lambda_zip,

@@ -15,22 +15,22 @@ resource "aws_s3_bucket_object" "artifact" {
   //depends_on = [aws_s3_bucket_object.upexist]
 }
 
-data "aws_s3_bucket_objects" "existing_objects" {
+/* data "aws_s3_bucket_objects" "existing_objects" {
   bucket = "${var.project_name}--bucket"
   prefix =  var.project_name
 }
-
+ */
 /* data "aws_s3_bucket_object" "existing_object_info" {
   count  = length(data.aws_s3_bucket_objects.existing_objects.keys)
   key    = element(data.aws_s3_bucket_objects.existing_objects.keys, count.index)  
 } */
-resource "aws_s3_bucket_object" "upexist" {
+/* resource "aws_s3_bucket_object" "upexist" {
   count      = length(data.aws_s3_bucket_objects.existing_objects.keys)
   key        = element(data.aws_s3_bucket_objects.existing_objects.keys, count.index)
   bucket     = aws_s3_bucket.backend_S3_bucket.id
   depends_on = [aws_s3_bucket_object.artifact]
 }
-
+ */
 variable "artifact_name" {
   type    = string  
 }

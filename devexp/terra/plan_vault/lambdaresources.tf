@@ -6,7 +6,7 @@ resource "aws_lambda_function" "lambda" {
   function_name    = "${var.project_name}-lambda-beanstalk-control"
   role             = aws_iam_role.lambda_role.arn
   handler          = "function.lambda_handler"
-  //source_code_hash = filebase64sha256("${var.local_path}/function.zip")
+  source_code_hash = filebase64sha256("${var.local_path}/function.zip")
   runtime          = "python3.8"
   depends_on = [
     data.archive_file.lambda_zip,
@@ -24,8 +24,10 @@ resource "aws_lambda_permission" "apigw_lambda" {
 data "template_file" "function" {
   template = file("${var.local_path}/function.py.tpl")
   vars = {
-    APPNAME = aws_elastic_beanstalk_application.beanapp.name
-    ENVID   = aws_elastic_beanstalk_environment.api.id
+    APPNAME  = aws_elastic_beanstalk_application.beanapp.name
+    ENVID    = aws_elastic_beanstalk_environment.api.id
+    S3BUCKET = aws_s3_bucket.backend_S3_bucket.name
+    S3PREFIX = "${var.project_name}/"
   }
 }
 
@@ -41,7 +43,8 @@ data "archive_file" "lambda_zip" {
 data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
   input = jsonencode({
-  "app_version"=aws_elastic_beanstalk_application_version.default.name  
+  "operation"="update"  
+  "app_version"="${var.project_name}-${var.artifact_name}" 
    })
   depends_on = [aws_lambda_function.lambda,
   aws_elastic_beanstalk_application.beanapp,

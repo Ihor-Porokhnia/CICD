@@ -8,6 +8,13 @@ def lambda_handler(event, context):
     client = boto3.client('elasticbeanstalk')
     if event['operation'] == "set":
      try:
+      health_status = "Grey"
+      while health_status != "Green" :
+       health_status_req = client.describe_environment_health(
+       EnvironmentId=env_id,
+       AttributeNames=['Color'])
+       health_status = health_status_req["Color"]
+       
       response = client.update_environment(
           ApplicationName=app_name,
           EnvironmentId=env_id,
@@ -52,6 +59,12 @@ def lambda_handler(event, context):
         },
         VersionLabel=event['app_version'],
         )
+      health_status = "Grey"
+      while health_status != "Green" :
+       health_status_req = client.describe_environment_health(
+       EnvironmentId=env_id,
+       AttributeNames=['Color'])
+       health_status = health_status_req["Color"]
       response = client.update_environment(
           ApplicationName=app_name,
           EnvironmentId=env_id,

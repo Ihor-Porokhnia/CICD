@@ -25,7 +25,7 @@ def lambda_handler(event, context):
       response = client.create_application_version(
         ApplicationName=app_name,
         AutoCreateApplication=False,
-        Description='created by lambda,
+        Description='created by lambda',
         Process=True,
         SourceBundle={
             'S3Bucket': s3_bucket,

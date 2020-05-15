@@ -142,6 +142,3 @@ resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {
 variable "account_id" {
   type = string
 }
-variable "region" {
-  type = string
-}

@@ -14,7 +14,7 @@ This plan generates python lambda from template, zips it into archive and upload
 data "aws_lambda_invocation" "set_version" {
   function_name = "${var.project_name}-lambda-beanstalk-control"
   input = jsonencode({
-  "operation"="create"  
+  "operation"="set"  
   "app_version"=var.artifact_name 
    })
   depends_on = [aws_s3_bucket_object.artifact, data.aws_lambda_invocation.set_version]

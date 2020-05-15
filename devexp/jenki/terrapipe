@@ -1,5 +1,5 @@
 #!groovy
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '10')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'COUNT', trim: true)])])
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '10')), disableConcurrentBuilds(), disableResume(), parameters([string(defaultValue: 'create', description: '', name: 'OPERATION', trim: true), string(defaultValue: '1', description: '', name: 'OPTION', trim: true)])])
 node('builder-1') {
   ansiColor('xterm') {
     stage('Checkout')  {
@@ -32,6 +32,15 @@ node('builder-1') {
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
           sh 'terraform init  -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/create_infrastructure'
           try { sh 'terraform destroy -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/create_infrastructure' }
+          finally { sh 'rm $HOME/.terraformrc' }
+        }
+      }
+
+      else if (OPERATION == 'delivery') {
+        withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
+          sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
+          sh 'terraform init  -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact'
+          try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }

@@ -3,6 +3,9 @@ This plan generates python lambda from template, zips it into archive and upload
 */
 
  data "aws_lambda_invocation" "create_version" {
+   provisioner "local-exec" {
+    command = "sleep 10"
+  }
   function_name = "${var.project_name}-lambda-beanstalk-control"
   input = jsonencode({
   "operation"="create"  
@@ -12,6 +15,9 @@ This plan generates python lambda from template, zips it into archive and upload
 }
 
 data "aws_lambda_invocation" "set_version" {
+  provisioner "local-exec" {
+    command = "sleep 10"
+  }
   function_name = "${var.project_name}-lambda-beanstalk-control"
   input = jsonencode({
   "operation"="set"  

@@ -40,7 +40,7 @@ data "archive_file" "lambda_zip" {
   output_path = "${var.local_path}/function.zip"
 }
 
-data "aws_lambda_invocation" "update_ver_invoke" {
+/* data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
   input = jsonencode({
   "operation"="update"  
@@ -52,4 +52,4 @@ data "aws_lambda_invocation" "update_ver_invoke" {
 }
 output "lambda_invocation_output" {
   value = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result)["params"]
-}
+} */

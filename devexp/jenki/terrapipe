@@ -19,10 +19,10 @@ node('builder-1') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
           //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v          
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
-          sh 'terraform init -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault'
-          //sh 'terraform plan -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault'
-          //sh 'terraform graph  ./devexp/terra/plan_vault > gra'
-          try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault' }
+          sh 'terraform init -var-file="./devexp/terra/create_infrasruture/terraform.tfvars" ./devexp/terra/create_infrasruture'
+          //sh 'terraform plan -var-file="./devexp/terra/create_infrasruture/terraform.tfvars" ./devexp/terra/create_infrasruture'
+          //sh 'terraform graph  ./devexp/terra/create_infrasruture > gra'
+          try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/create_infrasruture/terraform.tfvars" ./devexp/terra/create_infrasruture' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }
@@ -30,16 +30,16 @@ node('builder-1') {
       else if (OPERATION == 'destroy') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
-          sh 'terraform init  -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault'
-          try { sh 'terraform destroy -auto-approve -var-file="./devexp/terra/plan_vault/terraform.tfvars" ./devexp/terra/plan_vault' }
+          sh 'terraform init  -var-file="./devexp/terra/create_infrasruture/terraform.tfvars" ./devexp/terra/create_infrasruture'
+          try { sh 'terraform destroy -auto-approve -var-file="./devexp/terra/create_infrasruture/terraform.tfvars" ./devexp/terra/create_infrasruture' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }
 
       else if (OPERATION == 'test') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga']]) {
-          sh "terraform init ./devexp/terra/plan_vault"
-          sh 'terraform plan ./devexp/terra/plan_vault'
+          sh "terraform init ./devexp/terra/create_infrasruture"
+          sh 'terraform plan ./devexp/terra/create_infrasruture'
         }
       }
 

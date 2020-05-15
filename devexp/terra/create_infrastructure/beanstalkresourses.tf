@@ -6,16 +6,6 @@ resource "aws_elastic_beanstalk_application" "beanapp" {
   description = "test application 4 terraform"
 }
 
-/* resource "aws_elastic_beanstalk_application_version" "default" {
-  name        = "${var.project_name}-${var.artifact_name}"
-  application = aws_elastic_beanstalk_application.beanapp.name
-  description = "application version created by terraform"
-  bucket      = aws_s3_bucket.backend_S3_bucket.id
-  key         = aws_s3_bucket_object.artifact.id
-  depends_on = [
-    aws_elastic_beanstalk_environment.api,
-  ]
-} */
 
 resource "aws_elastic_beanstalk_environment" "api" {
   name                   = "${var.project_name}-env"

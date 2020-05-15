@@ -2,11 +2,11 @@
 This plan generates python lambda from template, zips it into archive and uploads it
 */
 resource "aws_lambda_function" "lambda" {
-  filename         = "${var.local_path}/function.zip"
+  filename         = "${var.func_path}/function.zip"
   function_name    = "${var.project_name}-lambda-beanstalk-control"
   role             = aws_iam_role.lambda_role.arn
   handler          = "function.lambda_handler"
-  source_code_hash = filebase64sha256("${var.local_path}/function.zip")
+  source_code_hash = filebase64sha256("${var.func_path}/function.zip")
   runtime          = "python3.8"
   depends_on = [
     data.archive_file.lambda_zip,
@@ -22,7 +22,7 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 data "template_file" "function" {
-  template = file("${var.local_path}/function.py.tpl")
+  template = file("${var.func_path}/function.py.tpl")
   vars = {
     APPNAME  = aws_elastic_beanstalk_application.beanapp.name
     ENVID    = aws_elastic_beanstalk_environment.api.id
@@ -37,7 +37,7 @@ data "archive_file" "lambda_zip" {
     content  = data.template_file.function.rendered
     filename = "function.py"
   }
-  output_path = "${var.local_path}/function.zip"
+  output_path = "${var.func_path}/function.zip"
 }
 
 /* data "aws_lambda_invocation" "update_ver_invoke" {

@@ -59,7 +59,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "RollingUpdateType"
     value     = "Health"
   }
-  setting {
+/*   setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "MinInstancesInService"
     value     = "1"
@@ -68,7 +68,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "MaxBatchSize"
     value     = "1"
-  }
+  } */
   setting {
     namespace = "aws:elb:loadbalancer"
     name      = "CrossZone"

@@ -7,6 +7,9 @@ def lambda_handler(event, context):
     
     if app_ready() != "Ready":
      return ({'result' : 'error', 'type' : 'call', 'params' : 'enviroment is busy'})
+    if event['operation'] == "descale":
+     responce = descale_env()
+     return responce 
     if event['operation'] == "set":
      responce = set_version(event)
      return responce
@@ -84,3 +87,20 @@ def app_ready():
         'Status',
     ])
  return response['Status']
+def descale_env():
+ client_ebs = boto3.client('elasticbeanstalk')
+ responce = client_ebs.update_environment(
+  EnvironmentId=env_id,
+  OptionSettings=[
+   {
+            'Namespace': 'aws:autoscaling:asg',
+            'OptionName': 'MinSize',
+            'Value': '0',
+        },
+   {
+            'Namespace': 'aws:autoscaling:asg',
+            'OptionName': 'MaxSize',
+            'Value': '0',
+        },   
+   ],)
+ return responce   

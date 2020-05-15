@@ -40,6 +40,10 @@ data "archive_file" "lambda_zip" {
   output_path = "${var.func_path}/function.zip"
 }
 
+variable "func_path" {
+  type = string
+}
+
 /* data "aws_lambda_invocation" "update_ver_invoke" {
   function_name = aws_lambda_function.lambda.function_name
   input = jsonencode({

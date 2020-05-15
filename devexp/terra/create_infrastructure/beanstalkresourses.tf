@@ -49,7 +49,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "MaxSize"
     value     = "2"
   }
-  setting {
+/*   setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateEnabled"
     value     = "true"
@@ -58,7 +58,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateType"
     value     = "Health"
-  }
+  } */
 /*   setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "MinInstancesInService"

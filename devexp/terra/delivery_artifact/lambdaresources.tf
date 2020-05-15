@@ -14,6 +14,9 @@ resource "null_resource" "pause" {
   provisioner "local-exec" {
     command = "sleep 10"
   }
+  triggers = {
+    art_name = aws_s3_bucket_object.artifact.etag
+  }
   depends_on = [data.aws_lambda_invocation.create_version]
 }
 

@@ -40,13 +40,13 @@ node('builder-1') {
 
       else if (OPERATION == 'delivery') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN'), file(credentialsId: 'db-vault-access', variable: 'FIL')]) {
-          sh "cat $FIL  > src/main/resources/bd.properties"
+          sh "cat $FIL  > ./src/main/resources/bd.properties"
           try {
             sh "rm -rf ./target"
             sh "sed -i \"s/<version>0.0.2-SNAPSHOT<\\/version>/<version>0.0.$BUILD_ID-SNAPSHOT<\\/version>/g\" pom.xml"
             sh "mvn package"
           }
-          finally { sh 'rm src/main/resources/bd.properties' }
+          finally { sh 'rm ./src/main/resources/bd.properties' }
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
           sh 'terraform init -reconfigure  -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact'
           try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact' }

@@ -19,7 +19,7 @@ node('builder-1') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
           //TF_LOG=DEBUG OCI_GO_SDK_DEBUG=v          
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
-          sh 'terraform init -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/create_infrastructure'
+          sh 'terraform init -reconfigure -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/create_infrastructure'
           //sh 'terraform plan -var-file="./devexp/terra/create_infrastructure/terraform.tfvars" ./devexp/terra/create_infrastructure'
           //sh 'terraform graph  ./devexp/terra/create_infrastructure > gra'
           try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/create_infrastructure' }
@@ -39,7 +39,7 @@ node('builder-1') {
       else if (OPERATION == 'delivery') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN')]) {
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
-          sh 'terraform init  -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact'
+          sh 'terraform init -reconfigure  -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact'
           try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact' }
           finally { sh 'rm $HOME/.terraformrc' }
         }

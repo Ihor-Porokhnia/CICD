@@ -4,7 +4,9 @@ env_id="${ENVID}"
 s3_bucket="${S3BUCKET}"
 s3_prefix="${S3PREFIX}"
 def lambda_handler(event, context):
-    
+    if event['operation'] == "scale":
+     responce = scale_env()
+     return responce
     if app_ready() != "Ready":
      return ({'result' : 'error', 'type' : 'call', 'params' : 'enviroment is busy'})
     if event['operation'] == "descale":
@@ -15,13 +17,7 @@ def lambda_handler(event, context):
      return responce
     if event['operation'] == "create":
      responce = create_version(event)
-     return responce
-    if event['operation'] == "update":
-     responce = create_version(event)
-     if responce["result"] == "error":
-      return responce
-     responce = set_version(event)
-     return responce
+     return responce    
     else:
      return ({'result' : 'error', 'type' : 'call', 'params' : 'no such operation'})
      
@@ -103,4 +99,23 @@ def descale_env():
             'Value': '0',
         },   
    ],)
- return responce   
+  
+ return responce['Status']    
+def scale_env():
+ client_ebs = boto3.client('elasticbeanstalk')
+ responce = client_ebs.update_environment(
+  EnvironmentId=env_id,
+  OptionSettings=[
+   {
+            'Namespace': 'aws:autoscaling:asg',
+            'OptionName': 'MinSize',
+            'Value': '1',
+        },
+   {
+            'Namespace': 'aws:autoscaling:asg',
+            'OptionName': 'MaxSize',
+            'Value': '2',
+        },   
+   ],)
+   
+ return responce['Status']    

@@ -44,17 +44,14 @@ node('builder-1') {
         withCredentials([[$class: 'VaultTokenCredentialBinding', addrVariable: 'VAULT_ADDR', credentialsId: 'az01tf1', tokenVariable: 'VAULT_TOKEN', vaultAddr: 'https://vault.bugoga.ga'], string(credentialsId: 'tf-cloud-token', variable: 'TFE_TOKEN'), file(credentialsId: 'db-vault-access', variable: 'FIL')]) {
           sh "cat $FIL  > ./src/main/resources/bd.properties"
           try {
-            sh "rm -rf ./target"
-            sh "pwd"
-            sh "ls -la"
-            sh "echo "
+            sh "rm -rf ./target"           
             sh "sed -i \"s/<version>0.0.2-SNAPSHOT<\\/version>/<version>0.0.$BUILD_ID-SNAPSHOT<\\/version>/g\" pom.xml"
             sh "'${mvHome}/bin/mvn' package"
           }
           finally { sh 'rm ./src/main/resources/bd.properties' }
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
           sh 'terraform init -reconfigure  -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/delivery_artifact'
-          try { sh 'terraform apply -auto-approve -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/delivery_artifact' }
+          try { sh 'terraform apply -auto-approve -var-file="./cicd/devexp/terra/terraform.tfvars" -var artifact_name="test-0.0.$BUILD_ID-SNAPSHOT.jar" ./cicd/devexp/terra/delivery_artifact' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }

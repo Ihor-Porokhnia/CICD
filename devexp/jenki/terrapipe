@@ -51,7 +51,7 @@ node('builder-1') {
           finally { sh 'rm ./src/main/resources/bd.properties' }
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
           sh 'terraform init -reconfigure  -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/delivery_artifact'
-          try { sh 'terraform apply -auto-approve -var-file="./cicd/devexp/terra/terraform.tfvars" -var artifact_name="test-0.0.$BUILD_ID-SNAPSHOT.jar" ./cicd/devexp/terra/delivery_artifact' }
+          try { sh "terraform apply -auto-approve -var-file=\"./cicd/devexp/terra/terraform.tfvars\" -var artifact_name=\"test-0.0.$BUILD_ID-SNAPSHOT.jar\" ./cicd/devexp/terra/delivery_artifact" }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }

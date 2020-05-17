@@ -13,7 +13,7 @@ node('builder-1') {
 
       script {
         def tfHome = tool name: 'Terraform'
-        def mvHome = tool name: 'Maven'
+        mvHome = tool name: 'Maven'
         env.PATH = "${tfHome}:${env.PATH}"
       }
     }

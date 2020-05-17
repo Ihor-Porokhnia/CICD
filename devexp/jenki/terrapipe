@@ -4,7 +4,9 @@ node('builder-1') {
   ansiColor('xterm') {
     stage('Checkout')  {
       git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/devexp.git'
-      //git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
+      dir('cicd') {
+        git credentialsId: 'master-github-ssh', url: 'git@github.com:Ihor-Porokhnia/CICD.git'
+      }
     }
 
     stage('Set Tools') {
@@ -12,7 +14,7 @@ node('builder-1') {
       script {
         def tfHome = tool name: 'Terraform'
         def mvHome = tool name: 'Maven'
-        env.PATH = "${mvHome}:${tfHome}:${env.PATH}"
+        env.PATH = "${tfHome}:${env.PATH}"
       }
     }
 
@@ -44,12 +46,12 @@ node('builder-1') {
           try {
             sh "rm -rf ./target"
             sh "sed -i \"s/<version>0.0.2-SNAPSHOT<\\/version>/<version>0.0.$BUILD_ID-SNAPSHOT<\\/version>/g\" pom.xml"
-            sh "mvn package"
+            sh "${gradleHome}/bin/mvn package"
           }
           finally { sh 'rm ./src/main/resources/bd.properties' }
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"
-          sh 'terraform init -reconfigure  -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact'
-          try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/delivery_artifact' }
+          sh 'terraform init -reconfigure  -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/delivery_artifact'
+          try { sh 'terraform apply -auto-approve -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/delivery_artifact' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }

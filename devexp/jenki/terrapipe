@@ -49,7 +49,7 @@ node('builder-1') {
             sh "ls -la"
             sh "echo "
             sh "sed -i \"s/<version>0.0.2-SNAPSHOT<\\/version>/<version>0.0.$BUILD_ID-SNAPSHOT<\\/version>/g\" pom.xml"
-            sh "${mvHome}/bin/mvn package"
+            sh "'${mvHome}/bin/mvn' package"
           }
           finally { sh 'rm ./src/main/resources/bd.properties' }
           sh "echo 'credentials \"app.terraform.io\" { token = \"${TFE_TOKEN}\" } ' > $HOME/.terraformrc"

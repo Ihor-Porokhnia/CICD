@@ -61,7 +61,14 @@ services:
       - "8500:8500"
       - "8600:8600"
       - "8600:8600/udp"
-    command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
+    entrypoint: /bin/sh -c  
+    command: >
+      "/usr/local/bin/docker-entrypoint.shagent -server -bootstrap-expect 1 -ui -client 0.0.0.0 &&
+      consul kv put service/mysql/datasource mysql &&
+      consul kv put service/mysql/username petclinic &&
+      consul kv put service/mysql/password petclinic &&
+      consul kv put service/mysql/driver com.mysql.cj.jdbc.Driver"
+
 
 networks:
   consultation:

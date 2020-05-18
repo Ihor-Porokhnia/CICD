@@ -63,7 +63,7 @@ services:
       - "8600:8600/udp"
     entrypoint: /bin/sh -c  
     command: >
-      "/usr/local/bin/docker-entrypoint.shagent -server -bootstrap-expect 1 -ui -client 0.0.0.0 &&
+      "/usr/local/bin/docker-entrypoint.sh agent -server -bootstrap-expect 1 -ui -client 0.0.0.0 &&
       consul kv put service/mysql/datasource mysql &&
       consul kv put service/mysql/username petclinic &&
       consul kv put service/mysql/password petclinic &&

@@ -76,7 +76,7 @@ services:
     image: hashicorp/consul-template:latest
     container_name: consul-template
     volumes:
-      - ./config:/templates
+      - .:/templates
     networks:
       - consultation    
     command: "-template=\"/templates/mysql.properties.ctpl:/templates/application-mysql.properties\" -consul-addr=\"consul-server-bootstrap:8500\""  

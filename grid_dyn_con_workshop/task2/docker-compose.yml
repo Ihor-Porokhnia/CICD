@@ -18,19 +18,42 @@ services:
     networks:
       - consultation
 
+
+  petclinic:
+    image: arey/springboot-petclinic:2.1.3
+    container_name: petclinic
+    volumes:
+      - ./config:/config
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=mysql,prod
+    entrypoint: ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.config.location=file:/config/application-mysql.properties","-jar","/petclinic.jar"]
+    networks:
+      - consultation
+
+
   consul-agent-0: &consul-agent
     image: consul:latest
+    container_name: consul-agent-0
     networks:
       - consultation
     entrypoint: /bin/sh -c
     command: >
-      "echo '{ \"Service\": { \"Name\": \"mysql\", \"Address\" : \"mysql-server\", \"Port\": 3306, \"check\": { \"id\": \"mysql\", \"name\": \"Check Petclinic Mysql health 3306\", \"tcp\": \"mysql-server:3306\", \"interval\": \"10s\", \"timeout\": \"1s\" } } }' >> /consul/config/web.json  
+      "echo '{ \"Service\": { \"Name\": \"mysql\", \"Address\" : \"mysql-server\", \"Port\": 3306, \"check\": { \"id\": \"mysql\", \"name\": \"Check Petclinic Mysql health 3306\", \"tcp\": \"mysql-server:3306\", \"interval\": \"10s\", \"timeout\": \"1s\" } } }' >> /consul/config/mysql.json  
       && /usr/local/bin/docker-entrypoint.sh  agent -retry-join consul-server-bootstrap -client 0.0.0.0"
-
+  
+  consul-agent-1:
+    <<: *consul-agent    
+    container_name: consul-agent-1    
+    command: >
+      "echo '{ \"Service\": { \"Name\": \"petclinic\", \"Address\" : \"petclinic\", \"Port\": 8080, \"check\": { \"id\": \"petclinic\", \"name\": \"Check Petclinic service health 8080\", \"tcp\": \"petclinic:8080\", \"interval\": \"10s\", \"timeout\": \"1s\" } } } ' >> /consul/config/spring.json  
+      && /usr/local/bin/docker-entrypoint.sh  agent -retry-join consul-server-bootstrap -client 0.0.0.0"
 
 
   consul-server-bootstrap:
     image: consul:latest
+    container_name: consul-server
     networks:
       - consultation
     ports:

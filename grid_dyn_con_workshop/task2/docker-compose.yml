@@ -23,7 +23,7 @@ services:
     image: arey/springboot-petclinic:2.1.3
     container_name: petclinic
     volumes:
-      - ./config:/config
+      - .:/config
     ports:
       - "8080:8080"
     restart: 

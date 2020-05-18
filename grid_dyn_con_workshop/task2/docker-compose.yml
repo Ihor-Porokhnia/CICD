@@ -1,12 +1,22 @@
 version: '3'
 services:
      
-  nginx-server:
-    image: nginx:latest
+  mysql-server:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=petclinic
+      - MYSQL_DATABASE=petclinic
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d:ro"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 24
     networks:
       - consultation
-    ports:
-      - "80:80" 
 
   consul-agent-0: &consul-agent
     image: consul:latest
@@ -14,27 +24,21 @@ services:
       - consultation
     entrypoint: /bin/sh -c
     command: >
-      "echo '{\"service\": {\"name\": \"nginx\", \"tags\": [\"web\"], \"port\": 80}}' >> /consul/config/web.json  
+      "echo '{ \"Service\": { \"Name\": \"mysql\", \"Address\" : \"mysql-server\", \"Port\": 3306, \"check\": { \"id\": \"mysql\", \"name\": \"Check Petclinic Mysql health 3306\", \"tcp\": \"mysql-server:3306\", \"interval\": \"10s\", \"timeout\": \"1s\" } } }' >> /consul/config/web.json  
       && /usr/local/bin/docker-entrypoint.sh  agent -retry-join consul-server-bootstrap -client 0.0.0.0"
-#  consul-agent-1:
-#    <<: *consul-agent
-  consul-server-1: &consul-server
+
+
+
+  consul-server-bootstrap:
     image: consul:latest
     networks:
       - consultation
-    command: "agent -server -retry-join consul-server-bootstrap -client 0.0.0.0"
-
-  consul-server-2:
-    <<: *consul-server
-
-  consul-server-bootstrap:
-    <<: *consul-server
     ports:
       - "8400:8400"
       - "8500:8500"
       - "8600:8600"
       - "8600:8600/udp"
-    command: "agent -server -bootstrap-expect 3 -ui -client 0.0.0.0"
+    command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
 
 networks:
   consultation:

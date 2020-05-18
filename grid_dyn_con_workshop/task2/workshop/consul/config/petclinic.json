@@ -1,0 +1,14 @@
+{
+  "Service": {
+    "Name": "petclinic",
+    "Address" : "10.20.0.10",
+    "Port": 8080,
+    "check": {
+      "id": "petclinic",
+      "name": "Check Petclinic service health 8080",
+      "tcp": "10.20.0.10:8080",
+      "interval": "10s",
+      "timeout": "1s"
+    }
+  }
+}

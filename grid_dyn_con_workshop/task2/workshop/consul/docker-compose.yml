@@ -1,0 +1,25 @@
+version: '2.1'
+
+services: 
+  consul-server:
+    image: consul:1.7.2
+    container_name: consul-server
+    ports:
+      - "8500:8500"
+      - "8300:8300"
+      - "8600:8600/udp"
+    volumes:
+      - ./data/consul:/consul/data
+    command: agent -server -ui -node=consul-server -bootstrap-expect=1 -client=0.0.0.0
+    networks:
+      app-network:
+        ipv4_address: 10.20.0.250 
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+        - subnet: 10.20.0.0/24
+          gateway: 10.20.0.1

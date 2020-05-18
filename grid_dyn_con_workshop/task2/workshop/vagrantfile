@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure('2') do |config|
+  ENV['LC_ALL']="en_US.UTF-8"
+  ENV['LANG']="en_US.UTF-8"
+  config.vm.box = 'centos/7'
+  # config.vm.network :private_network, ip: "192.168.0.110"
+  config.vm.network "forwarded_port", guest: 443, host: 443
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 3306, host: 3306
+  
+  config.vm.provider :virtualbox do |vb|
+    vb.memory = '4096'
+    vb.cpus = 2
+  end
+  # config.vm.synced_folder '.', '/vagrant', disabled: true
+  # config.vm.synced_folder '.', '/sharedfolder', SharedFoldersEnableSymlinksCreate: false
+  yum_update = <<-SHELL
+    yum update -y
+    yum install -y https://centos7.iuscommunity.org/ius-release.rpm
+    yum install -y git216-core-2.16.6 git216-2.16.6
+  SHELL
+  install_docker_provision = <<-SHELL
+    test -f /etc/yum.repos.d/docker-ce.repo || ( \
+      yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo; \
+      yum-config-manager --enable docker-ce-edge; \
+      yum makecache fast \
+    )
+    rpm -aq | grep -q docker || ( \
+      yum install -y docker-ce-18.09.8-3.el7; \
+      perl -i -pe 's;^ExecStart=/usr/bin/dockerd$;ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock;' /lib/systemd/system/docker.service; \
+      systemctl enable docker; \
+      systemctl start docker \
+    )
+    groups vagrant | grep -q docker || ( \
+      gpasswd -a vagrant docker
+    )
+    test -f /etc/sysconfig/docker || \
+      echo "OPTIONS=--selinux-enabled -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375" > /etc/sysconfig/docker
+  SHELL
+  petclinic_run = <<-SHELL
+    docker rm springboot-petclinic
+    docker run -d \
+    -e "SPRING_PROFILES_ACTIVE=prod" \
+    -p 8080:8080 \
+    -t --name springboot-petclinic \
+    arey/springboot-petclinic
+  SHELL
+  mysql_run = <<-SHELL
+    docker rm mysql-petclinic 
+    docker run -d \
+    --name mysql-petclinic \
+    -e MYSQL_ROOT_PASSWORD=petclinic\
+    -e MYSQL_DATABASE=petclinic \
+    -p 3306:3306 \
+    mysql:5.7
+  SHELL
+  config.vm.define :manager, primary: true do |m|
+    m.vm.hostname = 'manager'
+    m.vm.provision :shell, inline: yum_update, run: 'once'
+    m.vm.provision :shell, inline: install_docker_provision, run: 'once'
+    m.vm.provision :shell, inline: petclinic_run, run: 'once'
+    m.vm.provision :shell, inline: mysql_run, run: 'once'
+  end
+end

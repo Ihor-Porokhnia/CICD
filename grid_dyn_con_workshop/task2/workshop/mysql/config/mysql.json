@@ -1,0 +1,14 @@
+{
+  "Service": {
+    "Name": "mysql",
+    "Address" : "10.20.0.5",
+    "Port": 3306,
+    "check": {
+      "id": "mysql",
+      "name": "Check Petclinic Mysql health 3306",
+      "tcp": "10.20.0.5:3306",
+      "interval": "10s",
+      "timeout": "1s"
+    }
+  }
+}

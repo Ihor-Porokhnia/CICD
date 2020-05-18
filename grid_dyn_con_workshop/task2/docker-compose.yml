@@ -26,6 +26,14 @@ services:
       - ./config:/config
     ports:
       - "8080:8080"
+    depends_on:
+      mysql-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl" ,"-f", "http://localhost:8080"]
+      timeout: 10s
+      retries: 100    
+        
     environment:
       - SPRING_PROFILES_ACTIVE=mysql,prod
     entrypoint: ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.config.location=file:/config/application-mysql.properties","-jar","/petclinic.jar"]
@@ -61,14 +69,26 @@ services:
       - "8500:8500"
       - "8600:8600"
       - "8600:8600/udp"
-    entrypoint: /bin/sh -c  
-    command: >
-      "/usr/local/bin/docker-entrypoint.sh agent -server -bootstrap-expect 1 -ui -client 0.0.0.0 &&
-      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/datasource mysql &&
-      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/username petclinic &&
-      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/password petclinic &&
-      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/driver com.mysql.cj.jdbc.Driver"
+    command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
 
+  consul-template:
+    image: consul-hashicorp/consul-template:latest
+    container_name: consul-template
+    volumes:
+      - ./config:/templates
+    networks:
+      - consultation    
+    command: "-template=\"/templates/mysql.properties.ctpl:/templates/application-mysql.properties\" -consul-addr=\"consul-server-bootstrap:8500\""  
+  
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    networks:
+      - consultation  
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  
 
 networks:
   consultation:

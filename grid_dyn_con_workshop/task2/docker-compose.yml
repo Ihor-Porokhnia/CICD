@@ -73,7 +73,7 @@ services:
     command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
 
   consul-template:
-    image: consul-hashicorp/consul-template:latest
+    image: hashicorp/consul-template:latest
     container_name: consul-template
     volumes:
       - ./config:/templates

@@ -29,9 +29,8 @@ services:
     restart: 
       "always"  
     depends_on:
-      mysql-server:
-        condition:
-          "service_healthy"
+      - mysql-server
+        
     healthcheck:
       test: ["CMD", "curl" ,"-f", "http://localhost:8080"]
       timeout: 10s

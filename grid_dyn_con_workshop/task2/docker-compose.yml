@@ -64,11 +64,10 @@ services:
     entrypoint: /bin/sh -c  
     command: >
       "/usr/local/bin/docker-entrypoint.sh agent -server -bootstrap-expect 1 -ui -client 0.0.0.0 &&
-      sleep 10 &&
-      consul kv put service/mysql/datasource mysql &&
-      consul kv put service/mysql/username petclinic &&
-      consul kv put service/mysql/password petclinic &&
-      consul kv put service/mysql/driver com.mysql.cj.jdbc.Driver"
+      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/datasource mysql &&
+      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/username petclinic &&
+      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/password petclinic &&
+      /usr/local/bin/docker-entrypoint.sh consul kv put service/mysql/driver com.mysql.cj.jdbc.Driver"
 
 
 networks:

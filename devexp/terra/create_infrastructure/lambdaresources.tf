@@ -24,10 +24,12 @@ resource "aws_lambda_permission" "apigw_lambda" {
 data "template_file" "function" {
   template = file("${var.func_path}/function.py.tpl")
   vars = {
-    APPNAME  = aws_elastic_beanstalk_application.beanapp.name
-    ENVID    = aws_elastic_beanstalk_environment.api.id
-    S3BUCKET = aws_s3_bucket.backend_S3_bucket.bucket
-    S3PREFIX = "${var.project_name}/"
+    APPNAME   = aws_elastic_beanstalk_application.beanapp.name
+    ENVID     = aws_elastic_beanstalk_environment.api.id
+    S3BUCKET  = aws_s3_bucket.backend_S3_bucket.bucket
+    S3PREFIX  = "${var.project_name}/"
+    S3PREFIXB = "${var.back_s3_prefix}/"
+    S3PREFIXF = "${var.front_s3_prefix}/"
   }
 }
 
@@ -43,17 +45,10 @@ data "archive_file" "lambda_zip" {
 variable "func_path" {
   type = string
 }
-
-/* data "aws_lambda_invocation" "update_ver_invoke" {
-  function_name = aws_lambda_function.lambda.function_name
-  input = jsonencode({
-  "operation"="update"  
-  "app_version"=var.artifact_name 
-   })
-  depends_on = [aws_lambda_function.lambda,
-  aws_elastic_beanstalk_application.beanapp,
-  aws_elastic_beanstalk_environment.api]
+variable "front_s3_prefix" {
+  type = string
 }
-output "lambda_invocation_output" {
-  value = jsondecode(data.aws_lambda_invocation.update_ver_invoke.result)["params"]
-} */
+variable "back_s3_prefix" {
+  type = string
+}
+

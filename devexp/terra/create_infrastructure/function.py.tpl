@@ -3,6 +3,8 @@ app_name="${APPNAME}"
 env_id="${ENVID}"
 s3_bucket="${S3BUCKET}"
 s3_prefix="${S3PREFIX}"
+s3_prefix_b="${S3PREFIXB}"
+s3_prefix_f="${S3PREFIXF}"
 def lambda_handler(event, context):
     if event['operation'] == "scale":
      responce = scale_env()
@@ -28,6 +30,17 @@ def create_version(event):
  client_ebs = boto3.client('elasticbeanstalk')
  client_s3 = boto3.client('s3')
  try:
+   response = client_s3.copy_object(
+    Bucket=s3_bucket,
+    CopySource=s3_bucket+s3_prefix+event['app_version'],
+    Key=s3_prefix_b+event['app_version'],
+    )
+ except Exception as e:  
+  exception_type = e.__class__.__name__
+  exception_message = str(e)
+  return ({'result' : 'error', 'type' : 's3 copy', 'params' : exception_message})
+
+ try:
   response = client_ebs.create_application_version(
     ApplicationName=app_name,
     AutoCreateApplication=False,
@@ -35,7 +48,7 @@ def create_version(event):
     Process=True,
     SourceBundle={
         'S3Bucket': s3_bucket,
-        'S3Key': s3_prefix+event['app_version'],
+        'S3Key': s3_prefix_b+event['app_version'],
     },
     VersionLabel=event['app_version'],
     )

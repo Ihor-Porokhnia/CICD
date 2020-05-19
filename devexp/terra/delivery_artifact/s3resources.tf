@@ -8,7 +8,7 @@ This plan used 2 create S3 bucket and upload artifacts
 } */
 
 resource "aws_s3_bucket_object" "artifact" {
-  key        = "${var.project_name}/${var.artifact_name}"
+  key        = "${var.upload_s3_prefix}/${var.artifact_name}"
   bucket     = "${var.project_name}--bucket"
   source     = "${var.local_path}/${var.artifact_name}"
   etag       = filemd5("${var.local_path}/${var.artifact_name}")

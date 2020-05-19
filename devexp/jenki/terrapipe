@@ -26,7 +26,7 @@ node('builder-1') {
           sh 'terraform init -reconfigure -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/create_infrastructure'
           //sh 'terraform plan -var-file="./devexp/terra/create_infrastructure/terraform.tfvars" ./devexp/terra/create_infrastructure'
           //sh 'terraform graph  ./devexp/terra/create_infrastructure > gra'
-          try { sh 'terraform apply -auto-approve -var-file="./devexp/terra/terraform.tfvars" ./devexp/terra/create_infrastructure' }
+          try { sh 'terraform apply -auto-approve -var-file="./cicd/devexp/terra/terraform.tfvars" ./cicd/devexp/terra/create_infrastructure' }
           finally { sh 'rm $HOME/.terraformrc' }
         }
       }

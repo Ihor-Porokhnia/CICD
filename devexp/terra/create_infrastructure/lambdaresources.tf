@@ -8,6 +8,7 @@ resource "aws_lambda_function" "lambda" {
   handler          = "function.lambda_handler"
   //source_code_hash = filebase64sha256("${var.func_path}/function.zip")
   runtime          = "python3.8"
+  timeout          = "10"
   depends_on = [
     data.archive_file.lambda_zip,
   ]

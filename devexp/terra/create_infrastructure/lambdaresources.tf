@@ -27,7 +27,7 @@ data "template_file" "function" {
     APPNAME   = aws_elastic_beanstalk_application.beanapp.name
     ENVID     = aws_elastic_beanstalk_environment.api.id
     S3BUCKET  = aws_s3_bucket.backend_S3_bucket.bucket
-    S3PREFIX  = "${var.project_name}/"
+    S3PREFIX  = "${var.upload_s3_prefix}/"
     S3PREFIXB = "${var.back_s3_prefix}/"
     S3PREFIXF = "${var.front_s3_prefix}/"
   }
@@ -51,4 +51,6 @@ variable "front_s3_prefix" {
 variable "back_s3_prefix" {
   type = string
 }
-
+variable "upload_s3_prefix" {
+  type = string
+}

@@ -32,7 +32,7 @@ def create_version(event):
  try:
    response = client_s3.copy_object(
     Bucket=s3_bucket,
-    CopySource=s3_bucket+s3_prefix+event['app_version'],
+    CopySource="/"+s3_bucket+"/"+s3_prefix+event['app_version'],
     Key=s3_prefix_b+event['app_version'],
     )
  except Exception as e:  

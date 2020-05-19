@@ -22,3 +22,6 @@ variable "artifact_name" {
 variable "local_path" {
   type    = string  
 }
+variable "upload_s3_prefix" {
+  type = string
+}

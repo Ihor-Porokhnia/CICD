@@ -6,7 +6,7 @@ secret_role     = "terraformer"
 conf_path_vault = "devexp/conf" //Used 4 storing REST address + api_key
 //----------AWS VARS------------//
 account_id      = "632888177230"     //Used in policy generators
-region          = "us-east-2"
+region          = "eu-central-1"
 artifact_name   = "ssl-test-jenkins-EBS-48.zip"
 local_path      = "./target"
 func_path       = "./cicd/devexp/terra/create_infrastructure"

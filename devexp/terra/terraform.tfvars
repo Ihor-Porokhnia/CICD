@@ -16,7 +16,7 @@ back_s3_prefix  = "backend"
 solution_stack  = "64bit Amazon Linux 2 v3.0.1 running Corretto 11"
 api_path        = "beanstalk"   //Used 4 REST control
 zone_id         = "Z0909442AOAL213NZWY3"
-record_name     = "ebs3.devexp.gq"
+record_name     = "ebs1.devexp.gq"
 ssl_cert_arn   = "arn:aws:acm:eu-central-1:632888177230:certificate/1284ead2-1ec6-4834-9da5-139d4f364bd2"
 
 

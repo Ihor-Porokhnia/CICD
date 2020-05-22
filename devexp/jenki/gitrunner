@@ -2,6 +2,6 @@
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), disableResume(), pipelineTriggers([GenericTrigger(causeString: 'Generic Cause', genericVariables: [[defaultValue: '', key: 'ref', regexpFilter: '', value: '$.ref']], printPostContent: true, token: 'devexp')])])
 node('master') {
 
-if ( ref == 'refs/heads/master' )  { build job: 'EBS', propagate: false, wait: false }
+if ( ref == 'refs/heads/master' )  { build job: 'devexp', parameters: [string(name: 'OPERATION', value: 'deploy'), string(name: 'OPTION', value: 'backend')], propagate: false, wait: false }
 else if ( ref == 'refs/heads/frontend' )  { build job: 'S3', propagate: false, wait: false }
 }

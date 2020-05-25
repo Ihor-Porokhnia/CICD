@@ -18,6 +18,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "SERVER_PORT"
     value     = "5000"
   }
+
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
@@ -28,6 +29,11 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "ServiceRole"
     value     = aws_iam_role.beanstalk_service.name
   }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
+  }  
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"

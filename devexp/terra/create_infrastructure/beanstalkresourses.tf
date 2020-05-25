@@ -37,7 +37,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
   setting {
     namespace = "aws:autoscaling:asg"
     name      = "Availability Zones"
-    value     = "Any 2"
+    value     = "Any"
   }
   setting {
     namespace = "aws:autoscaling:asg"
@@ -72,7 +72,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
   setting {
     namespace = "aws:elb:loadbalancer"
     name      = "CrossZone"
-    value     = "true"
+    value     = "false"
   }
    setting {
     namespace = "aws:elb:listener"

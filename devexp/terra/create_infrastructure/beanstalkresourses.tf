@@ -80,7 +80,23 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "CrossZone"
     value     = "false"
   }
-   setting {
+  setting {
+    namespace = "aws:elbv2:listener:80"
+    name      = "ListenerEnabled"
+    value     = "false"
+  }
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
+    value     = "HTTPS"
+  }
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = var.ssl_cert_arn
+  }  
+  
+/*    setting {
     namespace = "aws:elb:listener"
     name      = "ListenerEnabled"
     value     = "false"
@@ -105,7 +121,7 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "SSLCertificateId"
     value     = var.ssl_cert_arn
   }      
-}
+} */
 
 variable "solution_stack" {
   type = string

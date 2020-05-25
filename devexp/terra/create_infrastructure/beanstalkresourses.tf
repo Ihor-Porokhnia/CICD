@@ -120,8 +120,8 @@ resource "aws_elastic_beanstalk_environment" "api" {
     namespace = "aws:elb:listener:443"
     name      = "SSLCertificateId"
     value     = var.ssl_cert_arn
-  }      
-} */
+  }*/      
+} 
 
 variable "solution_stack" {
   type = string

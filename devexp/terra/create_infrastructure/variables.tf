@@ -13,6 +13,9 @@ variable "solution_stack" {
 variable "ssl_cert_arn" {
   type = string
 }
+variable "ssl2_cert_arn" {
+  type = string
+}
 variable "account_id" {
   type = string
 }
@@ -41,5 +44,11 @@ variable "secret_role" {
   type    = string  
 }
 variable "conf_path_vault" {
+  type    = string  
+}
+variable "root_domain" {
+  type    = string  
+}
+variable "redirect_domain" {
   type    = string  
 }

@@ -1,11 +1,11 @@
 /*
 This plan generates python lambda from template, zips it into archive and uploads it
 */
-resource "aws_lambda_function" "lambda" {
-  filename         = "${var.func_path}/function.zip"
+resource "aws_lambda_function" "lambda_back" {
+  filename         = "${var.func_path}/function_b.zip"
   function_name    = "${var.project_name}-lambda-beanstalk-control"
-  role             = aws_iam_role.lambda_role.arn
-  handler          = "function.lambda_handler"
+  role             = aws_iam_role.lambda_back_role.arn
+  handler          = "function_b.lambda_handler"
   //source_code_hash = filebase64sha256("${var.func_path}/function.zip")
   runtime          = "python3.8"
   timeout          = "10"
@@ -17,13 +17,13 @@ resource "aws_lambda_function" "lambda" {
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda.function_name
+  function_name = aws_lambda_function.lambda_back.function_name
   principal     = "apigateway.amazonaws.com" 
   source_arn    = "arn:aws:execute-api:${var.region}:${var.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
 }
 
-data "template_file" "function" {
-  template = file("${var.func_path}/function.py.tpl")
+data "template_file" "function_back" {
+  template = file("${var.func_path}/function_b.py.tpl")
   vars = {
     APPNAME   = aws_elastic_beanstalk_application.beanapp.name
     ENVID     = aws_elastic_beanstalk_environment.api.id
@@ -34,12 +34,12 @@ data "template_file" "function" {
   }
 }
 
-data "archive_file" "lambda_zip" {
+data "archive_file" "lambda_back_zip" {
   type = "zip"
   source {
-    content  = data.template_file.function.rendered
-    filename = "function.py"
+    content  = data.template_file.function_back.rendered
+    filename = "function_b.py"
   }
-  output_path = "${var.func_path}/function.zip"
+  output_path = "${var.func_path}/function_b.zip"
 }
 

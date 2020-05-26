@@ -10,7 +10,7 @@ resource "aws_api_gateway_rest_api" "api" {
 }
 
 resource "aws_api_gateway_resource" "resource" {
-  path_part   = var.api_path
+  path_part   = var.api_1_path
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
@@ -29,7 +29,7 @@ resource "aws_api_gateway_integration" "integration_1" {
   http_method             = aws_api_gateway_method.method.http_method
   integration_http_method = "POST"
   type                    = "AWS"
-  uri                     = aws_lambda_function.lambda.invoke_arn
+  uri                     = aws_lambda_function.lambda_back.invoke_arn
 }
 
 resource "aws_api_gateway_method_response" "response_200" {

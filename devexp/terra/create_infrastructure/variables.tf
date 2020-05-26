@@ -1,4 +1,4 @@
-variable "api_path" {
+variable "api_1_path" {
   type = string
 }
 variable "project_name" {

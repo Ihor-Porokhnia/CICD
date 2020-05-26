@@ -53,7 +53,7 @@ resource "aws_iam_role" "beanstalk_ec2" {
 
 }
 
-resource "aws_iam_role" "lambda_role" {
+resource "aws_iam_role" "lambda_back_role" {
   name = "${var.project_name}-lambda-role"
   assume_role_policy = jsonencode({
     "Version" = "2008-10-17",
@@ -97,18 +97,17 @@ resource "aws_iam_policy" "lambda-cloudwatch-policy" {
   })
 }
 resource "aws_iam_role_policy_attachment" "lambda_beanstalk_policy" {
-  role       = aws_iam_role.lambda_role.name
+  role       = aws_iam_role.lambda_back_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess"
 }
 resource "aws_iam_role_policy_attachment" "lambda_s3_policy" {
-  role       = aws_iam_role.lambda_role.name
+  role       = aws_iam_role.lambda_back_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 resource "aws_iam_role_policy_attachment" "lambda_cloudwatch_policy" {
-  role       = aws_iam_role.lambda_role.name
+  role       = aws_iam_role.lambda_back_role.name
   policy_arn = aws_iam_policy.lambda-cloudwatch-policy.arn
 }
-
 resource "aws_iam_role_policy_attachment" "beanstalk_service" {
   role       = aws_iam_role.beanstalk_service.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
@@ -121,18 +120,14 @@ resource "aws_iam_role_policy_attachment" "beanstalk_service_lb" {
   role       = aws_iam_role.beanstalk_service.name
   policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
 }
-
-
 resource "aws_iam_role_policy_attachment" "beanstalk_ec2_worker" {
   role       = aws_iam_role.beanstalk_ec2.name
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
-
 resource "aws_iam_role_policy_attachment" "beanstalk_ec2_web" {
   role       = aws_iam_role.beanstalk_ec2.name
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
 }
-
 resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {
   role       = aws_iam_role.beanstalk_ec2.name
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"

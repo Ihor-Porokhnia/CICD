@@ -55,26 +55,6 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "MaxSize"
     value     = "2"
   }
-/*   setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "RollingUpdateEnabled"
-    value     = "true"
-  }
-  setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "RollingUpdateType"
-    value     = "Health"
-  } */
-/*   setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "MinInstancesInService"
-    value     = "1"
-  }
-  setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "MaxBatchSize"
-    value     = "1"
-  } */
   setting {
     namespace = "aws:elb:loadbalancer"
     name      = "CrossZone"
@@ -94,8 +74,28 @@ resource "aws_elastic_beanstalk_environment" "api" {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
     value     = var.ssl_cert_arn
-  }  
-  
+  }
+}  
+/*   setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "RollingUpdateEnabled"
+    value     = "true"
+  }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "RollingUpdateType"
+    value     = "Health"
+  } */
+/*   setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MinInstancesInService"
+    value     = "1"
+  }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MaxBatchSize"
+    value     = "1"
+  } */  
 /*    setting {
     namespace = "aws:elb:listener"
     name      = "ListenerEnabled"
@@ -121,11 +121,5 @@ resource "aws_elastic_beanstalk_environment" "api" {
     name      = "SSLCertificateId"
     value     = var.ssl_cert_arn
   }*/      
-} 
+ 
 
-variable "solution_stack" {
-  type = string
-}
-variable "ssl_cert_arn" {
-  type = string
-}

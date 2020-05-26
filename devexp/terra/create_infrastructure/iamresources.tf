@@ -138,7 +138,3 @@ resource "aws_iam_role_policy_attachment" "beanstalk_ec2_container" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
 }
 
-
-variable "account_id" {
-  type = string
-}

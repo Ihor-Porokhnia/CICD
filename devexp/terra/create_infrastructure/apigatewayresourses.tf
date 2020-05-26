@@ -87,7 +87,3 @@ resource "aws_api_gateway_usage_plan_key" "main" {
 resource "aws_api_gateway_api_key" "remo" {
   name = "remo"
 }
-
-variable "api_path" {
-  type = string
-}

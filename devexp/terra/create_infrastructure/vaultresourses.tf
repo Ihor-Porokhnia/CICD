@@ -18,13 +18,3 @@ resource "vault_generic_secret" "api_params" {
   })
 }
 
-
-variable "secret_backend" {
-  type    = string  
-}
-variable "secret_role" {
-  type    = string  
-}
-variable "conf_path_vault" {
-  type    = string  
-}

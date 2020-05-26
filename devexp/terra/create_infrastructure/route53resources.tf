@@ -11,10 +11,3 @@ resource "aws_route53_record" "elbstalk" {
 } 
 data "aws_elastic_beanstalk_hosted_zone" "current" {}
 
-
-variable "zone_id" {
-  type = string
-}
-variable "record_name" {
-  type = string
-}

@@ -43,15 +43,3 @@ data "archive_file" "lambda_zip" {
   output_path = "${var.func_path}/function.zip"
 }
 
-variable "func_path" {
-  type = string
-}
-variable "front_s3_prefix" {
-  type = string
-}
-variable "back_s3_prefix" {
-  type = string
-}
-variable "upload_s3_prefix" {
-  type = string
-}

@@ -10,7 +10,7 @@ resource "aws_lambda_function" "lambda_back" {
   runtime          = "python3.8"
   timeout          = "10"
   depends_on = [
-    data.archive_file.lambda_zip,
+    data.archive_file.lambda_back_zip,
   ]
 }
 

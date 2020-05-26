@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "backend_S3_bucket" {
 module "s3-static-website" {
   source  = "conortm/s3-static-website/aws"
   domain_name = var.root_domain
-  redirects   = [var.redirect_domain]
+  //redirects   = [var.redirect_domain]
   secret      = var.project_name
   cert_arn    = var.ssl2_cert_arn
   zone_id     = var.zone_id

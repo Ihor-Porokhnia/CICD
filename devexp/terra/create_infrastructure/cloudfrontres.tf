@@ -5,7 +5,7 @@ locals {
 
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    domain_name = aws_s3_bucket.static_website.website_endpoint
+    domain_name = aws_s3_bucket.static_website.bucket_regional_domain_name
     origin_path = local.public_dir_with_leading_slash
     origin_id   = local.s3_origin_id
 

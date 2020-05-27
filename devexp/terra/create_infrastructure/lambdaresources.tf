@@ -69,7 +69,7 @@ data "archive_file" "lambda_front_zip" {
   type = "zip"
   source {
     content  = data.template_file.function_front.rendered
-    filename = "function_b.py"
+    filename = "function_f.py"
   }
   output_path = "${var.func_path}/function_f.zip"
 }

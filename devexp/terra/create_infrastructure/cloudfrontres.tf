@@ -67,6 +67,8 @@ resource "aws_cloudfront_distribution" "cdn" {
     ssl_support_method        = "sni-only"
     minimum_protocol_version  = "TLSv1.1_2016"
   }
-
+  depends_on = [
+    aws_s3_bucket.static_website,
+  ]
   tags = map("Name", "${var.domain_name}-cdn")
 }

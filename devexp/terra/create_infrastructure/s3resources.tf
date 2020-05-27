@@ -24,7 +24,7 @@ locals {
     },
     "Redirect" = {
         "Protocol" = "https",
-        "HostName" = "${var.domain_name}",
+        "HostName" = var.domain_name,
         "ReplaceKeyPrefixWith" = "",
         "HttpRedirectCode" = "301"
     }

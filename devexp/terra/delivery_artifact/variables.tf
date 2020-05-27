@@ -19,3 +19,6 @@ variable "local_path" {
 variable "upload_s3_prefix" {
   type = string
 }
+variable "domain_name" {
+  type    = string  
+}

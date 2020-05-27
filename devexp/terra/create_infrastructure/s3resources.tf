@@ -11,7 +11,7 @@ This plan used 2 create S3 bucket and upload artifacts
 
 locals {
   public_dir_with_leading_slash = "${length(var.public_dir) > 0 ? "/${var.public_dir}" : ""}"
-  static_website_routing_rules = [jsonencode({
+  static_website_routing_rules = jsonencode([{
     "Condition" = {
         "KeyPrefixEquals" = "${var.public_dir}/${var.public_dir}/"
     },
@@ -21,7 +21,7 @@ locals {
         "ReplaceKeyPrefixWith" = "",
         "HttpRedirectCode" = "301"
     }
-})]
+}])
 /*   <<EOF
 [{
     "Condition": {

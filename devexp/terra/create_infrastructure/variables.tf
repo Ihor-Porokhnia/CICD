@@ -55,3 +55,9 @@ variable "redirect_domain" {
 variable "public_dir" {  
   default     = "public"
 }
+variable "artifact_name" {
+  type    = string  
+}
+variable "local_path" {
+  type    = string  
+}

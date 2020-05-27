@@ -9,9 +9,3 @@ data "vault_aws_access_credentials" "aws_secret" {
  role = var.secret_role
 }
 
-variable "secret_backend" {
-  type    = string  
-}
-variable "secret_role" {
-  type    = string  
-}

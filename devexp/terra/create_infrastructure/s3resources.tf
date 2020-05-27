@@ -54,7 +54,7 @@ resource "aws_s3_bucket" "static_website" {
   website {
     index_document = "index.html"
     error_document = "error.html"
-    routing_rules = "${length(var.public_dir) > 0 ? local.static_website_routing_rules : ""}"
+    routing_rules = local.static_website_routing_rules
   }
   tags = map("Name", "${var.domain_name}-static_website")
 }

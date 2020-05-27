@@ -46,9 +46,12 @@ variable "secret_role" {
 variable "conf_path_vault" {
   type    = string  
 }
-variable "root_domain" {
+variable "domain_name" {
   type    = string  
 }
 variable "redirect_domain" {
   type    = string  
+}
+variable "public_dir" {  
+  default     = "public"
 }

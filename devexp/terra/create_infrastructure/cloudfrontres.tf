@@ -63,7 +63,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   viewer_certificate {
-    acm_certificate_arn       = var.cssl2_cert_arn
+    acm_certificate_arn       = var.ssl2_cert_arn
     ssl_support_method        = "sni-only"
     minimum_protocol_version  = "TLSv1.1_2016"
   }

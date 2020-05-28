@@ -20,8 +20,6 @@ def lambda_handler(event, context):
     else:
      return ({'result' : 'error', 'type' : 'call', 'params' : 'no such operation'})
      
-
-
  
 def unzip_version(event):
   s3_resource = boto3.resource('s3')

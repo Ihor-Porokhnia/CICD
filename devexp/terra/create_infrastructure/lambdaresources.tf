@@ -60,30 +60,6 @@ resource "aws_lambda_permission" "apigw_lambda_f" {
   source_arn    = "arn:aws:execute-api:${var.region}:${var.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method_f.http_method}${aws_api_gateway_resource.resource_f.path}"
 }
 
-/* data "template_file" "function_back" {
-  template = file("${var.func_path}/function_b.py.tpl")
-  vars = {
-    APPNAME   = aws_elastic_beanstalk_application.beanapp.name
-    ENVID     = aws_elastic_beanstalk_environment.api.id
-    S3BUCKET  = aws_s3_bucket.static_website.bucket
-    S3PREFIX  = "${var.upload_s3_prefix}/"
-    S3PREFIXB = "${var.back_s3_prefix}/"
-    S3PREFIXF = "${var.front_s3_prefix}/"
-  }
-}
-
-data "template_file" "function_front" {
-  template = file("${var.func_path}/function_f.py.tpl")
-  vars = {
-    APPNAME   = aws_elastic_beanstalk_application.beanapp.name
-    ENVID     = aws_elastic_beanstalk_environment.api.id
-    S3BUCKET  = aws_s3_bucket.static_website.bucket
-    S3PREFIX  = "${var.upload_s3_prefix}/"
-    S3PREFIXB = "${var.back_s3_prefix}/"
-    S3PREFIXF = "${var.front_s3_prefix}/"
-  }
-}
- */
 data "archive_file" "lambda_back_zip" {
   type = "zip"
   source_file = "${var.func_path}/function_b.py"

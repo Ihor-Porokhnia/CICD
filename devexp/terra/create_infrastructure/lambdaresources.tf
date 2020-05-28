@@ -45,12 +45,19 @@ resource "aws_lambda_function" "lambda_front" {
 }
 
 
-resource "aws_lambda_permission" "apigw_lambda" {
+resource "aws_lambda_permission" "apigw_lambda_b" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.lambda_back.function_name
   principal     = "apigateway.amazonaws.com" 
-  source_arn    = "arn:aws:execute-api:${var.region}:${var.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
+  source_arn    = "arn:aws:execute-api:${var.region}:${var.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method_b.http_method}${aws_api_gateway_resource.resource_b.path}"
+}
+resource "aws_lambda_permission" "apigw_lambda_f" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_front.function_name
+  principal     = "apigateway.amazonaws.com" 
+  source_arn    = "arn:aws:execute-api:${var.region}:${var.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method_f.http_method}${aws_api_gateway_resource.resource_f.path}"
 }
 
 /* data "template_file" "function_back" {

@@ -1,10 +1,12 @@
-import boto3, json
-app_name="${APPNAME}"
-env_id="${ENVID}"
-s3_bucket="${S3BUCKET}"
-s3_prefix="${S3PREFIX}"
-s3_prefix_b="${S3PREFIXB}"
-s3_prefix_f="${S3PREFIXF}"
+import boto3, json, os
+
+app_name=os.environ['APPNAME']
+env_id=os.environ['ENVID']
+s3_bucket=os.environ['S3BUCKET']
+s3_prefix=os.environ['S3PREFIX']
+s3_prefix_b=os.environ['S3PREFIXB']
+s3_prefix_f=os.environ['S3PREFIXF']
+
 def lambda_handler(event, context):
     if event['operation'] == "scale":
      responce = scale_env()

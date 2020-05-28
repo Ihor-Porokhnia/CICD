@@ -9,45 +9,79 @@ resource "aws_api_gateway_rest_api" "api" {
   }
 }
 
-resource "aws_api_gateway_resource" "resource" {
+resource "aws_api_gateway_resource" "resource_b" {
   path_part   = var.api_1_path
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
-
-resource "aws_api_gateway_method" "method" {
+resource "aws_api_gateway_resource" "resource_f" {
+  path_part   = var.api_2_path
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api.api.id
+}
+resource "aws_api_gateway_method" "method_b" {
   rest_api_id      = aws_api_gateway_rest_api.api.id
-  resource_id      = aws_api_gateway_resource.resource.id
+  resource_id      = aws_api_gateway_resource.resource_b.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+}
+resource "aws_api_gateway_method" "method_f" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.resource_f.id
   http_method      = "POST"
   authorization    = "NONE"
   api_key_required = true
 }
 
-resource "aws_api_gateway_integration" "integration_1" {
+resource "aws_api_gateway_integration" "integration_1_b" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
-  resource_id             = aws_api_gateway_resource.resource.id
-  http_method             = aws_api_gateway_method.method.http_method
+  resource_id             = aws_api_gateway_resource.resource_b.id
+  http_method             = aws_api_gateway_method.method_b.http_method
   integration_http_method = "POST"
   type                    = "AWS"
   uri                     = aws_lambda_function.lambda_back.invoke_arn
 }
+resource "aws_api_gateway_integration" "integration_1_f" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.resource_f.id
+  http_method             = aws_api_gateway_method.method_f.http_method
+  integration_http_method = "POST"
+  type                    = "AWS"
+  uri                     = aws_lambda_function.lambda_front.invoke_arn
+}
 
-resource "aws_api_gateway_method_response" "response_200" {
+resource "aws_api_gateway_method_response" "response_200_b" {
   rest_api_id = aws_api_gateway_rest_api.api.id
-  resource_id = aws_api_gateway_resource.resource.id
-  http_method = aws_api_gateway_method.method.http_method
+  resource_id = aws_api_gateway_resource.resource_b.id
+  http_method = aws_api_gateway_method.method_b.http_method
   status_code = "200"
 }
-resource "aws_api_gateway_integration_response" "integration_response_1" {
+resource "aws_api_gateway_method_response" "response_200_f" {
   rest_api_id = aws_api_gateway_rest_api.api.id
-  resource_id = aws_api_gateway_resource.resource.id
-  http_method = aws_api_gateway_method.method.http_method
-  status_code = aws_api_gateway_method_response.response_200.status_code
-  depends_on = [aws_api_gateway_integration.integration_1]
+  resource_id = aws_api_gateway_resource.resource_f.id
+  http_method = aws_api_gateway_method.method_f.http_method
+  status_code = "200"
+}
+resource "aws_api_gateway_integration_response" "integration_response_1_b" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.resource_b.id
+  http_method = aws_api_gateway_method.method_b.http_method
+  status_code = aws_api_gateway_method_response.response_200_b.status_code
+  depends_on = [aws_api_gateway_integration.integration_1_b]
+}
+resource "aws_api_gateway_integration_response" "integration_response_1_f" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.resource_f.id
+  http_method = aws_api_gateway_method.method_f.http_method
+  status_code = aws_api_gateway_method_response.response_200_f.status_code
+  depends_on = [aws_api_gateway_integration.integration_f_b]
 }
 
+
 resource "aws_api_gateway_deployment" "api_deployment" {
-  depends_on = [aws_api_gateway_integration_response.integration_response_1]
+  depends_on = [aws_api_gateway_integration_response.integration_response_1_b,
+                aws_api_gateway_integration_response.integration_response_1_f]
   rest_api_id = aws_api_gateway_rest_api.api.id  
 }
 

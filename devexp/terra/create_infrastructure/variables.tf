@@ -1,6 +1,9 @@
 variable "api_1_path" {
   type = string
 }
+variable "api_2_path" {
+  type = string
+}
 variable "project_name" {
   type    = string  
 }

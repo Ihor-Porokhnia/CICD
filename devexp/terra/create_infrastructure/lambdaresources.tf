@@ -16,6 +16,7 @@ resource "aws_lambda_function" "lambda_back" {
     S3PREFIX  = "${var.upload_s3_prefix}/"
     S3PREFIXB = "${var.back_s3_prefix}/"
     S3PREFIXF = "${var.front_s3_prefix}/"
+    S3PREFIXP = "${var.public_dir}/"
     }
   }
   depends_on = [
@@ -37,6 +38,7 @@ resource "aws_lambda_function" "lambda_front" {
     S3PREFIX  = "${var.upload_s3_prefix}/"
     S3PREFIXB = "${var.back_s3_prefix}/"
     S3PREFIXF = "${var.front_s3_prefix}/"
+    S3PREFIXP = "${var.public_dir}/"
     }
   }
   depends_on = [

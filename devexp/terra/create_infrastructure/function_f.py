@@ -16,7 +16,10 @@ def lambda_handler(event, context):
      return responce
     if event['operation'] == "copy":
      responce = copy_version(event)
-     return responce    
+     return responce
+    if event['operation'] == "clear":
+     responce = clear_folder(event)
+     return responce 
     else:
      return ({'result' : 'error', 'type' : 'call', 'params' : 'no such operation'})
      
@@ -45,4 +48,5 @@ def copy_version(event):
 def clear_folder(event):
  s3 = boto3.resource('s3')
  bucket = s3.Bucket(s3_bucket)
- bucket.objects.filter(Prefix=s3_prefix_p).delete() 
+ bucket.objects.filter(Prefix=s3_prefix_p).delete()
+ return "Done"

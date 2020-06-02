@@ -42,4 +42,7 @@ def copy_version(event):
  s3_resource.Object(s3_bucket, s3_prefix_f+event['app_version']).copy_from(CopySource=s3_bucket+"/"+s3_prefix+event['app_version'])
  return "done"
     
- 
+def clear_folder(event):
+ s3 = boto3.resource('s3')
+ bucket = s3.Bucket(s3_bucket)
+ bucket.objects.filter(Prefix=s3_prefix_p).delete() 

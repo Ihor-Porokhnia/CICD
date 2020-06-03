@@ -1,4 +1,4 @@
-import boto3, json, os
+import boto3, json, os, time
 from io import BytesIO
 import zipfile
 app_name=os.environ['APPNAME']
@@ -20,6 +20,9 @@ def lambda_handler(event, context):
      return response
     if event['operation'] == "clear":
      response = clear_folder(event)
+     return response
+    if event['operation'] == "invalidate":
+     response = invalidate_cdn(event)
      return response 
     else:
      return ({'result' : 'error', 'type' : 'call', 'params' : 'no such operation'})
@@ -51,3 +54,19 @@ def clear_folder(event):
  bucket = s3.Bucket(s3_bucket)
  bucket.objects.filter(Prefix=s3_prefix_p).delete()
  return "Done"
+ 
+def invalidate_cdn(event):
+ client = boto3.client('cloudfront')
+ response = client.create_invalidation(
+    DistributionId=clfront_id,
+    InvalidationBatch={
+        'Paths': {
+            'Quantity': 1,
+            'Items': [
+                '/',
+            ]
+        },
+        'CallerReference': str(time.time())
+    }
+    )
+ return str(response)   

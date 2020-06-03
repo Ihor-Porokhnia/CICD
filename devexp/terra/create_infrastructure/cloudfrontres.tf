@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     minimum_protocol_version  = "TLSv1.1_2016"
   }
   depends_on = [
-    aws_s3_bucket.static_website,
+    aws_s3_bucket.static_website, aws_s3_bucket_object.lorem_page
   ]
   tags = map("Name", "${var.domain_name}-cdn")
 }

@@ -39,6 +39,7 @@ resource "aws_lambda_function" "lambda_front" {
     S3PREFIXB = "${var.back_s3_prefix}/"
     S3PREFIXF = "${var.front_s3_prefix}/"
     S3PREFIXP = "${var.public_dir}/"
+    CLFRONTID = aws_cloudfront_distribution.cdn.id
     }
   }
   depends_on = [

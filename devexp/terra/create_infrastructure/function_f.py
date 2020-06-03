@@ -8,18 +8,19 @@ s3_prefix=os.environ['S3PREFIX']
 s3_prefix_b=os.environ['S3PREFIXB']
 s3_prefix_f=os.environ['S3PREFIXF']
 s3_prefix_p=os.environ['S3PREFIXP']
+clfront_id=os.environ['CLFRONTID']
 
 def lambda_handler(event, context): 
     
     if event['operation'] == "set":
-     responce = unzip_version(event)
-     return responce
+     response = unzip_version(event)
+     return response
     if event['operation'] == "copy":
-     responce = copy_version(event)
-     return responce
+     response = copy_version(event)
+     return response
     if event['operation'] == "clear":
-     responce = clear_folder(event)
-     return responce 
+     response = clear_folder(event)
+     return response 
     else:
      return ({'result' : 'error', 'type' : 'call', 'params' : 'no such operation'})
      

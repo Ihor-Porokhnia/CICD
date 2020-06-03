@@ -9,19 +9,19 @@ s3_prefix_f=os.environ['S3PREFIXF']
 
 def lambda_handler(event, context):
     if event['operation'] == "scale":
-     responce = scale_env()
-     return responce
+     response = scale_env()
+     return response
     if app_ready() != "Ready":
      return ({'result' : 'error', 'type' : 'call', 'params' : 'enviroment is busy'})
     if event['operation'] == "descale":
-     responce = descale_env()
-     return responce 
+     response = descale_env()
+     return response 
     if event['operation'] == "set":
-     responce = set_version(event)
-     return responce
+     response = set_version(event)
+     return response
     if event['operation'] == "create":
-     responce = create_version(event)
-     return responce    
+     response = create_version(event)
+     return response    
     else:
      return ({'result' : 'error', 'type' : 'call', 'params' : 'no such operation'})
      
@@ -100,7 +100,7 @@ def app_ready():
  return response['Status']
 def descale_env():
  client_ebs = boto3.client('elasticbeanstalk')
- responce = client_ebs.update_environment(
+ response = client_ebs.update_environment(
   EnvironmentId=env_id,
   OptionSettings=[
    {
@@ -115,10 +115,10 @@ def descale_env():
         },   
    ],)
   
- return responce['Status']    
+ return response['Status']    
 def scale_env():
  client_ebs = boto3.client('elasticbeanstalk')
- responce = client_ebs.update_environment(
+ response = client_ebs.update_environment(
   EnvironmentId=env_id,
   OptionSettings=[
    {
@@ -133,4 +133,4 @@ def scale_env():
         },   
    ],)
    
- return responce['Status']    
+ return response['Status']    

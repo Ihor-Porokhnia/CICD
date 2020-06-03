@@ -28,4 +28,18 @@ resource "aws_s3_bucket" "static_website" {
   }
   tags = map("Name", "${var.domain_name}-static_website")
 }
-
+resource "aws_s3_bucket_object" "lorem_page" {
+  bucket = aws_s3_bucket.static_website.id
+  key    = "${var.public_dir}/index.html"
+  content = <<EOF
+  <!DOCTYPE html>
+<html>
+<head>
+    <title>Index.html</title>    
+</head>
+<body>
+    <h1>Created by terraform</h1>
+</body>
+</html>
+  EOF
+}

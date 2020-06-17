@@ -25,4 +25,4 @@ Used technologies: Docker, Docker compose, Hashicorp Consul.
 
 ## plarchitect
 
-Platform architect project. Abandoned.
+Platform architect project. Now abandoned.

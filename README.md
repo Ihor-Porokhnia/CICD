@@ -5,7 +5,7 @@ CICD project files
 
 Current petproject. CI/CD springboot app + Vue frontend to AWS, IaaC.
 
-Used technologies: Github, Jenkins, Maven, Node.JS, Hashicorp Terraform, Hashicorp Vault, AWS Elastic Beanstalk, AWS S3, AWS RDS, AWS ELB, AWS Route53, AWS Lambda, AWS API Gateway, AWS Certificate Manager, Cloudfront.
+Used technologies: Github, Jenkins, Maven, Node.JS, Hashicorp Terraform, Terraform Cloud, Hashicorp Vault, AWS Elastic Beanstalk, AWS S3, AWS RDS, AWS ELB, AWS Route53, AWS Lambda, AWS API Gateway, AWS Certificate Manager, Cloudfront.
 
 ## epam_ext_train
 
